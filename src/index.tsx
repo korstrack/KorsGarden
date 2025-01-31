@@ -6,6 +6,7 @@ import { Title } from "./components/Title";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { Counter } from "./components/Counter";
+import { ProgressionList } from "./components/ProgressionList";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -18,7 +19,7 @@ createRoot(document.getElementById("root")).render(
         <div className={"Clickers"}>
           <Bloop />
         </div>
-        <div className={"Progression"}></div>
+        <ProgressionList />
       </div>
     </div>
   </Provider>
