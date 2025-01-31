@@ -2,7 +2,6 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: rgb(72, 47, 21);
@@ -14,28 +13,34 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding: 1%;
+  background-color: #00bb0c;
 }
 
 .TitleContainer {
-  background-color: lightgreen;
+  background-color: #051e05;
   padding: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .Title {
-  color: black;
+  color: #00bb0c;
   font-size: 2rem;
   font-family: fantasy;
   text-align: center;
 }
 
 .CounterContainer {
-  background-color: lightgreen;
+  background-color: #051e05;
   padding: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .Counter {
-  color: black;
+  color: #00bb0c;
   font-size: 2rem;
   font-family: fantasy;
   text-align: center;
@@ -45,10 +50,11 @@
 /* MAIN BODY STYLES */
 
 .MainBody {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 1%;
 }
 
 .Clickers {
