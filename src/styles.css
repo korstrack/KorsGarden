@@ -1,0 +1,78 @@
+.MainContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(72, 47, 21);
+}
+
+/* HEADER STYLES */
+
+.Header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.TitleContainer {
+  background-color: lightgreen;
+  padding: 1%;
+}
+
+.Title {
+  color: black;
+  font-size: 2rem;
+  font-family: fantasy;
+  text-align: center;
+}
+
+.CounterContainer {
+  background-color: lightgreen;
+  padding: 1%;
+}
+
+.Counter {
+  color: black;
+  font-size: 2rem;
+  font-family: fantasy;
+  text-align: center;
+}
+
+/* HEADER STYLES */
+/* MAIN BODY STYLES */
+
+.MainBody {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Clickers {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(38, 98, 151);
+}
+
+.Bloop {
+  padding: 1%;
+  border: aquamarine 3px dashed;
+  background-color: rgb(176, 251, 226);
+  user-select: none;
+  &:hover {
+    background-color: rgb(75, 207, 163);
+  }
+}
+
+.Progression {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(27, 143, 12);
+}
+
+/* MAIN BODY STYLES */
