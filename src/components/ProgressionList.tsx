@@ -17,7 +17,14 @@ type Props = ReactProps & InjectedProps;
 interface State {}
 class AProgressionList extends React.Component<Props, State> {
   render(): JSX.Element {
-    return <div className="ProgressionList">{this.makeList()}</div>;
+    return (
+      <div className={"ProgressionContainer"}>
+        <div className={"ProgressionHeaderContainer"}>
+          <span className={"ProgressionHeader"}>{`Point`}</span>
+        </div>
+        <div className="ProgressionList">{this.makeList()}</div>
+      </div>
+    );
   }
 
   private makeList(): JSX.Element[] {

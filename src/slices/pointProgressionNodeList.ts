@@ -34,6 +34,19 @@ if (!localSecondPoint) {
   localStorage.setItem(SecondPoint, "false");
 }
 
+const NewButton = "2ndButton";
+const localNewButton = localStorage.getItem(NewButton);
+PointProgressionNodeList[NewButton] = {
+  name: NewButton,
+  description: "The second button you can unlock!",
+  multiplier: 0.0,
+  cost: 15,
+  isEarned: localNewButton != null && localNewButton === "true" ? true : false,
+};
+if (!localNewButton) {
+  localStorage.setItem(NewButton, "false");
+}
+
 // export function getPointProgressionNodeList(): Dictionary<ProgressionNode> {
 //   return PointProgressionNodeList;
 // }

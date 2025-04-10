@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import { createRoot } from "react-dom/client";
-import { Bloop } from "./components/Header";
+import { Clickers } from "./components/Clickers";
 import "./styles.css";
 import { Title } from "./components/Title";
 import { Provider } from "react-redux";
@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")).render(
       </div>
       <div className={"MainBody"}>
         <div className={"Clickers"}>
-          <Bloop />
+          <Clickers />
         </div>
         <ProgressionList />
       </div>

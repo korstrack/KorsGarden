@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(72, 47, 21);
+  background-color: #051e05;
 }
 
 /* HEADER STYLES */
@@ -13,8 +13,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 1%;
+  justify-content: space-between;
   background-color: #00bb0c;
 }
 
@@ -23,13 +22,18 @@
   padding: 1%;
   margin-top: 1%;
   margin-bottom: 1%;
+  margin-left: 10%;
 }
 
 .Title {
-  color: #00bb0c;
-  font-size: 2rem;
+  color: #051e05;
+  font-size: 2.5rem;
   font-family: fantasy;
+  font-weight: bolder;
   text-align: center;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 10%;
 }
 
 .CounterContainer {
@@ -37,20 +41,25 @@
   padding: 1%;
   margin-top: 1%;
   margin-bottom: 1%;
+  margin-right: 10%;
 }
 
 .Counter {
-  color: #00bb0c;
-  font-size: 2rem;
+  color: #051e05;
+  font-size: 2.5rem;
   font-family: fantasy;
+  font-weight: bolder;
   text-align: center;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-right: 10%;
 }
 
 /* HEADER STYLES */
 /* MAIN BODY STYLES */
 
 .MainBody {
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -58,24 +67,65 @@
 }
 
 .Clickers {
-  width: 50%;
+  width: 35%;
   display: flex;
   flex-direction: column;
+  margin-left: 10%;
   /* background-color: rgb(38, 98, 151); */
 }
 
-.Bloop {
+.ClickerHeaderContainer {
+  background-color: #00bb0c;
+  padding: 1%;
+  width: fit-content;
+  margin-bottom: 1%;
+}
+
+.ClickerHeader {
+  color: #051e05;
+  font-size: 1.5rem;
+  font-family: fantasy;
+  text-align: center;
+}
+
+.Clicker {
   padding: 1%;
   border: aquamarine 3px dashed;
   background-color: rgb(176, 251, 226);
   user-select: none;
+  color: #051e05;
+  font-size: 1rem;
+  font-family: fantasy;
+  cursor: pointer;
   &:hover {
     background-color: rgb(75, 207, 163);
   }
 }
 
+.ProgressionContainer {
+  width: 35%;
+  margin-right: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.ProgressionHeaderContainer {
+  background-color: #00bb0c;
+  padding: 1%;
+  width: fit-content;
+  margin-bottom: 1%;
+}
+
+.ProgressionHeader {
+  color: #051e05;
+  font-size: 1.5rem;
+  font-family: fantasy;
+  text-align: center;
+}
+
 .ProgressionList {
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: rgb(27, 143, 12);
@@ -86,10 +136,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkblue;
+  border: aquamarine 3px dashed;
+  background-color: rgb(176, 251, 226);
   &:hover {
-    background-color: rgb(33, 33, 137);
-    border: black 3px outset;
+    background-color: rgb(75, 207, 163);
   }
 }
 
@@ -98,15 +148,16 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(0, 0, 198);
+  border: aquamarine 3px dashed;
+  background-color: rgb(176, 251, 226);
+  cursor: pointer;
   &:hover {
-    background-color: rgb(44, 44, 203);
-    border: black 3px inset;
+    background-color: rgb(75, 207, 163);
   }
 }
 
 .ProgressionNodeListingName {
-  color: white;
+  color: #051e05;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.5rem;
   font-weight: bolder;
@@ -114,7 +165,7 @@
 }
 
 .ProgressionNodeListingDescription {
-  color: white;
+  color: #051e05;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 100;
