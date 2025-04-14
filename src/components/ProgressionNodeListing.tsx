@@ -3,9 +3,15 @@ import { JSX } from "react";
 import { RootState } from "../store";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { ProgressionNode } from "../slices/helperStructs";
+import { ProgressionNode, ProgressionType } from "../slices/helperStructs";
 import { decrement } from "../slices/counterSlice";
-import { addProgression } from "../slices/pointSlice";
+import {
+  addCarrotProgression,
+  addGardenProgression,
+  addNewButtonProgression,
+  addPotatoProgression,
+  addUserInterfaceProgression,
+} from "../slices/progressionSlice";
 
 interface ReactProps {
   node: ProgressionNode;
@@ -39,7 +45,29 @@ class AProgressionNodeListing extends React.Component<Props, State> {
   private onClick() {
     if (!this.props.node.isEarned && this.props.count >= this.props.node.cost) {
       this.props.dispatch(decrement(this.props.node.cost));
-      this.props.dispatch(addProgression(this.props.node.name));
+      switch (this.props.node.progressionType) {
+        case ProgressionType.garden:
+          this.props.dispatch(addGardenProgression(this.props.node));
+          return;
+        case ProgressionType.newButtons:
+          this.props.dispatch(addNewButtonProgression(this.props.node));
+          return;
+        case ProgressionType.userInterface:
+          this.props.dispatch(addUserInterfaceProgression(this.props.node));
+          return;
+        case ProgressionType.carrot:
+          this.props.dispatch(addCarrotProgression(this.props.node));
+          return;
+        case ProgressionType.potato:
+          this.props.dispatch(addPotatoProgression(this.props.node));
+          return;
+        default:
+          console.error(
+            "unrecognized progression attempting to be added : ",
+            this.props.node
+          );
+          return;
+      }
     }
   }
 }

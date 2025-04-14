@@ -55,6 +55,71 @@
   margin-right: 10%;
 }
 
+@keyframes KorsSpin {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+.KorSvg {
+  position: absolute;
+  right: 10%;
+  top: 60%;
+  animation-name: KorsSpin;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+.KorSVG2 {
+  position: absolute;
+  right: 11.15%;
+  top: 63.25%;
+  animation-name: KorsSpin;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+.KorSVG3 {
+  position: absolute;
+  right: 11.65%;
+  top: 64.5%;
+  animation-name: KorsSpin;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes KorsBlurShimmer {
+  0% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.KorSVGBlur {
+  filter: blur(7px);
+  animation-name: KorsBlurShimmer;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+.KorSVGBlur2 {
+  filter: blur(3px);
+  animation-name: KorsBlurShimmer;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
 /* HEADER STYLES */
 /* MAIN BODY STYLES */
 
@@ -97,6 +162,7 @@
   font-size: 1rem;
   font-family: fantasy;
   cursor: pointer;
+  border-radius: 25px;
   &:hover {
     background-color: rgb(75, 207, 163);
   }
@@ -111,10 +177,12 @@
 }
 
 .ProgressionHeaderContainer {
-  background-color: #00bb0c;
-  padding: 1%;
-  width: fit-content;
+  /*background-color: #00bb0c;*/
+  width: 100%;
   margin-bottom: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .ProgressionHeader {
@@ -122,6 +190,13 @@
   font-size: 1.5rem;
   font-family: fantasy;
   text-align: center;
+  cursor: pointer;
+  user-select: none;
+  background-color: #00bb0c;
+  padding: 1%;
+  &.Selected {
+    background-color: #126512;
+  }
 }
 
 .ProgressionList {
@@ -138,6 +213,7 @@
   align-items: center;
   border: aquamarine 3px dashed;
   background-color: rgb(176, 251, 226);
+  border-radius: 25px;
   &:hover {
     background-color: rgb(75, 207, 163);
   }
@@ -151,6 +227,8 @@
   border: aquamarine 3px dashed;
   background-color: rgb(176, 251, 226);
   cursor: pointer;
+  user-select: none;
+  border-radius: 25px;
   &:hover {
     background-color: rgb(75, 207, 163);
   }

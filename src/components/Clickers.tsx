@@ -9,9 +9,10 @@ import { ProgressionNode } from "../slices/helperStructs";
 
 interface ReactProps {}
 interface InjectedProps {
-  counter: number;
-  pointMultiplier: number;
-  pointProgression: Dictionary<ProgressionNode>;
+  gardenMultiplier: number;
+  carrotMultiplier: number;
+  potatoMultiplier: number;
+  newButtonsProgression: Dictionary<ProgressionNode>;
   dispatch?: Dispatch;
 }
 type Props = ReactProps & InjectedProps;
@@ -25,8 +26,8 @@ class AClickers extends React.Component<Props> {
         <div
           className={"Clicker"}
           onClick={this.numberGoUp.bind(this)}
-        >{`Click me to make this go up : ${this.props.counter} it will go up this much! : ${1 * this.props.pointMultiplier}`}</div>
-        {this.getButton(this.props.pointProgression["2ndButton"])}
+        >{`Carrot: +${1 * this.props.gardenMultiplier * this.props.carrotMultiplier} Kors`}</div>
+        {this.getButton(this.props.newButtonsProgression["UnlockPotato"])}
         <div
           className="Clicker"
           onClick={this.clearCount.bind(this)}
@@ -40,11 +41,15 @@ class AClickers extends React.Component<Props> {
   }
 
   private numberGoUp() {
-    this.props.dispatch(increment(this.props.pointMultiplier));
+    this.props.dispatch(
+      increment(this.props.gardenMultiplier * this.props.carrotMultiplier)
+    );
   }
 
-  private multiplyUp(scaler: number) {
-    this.props.dispatch(increment(this.props.pointMultiplier * scaler));
+  private multiplyUp() {
+    this.props.dispatch(
+      increment(this.props.gardenMultiplier * this.props.potatoMultiplier)
+    );
   }
 
   private clearCount() {
@@ -60,8 +65,8 @@ class AClickers extends React.Component<Props> {
       return (
         <div
           className={"Clicker"}
-          onClick={this.multiplyUp.bind(this, 2)}
-        >{`${progNode.name} will increase by : ${1 * this.props.pointMultiplier * 2}`}</div>
+          onClick={this.multiplyUp.bind(this)}
+        >{`Potato: +${1 * this.props.gardenMultiplier * this.props.potatoMultiplier} Kors`}</div>
       );
     }
     return null;
@@ -69,15 +74,19 @@ class AClickers extends React.Component<Props> {
 }
 
 function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
-  const counter = state.counter.count;
-  const pointMultiplier = state.point.multiplier;
-  const pointProgression = state.point.pointProgression;
+  const {
+    gardenMultiplier,
+    carrotMultiplier,
+    potatoMultiplier,
+    newButtonsProgression,
+  } = state.progression;
 
   return {
     ...ownProps,
-    counter,
-    pointMultiplier,
-    pointProgression,
+    gardenMultiplier,
+    carrotMultiplier,
+    potatoMultiplier,
+    newButtonsProgression,
   };
 }
 

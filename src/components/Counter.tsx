@@ -11,9 +11,7 @@ type Props = ReactProps & InjectedProps;
 class ACounter extends React.Component<Props> {
   render(): JSX.Element {
     return (
-      <span
-        className={"Counter"}
-      >{`Current Count: ${this.props.counter}`}</span>
+      <span className={"Counter"}>{`Current Kors: ${this.props.counter}`}</span>
     );
   }
 }
