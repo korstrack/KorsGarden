@@ -3,9 +3,10 @@ import { JSX } from "react";
 import { connect } from "react-redux";
 import { RootState } from "../store";
 import { Dispatch } from "redux";
-import { clearCount, increment } from "../slices/counterSlice";
+import { clearCount } from "../slices/counterSlice";
 import { Dictionary } from "lodash";
-import { ProgressionNode } from "../slices/helperStructs";
+import { ProgressionNode, ProgressionType } from "../slices/helperStructs";
+import { Clicker } from "./Clicker";
 
 interface ReactProps {}
 interface InjectedProps {
@@ -21,13 +22,11 @@ class AClickers extends React.Component<Props> {
     return (
       <>
         <div className={"ClickerHeaderContainer"}>
-          <span className={"ClickerHeader"}>{`Buttons :D`}</span>
+          <span className={"ClickerHeader"}>{`Your Plots`}</span>
+          <span className={"ClickerHeader KorShimmer"}>{`Your Plots`}</span>
         </div>
-        <div
-          className={"Clicker"}
-          onClick={this.numberGoUp.bind(this)}
-        >{`Carrot: +${1 * this.props.gardenMultiplier * this.props.carrotMultiplier} Kors`}</div>
-        {this.getButton(this.props.newButtonsProgression["UnlockPotato"])}
+        <Clicker PlantType={ProgressionType.carrot} />
+        {this.getPotato(this.props.newButtonsProgression["UnlockPotato"])}
         <div
           className="Clicker"
           onClick={this.clearCount.bind(this)}
@@ -40,18 +39,6 @@ class AClickers extends React.Component<Props> {
     );
   }
 
-  private numberGoUp() {
-    this.props.dispatch(
-      increment(this.props.gardenMultiplier * this.props.carrotMultiplier)
-    );
-  }
-
-  private multiplyUp() {
-    this.props.dispatch(
-      increment(this.props.gardenMultiplier * this.props.potatoMultiplier)
-    );
-  }
-
   private clearCount() {
     this.props.dispatch(clearCount());
   }
@@ -60,14 +47,9 @@ class AClickers extends React.Component<Props> {
     localStorage.clear();
   }
 
-  private getButton(progNode: ProgressionNode): JSX.Element {
+  private getPotato(progNode: ProgressionNode): JSX.Element {
     if (progNode.isEarned) {
-      return (
-        <div
-          className={"Clicker"}
-          onClick={this.multiplyUp.bind(this)}
-        >{`Potato: +${1 * this.props.gardenMultiplier * this.props.potatoMultiplier} Kors`}</div>
-      );
+      return <Clicker PlantType={ProgressionType.potato} />;
     }
     return null;
   }

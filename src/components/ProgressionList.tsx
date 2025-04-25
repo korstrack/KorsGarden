@@ -24,7 +24,7 @@ class AProgressionList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      selectedProgression: 3,
+      selectedProgression: ProgressionType.carrot,
     };
   }
 
@@ -33,9 +33,6 @@ class AProgressionList extends React.Component<Props, State> {
       <div className={"ProgressionContainer"}>
         {this.makeHeader()}
         <div className="ProgressionList">{this.makeList()}</div>
-        {this.makeSVG()}
-        {this.makeSVG2()}
-        {this.makeSVG3()}
       </div>
     );
   }
@@ -62,29 +59,82 @@ class AProgressionList extends React.Component<Props, State> {
         ? "Selected"
         : "";
     return (
-      <div className={"ProgressionHeaderContainer"}>
-        <span
-          className={`ProgressionHeader ${gardenIsSelected}`}
-          onClick={this.onHeaderClick.bind(this, ProgressionType.garden)}
-        >{`Garden`}</span>
-        <span
-          className={`ProgressionHeader ${PlantsIsSelected}`}
-          onClick={this.onHeaderClick.bind(this, ProgressionType.newButtons)}
-        >{`Plants`}</span>
-        <span
-          className={`ProgressionHeader ${CorruptionIsSelected}`}
-          onClick={this.onHeaderClick.bind(this, ProgressionType.userInterface)}
-        >{`Corruption`}</span>
-        <span
-          className={`ProgressionHeader ${CarrotIsSelected}`}
-          onClick={this.onHeaderClick.bind(this, ProgressionType.carrot)}
-        >{`Carrot`}</span>
-        {this.isPlantUnlocked(ProgressionType.potato) && (
+      <div className={"ProgressionHeaderBar"}>
+        <div
+          className={`ProgressionHeaderContainer ${gardenIsSelected}`}
+          key={"garden"}
+        >
           <span
-            className={`ProgressionHeader ${PotatoIsSelected}`}
-            onClick={this.onHeaderClick.bind(this, ProgressionType.potato)}
-          >{`Potato`}</span>
-        )}
+            className={`ProgressionHeader ${gardenIsSelected} KorShimmer`}
+            onClick={this.onHeaderClick.bind(this, ProgressionType.garden)}
+          >{`Garden`}</span>
+          <span
+            className={`ProgressionHeader ${gardenIsSelected}`}
+            onClick={this.onHeaderClick.bind(this, ProgressionType.garden)}
+          >{`Garden`}</span>
+        </div>
+        <div
+          className={`ProgressionHeaderContainer ${PlantsIsSelected}`}
+          key={"plants"}
+        >
+          <span
+            className={`ProgressionHeader ${PlantsIsSelected} KorShimmer`}
+            onClick={this.onHeaderClick.bind(this, ProgressionType.newButtons)}
+          >{`Plants`}</span>
+          <span
+            className={`ProgressionHeader ${PlantsIsSelected}`}
+            onClick={this.onHeaderClick.bind(this, ProgressionType.newButtons)}
+          >{`Plants`}</span>
+        </div>
+        <div
+          className={`ProgressionHeaderContainer ${CorruptionIsSelected}`}
+          key={"corruption"}
+        >
+          <span
+            className={`ProgressionHeader ${CorruptionIsSelected} KorShimmer`}
+            onClick={this.onHeaderClick.bind(
+              this,
+              ProgressionType.userInterface
+            )}
+          >{`Corruption`}</span>
+          <span
+            className={`ProgressionHeader ${CorruptionIsSelected}`}
+            onClick={this.onHeaderClick.bind(
+              this,
+              ProgressionType.userInterface
+            )}
+          >{`Corruption`}</span>
+        </div>
+        <div
+          className={`ProgressionHeaderContainer ${CarrotIsSelected}`}
+          key={"carrot"}
+        >
+          <span
+            className={`ProgressionHeader ${CarrotIsSelected}`}
+            onClick={this.onHeaderClick.bind(this, ProgressionType.carrot)}
+          >{`Carrot`}</span>
+          <span
+            className={`ProgressionHeader ${CarrotIsSelected} KorShimmer`}
+            onClick={this.onHeaderClick.bind(this, ProgressionType.carrot)}
+          >{`Carrot`}</span>
+        </div>
+        <div
+          className={`ProgressionHeaderContainer ${PotatoIsSelected}`}
+          key={"potato"}
+        >
+          {this.isPlantUnlocked(ProgressionType.potato) && (
+            <span
+              className={`ProgressionHeader ${PotatoIsSelected} KorShimmer`}
+              onClick={this.onHeaderClick.bind(this, ProgressionType.potato)}
+            >{`Potato`}</span>
+          )}
+          {this.isPlantUnlocked(ProgressionType.potato) && (
+            <span
+              className={`ProgressionHeader ${PotatoIsSelected}`}
+              onClick={this.onHeaderClick.bind(this, ProgressionType.potato)}
+            >{`Potato`}</span>
+          )}
+        </div>
       </div>
     );
   }
@@ -147,164 +197,6 @@ class AProgressionList extends React.Component<Props, State> {
       default:
         return progList;
     }
-  }
-
-  private makeSVG(): JSX.Element {
-    return (
-      <svg
-        className="KorSvg"
-        xmlns="http://www.w3.org/2000/svg"
-        width={120}
-        height={120}
-      >
-        <defs>
-          <linearGradient x1="50%" y1="0" x2="50%" y2="100%" id="testGradient">
-            <stop
-              stopColor="hsl(0, 95.90%, 71.00%)"
-              stopOpacity="1"
-              offset="0%"
-            ></stop>
-            <stop
-              stopColor="hsl(247, 100.00%, 68.20%)"
-              stopOpacity="1"
-              offset="100%"
-            ></stop>
-          </linearGradient>
-        </defs>
-        <g strokeWidth={"8px"} stroke={"url(#testGradient)"} fill={"none"}>
-          <rect
-            className={"KorSVGBlur"}
-            width={80}
-            height={80}
-            x={20}
-            y={20}
-            rx={7}
-            ry={7}
-          ></rect>
-          <rect
-            className={"KorSVGBlur"}
-            width={80}
-            height={80}
-            x={17}
-            y={20}
-            rx={7}
-            ry={7}
-            opacity="0.25"
-          ></rect>
-          <rect
-            className={"KorSVGBlur"}
-            width={80}
-            height={80}
-            x={23}
-            y={20}
-            rx={7}
-            ry={7}
-            opacity="0.25"
-          ></rect>
-          <rect width={80} height={80} x={20} y={20} rx={7} ry={7}></rect>
-        </g>
-      </svg>
-    );
-  }
-
-  private makeSVG2(): JSX.Element {
-    return (
-      <svg
-        className="KorSVG2"
-        xmlns="http://www.w3.org/2000/svg"
-        width={60}
-        height={60}
-      >
-        {/* <defs>
-          <linearGradient x1="50%" y1="0" x2="50%" y2="100%" id="testGradient">
-            <stop stop-color="red" stop-opacity="1" offset="0%"></stop>
-            <stop stop-color="blue" stop-opacity="1" offset="100%"></stop>
-          </linearGradient>
-        </defs> */}
-        <g strokeWidth={"5px"} stroke={"url(#testGradient"} fill="none">
-          <rect
-            className={"KorSVGBlur2"}
-            width={48}
-            height={48}
-            x={6}
-            y={6}
-            rx={5}
-            ry={5}
-          ></rect>
-          <rect
-            className={"KorSVGBlur2"}
-            width={48}
-            height={48}
-            x={4}
-            y={6}
-            rx={5}
-            ry={5}
-            opacity="0.25"
-          ></rect>
-          <rect
-            className={"KorSVGBlur2"}
-            width={48}
-            height={48}
-            x={8}
-            y={6}
-            rx={5}
-            ry={5}
-            opacity="0.25"
-          ></rect>
-          <rect width={48} height={48} x={6} y={6} rx={5} ry={5}></rect>
-        </g>
-      </svg>
-    );
-  }
-
-  private makeSVG3(): JSX.Element {
-    return (
-      <svg
-        className="KorSVG3"
-        xmlns="http://www.w3.org/2000/svg"
-        width={36}
-        height={36}
-      >
-        {/* <defs>
-          <linearGradient x1="50%" y1="0" x2="50%" y2="100%" id="testGradient">
-            <stop stop-color="red" stop-opacity="1" offset="0%"></stop>
-            <stop stop-color="blue" stop-opacity="1" offset="100%"></stop>
-          </linearGradient>
-        </defs> */}
-        <g stroke={"url(#testGradient)"} strokeWidth={"3px"} fill="none">
-          <rect
-            className={"KorSVGBlur2"}
-            width={29}
-            height={29}
-            x={3.5}
-            y={3.5}
-            rx={3}
-            ry={3}
-          ></rect>
-          <rect
-            className={"KorSVGBlur2"}
-            width={29}
-            height={29}
-            x={2.5}
-            y={3.5}
-            rx={3}
-            ry={3}
-            opacity="0.25"
-          ></rect>
-          <rect
-            className={"KorSVGBlur2"}
-            width={29}
-            height={29}
-            x={4.5}
-            y={3.5}
-            rx={3}
-            ry={3}
-            opacity="0.25"
-          ></rect>
-          <rect width={29} height={29} x={3.5} y={3.5} rx={3} ry={3}></rect>
-        </g>
-      </svg>
-    );
   }
 }
 

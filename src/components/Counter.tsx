@@ -2,6 +2,7 @@ import * as React from "react";
 import { JSX } from "react";
 import { RootState } from "../store";
 import { connect } from "react-redux";
+import { Kors } from "./Icons/Kors";
 
 interface ReactProps {}
 interface InjectedProps {
@@ -11,7 +12,15 @@ type Props = ReactProps & InjectedProps;
 class ACounter extends React.Component<Props> {
   render(): JSX.Element {
     return (
-      <span className={"Counter"}>{`Current Kors: ${this.props.counter}`}</span>
+      <div className="CounterContainer">
+        <span
+          className={"Counter"}
+        >{`Current Kors: ${this.props.counter}`}</span>
+        <span
+          className={"Counter KorShimmer"}
+        >{`Current Kors: ${this.props.counter}`}</span>
+        <Kors />
+      </div>
     );
   }
 }

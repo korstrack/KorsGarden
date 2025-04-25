@@ -25,19 +25,17 @@ interface State {}
 class AProgressionNodeListing extends React.Component<Props, State> {
   render(): JSX.Element {
     return (
-      <div className={"ProgressionNodeListingOuter"}>
-        <div
-          className={"ProgressionNodeListingInner"}
-          onClick={this.onClick.bind(this)}
-        >
-          <span className={"ProgressionNodeListingName"}>
-            {`${this.props.node.name}: ${this.props.node.cost}`}
-          </span>
-          <span className={"ProgressionNodeListingDescription"}>
-            {this.props.node.description}
-          </span>
-          <span className="Earned">{`isEarned: ${this.props.node.isEarned}`}</span>
-        </div>
+      <div
+        className={"ProgressionNodeListingInner"}
+        onClick={this.onClick.bind(this)}
+      >
+        <span className={"ProgressionNodeListingName"}>
+          {`${this.props.node.name}: ${this.props.node.cost}`}
+        </span>
+        <span className={"ProgressionNodeListingDescription"}>
+          {this.props.node.description}
+        </span>
+        <span className="Earned">{`isEarned: ${this.props.node.isEarned}`}</span>
       </div>
     );
   }

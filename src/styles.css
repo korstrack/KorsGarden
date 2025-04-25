@@ -14,116 +14,62 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #00bb0c;
+  background-color: #010601;
 }
 
 .TitleContainer {
-  background-color: #051e05;
-  padding: 1%;
+  display: flex;
+  flex-direction: row;
   margin-top: 1%;
   margin-bottom: 1%;
   margin-left: 10%;
 }
 
 .Title {
-  color: #051e05;
+  color: #00bb0c;
   font-size: 2.5rem;
   font-family: fantasy;
   font-weight: bolder;
   text-align: center;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  margin-left: 10%;
+  text-wrap: nowrap;
+  user-select: none;
+}
+
+.TitleBlur {
+  color: #00bb0c;
+  font-size: 2.5rem;
+  font-family: fantasy;
+  font-weight: bolder;
+  text-align: center;
+  text-wrap: nowrap;
+  user-select: none;
 }
 
 .CounterContainer {
-  background-color: #051e05;
-  padding: 1%;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   margin-right: 10%;
 }
 
 .Counter {
-  color: #051e05;
+  color: #00bb0c;
   font-size: 2.5rem;
   font-family: fantasy;
   font-weight: bolder;
   text-align: center;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  margin-right: 10%;
-}
-
-@keyframes KorsSpin {
-  from {
-    transform: rotate(45deg);
-  }
-  to {
-    transform: rotate(405deg);
-  }
-}
-
-.KorSvg {
-  position: absolute;
-  right: 10%;
-  top: 60%;
-  animation-name: KorsSpin;
-  animation-duration: 6s;
-  animation-iteration-count: infinite;
-}
-
-.KorSVG2 {
-  position: absolute;
-  right: 11.15%;
-  top: 63.25%;
-  animation-name: KorsSpin;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
-}
-
-.KorSVG3 {
-  position: absolute;
-  right: 11.65%;
-  top: 64.5%;
-  animation-name: KorsSpin;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-}
-
-@keyframes KorsBlurShimmer {
-  0% {
-    transform: translate(0, 0);
-  }
-  35% {
-    transform: translate(-2px, 2px);
-  }
-  75% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-.KorSVGBlur {
-  filter: blur(7px);
-  animation-name: KorsBlurShimmer;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-}
-
-.KorSVGBlur2 {
-  filter: blur(3px);
-  animation-name: KorsBlurShimmer;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
+  text-wrap: nowrap;
+  margin-right: 3.5%;
+  user-select: none;
 }
 
 /* HEADER STYLES */
 /* MAIN BODY STYLES */
 
 .MainBody {
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -132,29 +78,38 @@
 }
 
 .Clickers {
+  height: 100%;
   width: 35%;
   display: flex;
   flex-direction: column;
   margin-left: 10%;
-  /* background-color: rgb(38, 98, 151); */
 }
 
 .ClickerHeaderContainer {
-  background-color: #00bb0c;
-  padding: 1%;
+  display: flex;
   width: fit-content;
   margin-bottom: 1%;
+  background-color: #126512;
+  border-radius: 25px;
 }
 
 .ClickerHeader {
-  color: #051e05;
+  color: aquamarine;
   font-size: 1.5rem;
   font-family: fantasy;
   text-align: center;
+  text-wrap: nowrap;
+  border: aquamarine 3px dashed;
+  border-radius: 25px;
+  padding: 0.5rem;
 }
 
 .Clicker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   padding: 1%;
+  height: 3%;
   border: aquamarine 3px dashed;
   background-color: rgb(176, 251, 226);
   user-select: none;
@@ -163,9 +118,133 @@
   font-family: fantasy;
   cursor: pointer;
   border-radius: 25px;
+  margin-bottom: 1%;
   &:hover {
     background-color: rgb(75, 207, 163);
   }
+}
+
+.ClickerContainer {
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1%;
+  padding: 3%;
+  align-items: center;
+  justify-content: space-around;
+  border: aquamarine 3px dashed;
+  border-radius: 25px;
+  user-select: none;
+}
+
+.ClickerTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 50%;
+}
+
+.ClickerPlantName {
+  color: aquamarine;
+  font-size: 3rem;
+  font-family: fantasy;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.ClickerSaleDescriptionContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 5%;
+}
+
+.ClickerSaleDescription {
+  color: aquamarine;
+  font-size: 2rem;
+  font-family: fantasy;
+  cursor: pointer;
+}
+
+.ClickerPlantContainer {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  position: relative;
+  width: 20%;
+  aspect-ratio: 1/1;
+  border: solid aquamarine 3px;
+
+  &.FullyGrown {
+    border: dotted aquamarine 3px;
+  }
+}
+
+.ClickerDirt {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+.ClickerStem {
+  position: absolute;
+  left: 40%;
+  bottom: 40%;
+
+  &.StageOneOffset {
+    left: 45%;
+  }
+
+  &.FullyGrown {
+    transform: rotate(50deg);
+    bottom: 45%;
+  }
+}
+
+.ClickerFirstLeaf {
+  position: absolute;
+  transform: rotate(50deg);
+  bottom: 60%;
+  left: 20%;
+
+  &.FullyGrown {
+    transform: rotate(100deg);
+    bottom: 70%;
+    left: 45%;
+  }
+}
+
+.ClickerSecondLeaf {
+  position: absolute;
+  transform: rotate(-50deg);
+  bottom: 60%;
+  right: 20%;
+
+  &.FullyGrown {
+    transform: rotate(0deg);
+    bottom: 50%;
+    right: 10%;
+  }
+}
+
+.ClickerBorderGlow {
+  height: 100%;
+  width: 100%;
+  border: aquamarine solid 3px;
+  filter: blur(3px);
+}
+
+.ClickerInstructions {
+  color: aquamarine;
+  font-size: 1rem;
+  font-family: fantasy;
+  font-weight: bold;
+  text-wrap: nowrap;
+  text-align: center;
+  margin-bottom: 10%;
+  z-index: 1;
 }
 
 .ProgressionContainer {
@@ -176,8 +255,7 @@
   align-items: end;
 }
 
-.ProgressionHeaderContainer {
-  /*background-color: #00bb0c;*/
+.ProgressionHeaderBar {
   width: 100%;
   margin-bottom: 1%;
   display: flex;
@@ -185,17 +263,26 @@
   justify-content: space-between;
 }
 
+.ProgressionHeaderContainer {
+  display: flex;
+  &.Selected {
+    background-color: #126512;
+    border-radius: 25px;
+  }
+}
+
 .ProgressionHeader {
-  color: #051e05;
+  color: #00bb0c;
   font-size: 1.5rem;
   font-family: fantasy;
   text-align: center;
   cursor: pointer;
   user-select: none;
-  background-color: #00bb0c;
-  padding: 1%;
+  padding: 0.5rem;
+  border: aquamarine 3px dashed;
+  border-radius: 25px;
   &.Selected {
-    background-color: #126512;
+    color: aquamarine;
   }
 }
 
@@ -203,20 +290,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(27, 143, 12);
-}
-
-.ProgressionNodeListingOuter {
-  padding: 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: aquamarine 3px dashed;
-  background-color: rgb(176, 251, 226);
-  border-radius: 25px;
-  &:hover {
-    background-color: rgb(75, 207, 163);
-  }
 }
 
 .ProgressionNodeListingInner {
@@ -229,6 +302,7 @@
   cursor: pointer;
   user-select: none;
   border-radius: 25px;
+  margin-bottom: 1%;
   &:hover {
     background-color: rgb(75, 207, 163);
   }
@@ -251,3 +325,123 @@
 }
 
 /* MAIN BODY STYLES */
+
+/* ICON STYLES */
+
+.KorsContainer {
+  display: flex;
+  position: relative;
+  height: 80%;
+  aspect-ratio: 1/1;
+  margin-left: 0.5%;
+}
+
+@keyframes KorsSpin {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+.KorsSVG {
+  position: absolute;
+  aspect-ratio: 1/1;
+  animation-name: KorsSpin;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+.KorsSVG2 {
+  position: absolute;
+  aspect-ratio: 1/1;
+  top: 16.66%;
+  right: 16.66%;
+  animation-name: KorsSpin;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+.KorsSVG3 {
+  position: absolute;
+  aspect-ratio: 1/1;
+  top: 27.77%;
+  right: 27.77%;
+  animation-name: KorsSpin;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes KorsBlurShimmer {
+  0% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.KorsSVGBlur {
+  filter: blur(4px);
+  animation-name: KorsBlurShimmer;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+.KorSVGBlur2 {
+  filter: blur(3px);
+  animation-name: KorsBlurShimmer;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+/* ICON STYLES */
+
+/* ANIMATION STYLES */
+
+.KorShimmer {
+  position: absolute;
+  filter: blur(3px);
+  animation-name: KorShimmerAnimation;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes KorShimmerAnimation {
+  0% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-4px, 0);
+  }
+  75% {
+    transform: translate(4px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes KorsBlurShimmer {
+  0% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-4px, -4px);
+  }
+  75% {
+    transform: translate(4px, 4px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* ANIMATION STYLES */
