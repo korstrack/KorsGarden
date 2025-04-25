@@ -6,6 +6,7 @@ import { Dispatch } from "redux";
 import { ProgressionType } from "../slices/helperStructs";
 import { Kors } from "./Icons/Kors";
 import { increment } from "../slices/counterSlice";
+import { Dictionary } from "lodash";
 
 enum GrowthStage {
   Barren,
@@ -27,12 +28,14 @@ interface InjectedProps {
 type Props = ReactProps & InjectedProps;
 interface State {
   growthStage: GrowthStage;
+  borders: Dictionary<JSX.Element>;
 }
 class AClicker extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       growthStage: GrowthStage.Barren,
+      borders: {},
     };
   }
   render(): JSX.Element {
@@ -40,6 +43,7 @@ class AClicker extends React.Component<Props, State> {
       this.state.growthStage === GrowthStage.FullyGrown ? "FullyGrown" : "";
     return (
       <div className={"ClickerContainer"} onClick={this.onClick.bind(this)}>
+        {Object.values(this.state.borders)}
         <div className={"ClickerTextContainer"}>
           <span
             className={"ClickerPlantName"}
@@ -65,13 +69,39 @@ class AClicker extends React.Component<Props, State> {
 
   private onClick(): void {
     if (this.state.growthStage < Object.keys(GrowthStage).length / 2 - 1) {
-      this.setState({ growthStage: this.state.growthStage + 1 });
+      const borders = this.state.borders;
+      const pulse = this.getPulse();
+      borders[pulse.dateID] = pulse.element;
+      this.setState({
+        growthStage: this.state.growthStage + 1,
+        borders: borders,
+      });
+      setTimeout(this.removePulse.bind(this, pulse.dateID), 3000);
     } else {
       this.props.dispatch(
         increment(1 * this.props.plantMultiplier * this.props.gardenMultiplier)
       );
-      this.setState({ growthStage: GrowthStage.Barren });
+      const borders = this.state.borders;
+      const pulse = this.getPulse();
+      borders[pulse.dateID] = pulse.element;
+      this.setState({
+        growthStage: GrowthStage.Barren,
+        borders,
+      });
     }
+  }
+
+  private getPulse(): { element: JSX.Element; dateID: string } {
+    const dateID = Date.now().toString();
+    const element: JSX.Element = (
+      <div className={`ClickerOnClickBorderGrow`} key={dateID}></div>
+    );
+    return { element, dateID };
+  }
+
+  private removePulse(dateID: string) {
+    const borders = this.state.borders;
+    delete borders[dateID];
   }
 
   private getSaleAmount(): number {

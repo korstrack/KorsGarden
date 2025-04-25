@@ -15,7 +15,7 @@ export const counterSlice = createSlice({
   initialState: defaultCounterState,
   reducers: {
     increment: (state: CounterState, action: PayloadAction<number>) => {
-      state.count += parseInt((1 * action.payload).toPrecision(1));
+      state.count += action.payload;
       localStorage.setItem("Count", state.count.toString());
     },
     decrement: (state: CounterState, action: PayloadAction<number>) => {

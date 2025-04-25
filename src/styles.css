@@ -125,16 +125,26 @@
 }
 
 .ClickerContainer {
-  height: 20%;
+  position: relative;
+  height: 15%;
   display: flex;
   flex-direction: row;
   margin-bottom: 1%;
   padding: 3%;
   align-items: center;
   justify-content: space-around;
-  border: aquamarine 3px dashed;
+  border: aquamarine 3px solid;
   border-radius: 25px;
   user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    border: aquamarine 3px dashed;
+    animation-name: KorOuterGlowAqua;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
 }
 
 .ClickerTextContainer {
@@ -173,7 +183,7 @@
   align-items: end;
   position: relative;
   width: 20%;
-  aspect-ratio: 1/1;
+  height: 80%;
   border: solid aquamarine 3px;
 
   &.FullyGrown {
@@ -236,9 +246,22 @@
   filter: blur(3px);
 }
 
+.ClickerOnClickBorderGrow {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  border: aquamarine 3px dashed;
+  opacity: 0;
+  animation-name: KorBorderGrow;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
 .ClickerInstructions {
   color: aquamarine;
-  font-size: 1rem;
+  font-size: 0.6vw;
   font-family: fantasy;
   font-weight: bold;
   text-wrap: nowrap;
@@ -441,6 +464,31 @@
   }
   100% {
     transform: translate(0, 0);
+  }
+}
+
+@keyframes KorOuterGlowAqua {
+  0% {
+    box-shadow: 0 0 2vmin 1vmin aquamarine;
+  }
+  50% {
+    box-shadow: 0 0 2vmin 0px aquamarine;
+  }
+  100% {
+    box-shadow: 0 0 2vmin 1vmin aquamarine;
+  }
+}
+
+@keyframes KorBorderGrow {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  100% {
+    width: 115%;
+    height: 115%;
+    opacity: 0;
   }
 }
 

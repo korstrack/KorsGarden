@@ -22,7 +22,7 @@ interface ProgressionState {
 // garden multiplier
 const localGardenMultiplier: string = localStorage.getItem("GardenMultiplier");
 const ParsedLocalGardenMultiplier: number =
-  localGardenMultiplier == null ? 1 : parseFloat(localGardenMultiplier);
+  localGardenMultiplier == null ? 5 : parseFloat(localGardenMultiplier);
 //carrot multiplier
 const localCarrotMultiplier: string = localStorage.getItem("CarrotMultiplier");
 const ParsedLocalCarrotMultiplier: number =
