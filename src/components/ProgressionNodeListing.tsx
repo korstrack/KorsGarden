@@ -6,12 +6,15 @@ import { Dispatch } from "redux";
 import { ProgressionNode, ProgressionType } from "../slices/helperStructs";
 import { decrement } from "../slices/counterSlice";
 import {
+  addBeetProgression,
   addCarrotProgression,
   addGardenProgression,
   addNewButtonProgression,
   addPotatoProgression,
+  addTurnipProgression,
   addUserInterfaceProgression,
 } from "../slices/progressionSlice";
+import { Kors } from "./Icons/Kors";
 
 interface ReactProps {
   node: ProgressionNode;
@@ -24,18 +27,20 @@ type Props = ReactProps & InjectedProps;
 interface State {}
 class AProgressionNodeListing extends React.Component<Props, State> {
   render(): JSX.Element {
+    const isEarned = this.props.node.isEarned ? "Earned" : "";
+    const cost = this.props.node.isEarned ? "Earned" : this.props.node.cost;
     return (
       <div
-        className={"ProgressionNodeListingInner"}
+        className={`ProgressionNodeListingInner ${isEarned}`}
         onClick={this.onClick.bind(this)}
       >
-        <span className={"ProgressionNodeListingName"}>
-          {`${this.props.node.name}: ${this.props.node.cost}`}
+        <span className={`ProgressionNodeListingName ${isEarned}`}>
+          {`${this.props.node.name}: ${cost}`}
+          {!isEarned && <Kors />}
         </span>
-        <span className={"ProgressionNodeListingDescription"}>
+        <span className={`ProgressionNodeListingDescription ${isEarned}`}>
           {this.props.node.description}
         </span>
-        <span className="Earned">{`isEarned: ${this.props.node.isEarned}`}</span>
       </div>
     );
   }
@@ -58,6 +63,12 @@ class AProgressionNodeListing extends React.Component<Props, State> {
           return;
         case ProgressionType.potato:
           this.props.dispatch(addPotatoProgression(this.props.node));
+          return;
+        case ProgressionType.beet:
+          this.props.dispatch(addBeetProgression(this.props.node));
+          return;
+        case ProgressionType.turnip:
+          this.props.dispatch(addTurnipProgression(this.props.node));
           return;
         default:
           console.error(

@@ -14,6 +14,8 @@ interface InjectedProps {
   userIntferfaceProgressionNodes: Dictionary<ProgressionNode>;
   carrotProgressionNodes: Dictionary<ProgressionNode>;
   potatoProgressionNodes: Dictionary<ProgressionNode>;
+  beetProgressionNodes: Dictionary<ProgressionNode>;
+  turnipProgressionNodes: Dictionary<ProgressionNode>;
   dispatch?: Dispatch;
 }
 type Props = ReactProps & InjectedProps;
@@ -56,6 +58,12 @@ class AProgressionList extends React.Component<Props, State> {
         : "";
     const PotatoIsSelected: string =
       this.state.selectedProgression === ProgressionType.potato
+        ? "Selected"
+        : "";
+    const BeetIsSelected: string =
+      this.state.selectedProgression === ProgressionType.beet ? "Selected" : "";
+    const TurnipIsSelected: string =
+      this.state.selectedProgression === ProgressionType.turnip
         ? "Selected"
         : "";
     return (
@@ -118,23 +126,51 @@ class AProgressionList extends React.Component<Props, State> {
             onClick={this.onHeaderClick.bind(this, ProgressionType.carrot)}
           >{`Carrot`}</span>
         </div>
-        <div
-          className={`ProgressionHeaderContainer ${PotatoIsSelected}`}
-          key={"potato"}
-        >
-          {this.isPlantUnlocked(ProgressionType.potato) && (
+        {this.isPlantUnlocked(ProgressionType.potato) && (
+          <div
+            className={`ProgressionHeaderContainer ${PotatoIsSelected}`}
+            key={"potato"}
+          >
             <span
               className={`ProgressionHeader ${PotatoIsSelected} KorShimmer`}
               onClick={this.onHeaderClick.bind(this, ProgressionType.potato)}
             >{`Potato`}</span>
-          )}
-          {this.isPlantUnlocked(ProgressionType.potato) && (
             <span
               className={`ProgressionHeader ${PotatoIsSelected}`}
               onClick={this.onHeaderClick.bind(this, ProgressionType.potato)}
             >{`Potato`}</span>
-          )}
-        </div>
+          </div>
+        )}
+        {this.isPlantUnlocked(ProgressionType.beet) && (
+          <div
+            className={`ProgressionHeaderContainer ${BeetIsSelected}`}
+            key={"Beet"}
+          >
+            <span
+              className={`ProgressionHeader ${BeetIsSelected} KorShimmer`}
+              onClick={this.onHeaderClick.bind(this, ProgressionType.beet)}
+            >{`Beet`}</span>
+            <span
+              className={`ProgressionHeader ${BeetIsSelected}`}
+              onClick={this.onHeaderClick.bind(this, ProgressionType.beet)}
+            >{`Beet`}</span>
+          </div>
+        )}
+        {this.isPlantUnlocked(ProgressionType.turnip) && (
+          <div
+            className={`ProgressionHeaderContainer ${TurnipIsSelected}`}
+            key={"Turnip"}
+          >
+            <span
+              className={`ProgressionHeader ${TurnipIsSelected} KorShimmer`}
+              onClick={this.onHeaderClick.bind(this, ProgressionType.turnip)}
+            >{`Turnip`}</span>
+            <span
+              className={`ProgressionHeader ${TurnipIsSelected}`}
+              onClick={this.onHeaderClick.bind(this, ProgressionType.turnip)}
+            >{`Turnip`}</span>
+          </div>
+        )}
       </div>
     );
   }
@@ -157,8 +193,13 @@ class AProgressionList extends React.Component<Props, State> {
         return true;
       case ProgressionType.potato:
         return this.props.newButtonsProgressionNodes["UnlockPotato"].isEarned;
+      case ProgressionType.beet:
+        return this.props.newButtonsProgressionNodes["UnlockBeet"].isEarned;
+      case ProgressionType.turnip:
+        return this.props.newButtonsProgressionNodes["UnlockTurnip"].isEarned;
+      default:
+        return false;
     }
-    return false;
   }
 
   private makeList(): JSX.Element[] {
@@ -167,36 +208,124 @@ class AProgressionList extends React.Component<Props, State> {
       case ProgressionType.garden:
         for (let key in this.props.gardenProgressionNodes) {
           const node = this.props.gardenProgressionNodes[key];
-          progList.push(<ProgressionNodeListing node={node} key={node.name} />);
+          if (this.checkBlockingNodes(node)) {
+            progList.push(
+              <ProgressionNodeListing node={node} key={node.name} />
+            );
+          }
         }
         return progList;
       case ProgressionType.newButtons:
         for (let key in this.props.newButtonsProgressionNodes) {
           const node = this.props.newButtonsProgressionNodes[key];
-          progList.push(<ProgressionNodeListing node={node} key={node.name} />);
+          if (this.checkBlockingNodes(node)) {
+            progList.push(
+              <ProgressionNodeListing node={node} key={node.name} />
+            );
+          }
         }
         return progList;
       case ProgressionType.userInterface:
         for (let key in this.props.userIntferfaceProgressionNodes) {
           const node = this.props.userIntferfaceProgressionNodes[key];
-          progList.push(<ProgressionNodeListing node={node} key={node.name} />);
+          if (this.checkBlockingNodes(node)) {
+            progList.push(
+              <ProgressionNodeListing node={node} key={node.name} />
+            );
+          }
         }
         return progList;
       case ProgressionType.carrot:
         for (let key in this.props.carrotProgressionNodes) {
           const node = this.props.carrotProgressionNodes[key];
-          progList.push(<ProgressionNodeListing node={node} key={node.name} />);
+          if (this.checkBlockingNodes(node)) {
+            progList.push(
+              <ProgressionNodeListing node={node} key={node.name} />
+            );
+          }
         }
         return progList;
       case ProgressionType.potato:
         for (let key in this.props.potatoProgressionNodes) {
           const node = this.props.potatoProgressionNodes[key];
-          progList.push(<ProgressionNodeListing node={node} key={node.name} />);
+          if (this.checkBlockingNodes(node)) {
+            progList.push(
+              <ProgressionNodeListing node={node} key={node.name} />
+            );
+          }
+        }
+        return progList;
+      case ProgressionType.beet:
+        for (let key in this.props.beetProgressionNodes) {
+          const node = this.props.beetProgressionNodes[key];
+          if (this.checkBlockingNodes(node)) {
+            progList.push(
+              <ProgressionNodeListing node={node} key={node.name} />
+            );
+          }
+        }
+        return progList;
+      case ProgressionType.turnip:
+        for (let key in this.props.turnipProgressionNodes) {
+          const node = this.props.turnipProgressionNodes[key];
+          if (this.checkBlockingNodes(node)) {
+            progList.push(
+              <ProgressionNodeListing node={node} key={node.name} />
+            );
+          }
         }
         return progList;
       default:
         return progList;
     }
+  }
+
+  private checkBlockingNodes(node: ProgressionNode): boolean {
+    for (let blockingNode of node.blockingNodes) {
+      switch (blockingNode.progressionType) {
+        case ProgressionType.garden:
+          if (!this.props.gardenProgressionNodes[blockingNode.name].isEarned) {
+            return false;
+          }
+          continue;
+        case ProgressionType.newButtons:
+          if (
+            !this.props.newButtonsProgressionNodes[blockingNode.name].isEarned
+          ) {
+            return false;
+          }
+          continue;
+        case ProgressionType.userInterface:
+          if (
+            !this.props.userIntferfaceProgressionNodes[blockingNode.name]
+              .isEarned
+          ) {
+            return false;
+          }
+          continue;
+        case ProgressionType.carrot:
+          if (!this.props.carrotProgressionNodes[blockingNode.name].isEarned) {
+            return false;
+          }
+          continue;
+        case ProgressionType.potato:
+          if (!this.props.potatoProgressionNodes[blockingNode.name].isEarned) {
+            return false;
+          }
+          continue;
+        case ProgressionType.beet:
+          if (!this.props.beetProgressionNodes[blockingNode.name].isEarned) {
+            return false;
+          }
+          continue;
+        case ProgressionType.turnip:
+          if (!this.props.turnipProgressionNodes[blockingNode.name].isEarned) {
+            return false;
+          }
+          continue;
+      }
+    }
+    return true;
   }
 }
 
@@ -207,6 +336,8 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
     userInterfaceProgression,
     carrotProgression,
     potatoProgression,
+    beetProgression,
+    turnipProgression,
   } = state.progression;
 
   return {
@@ -216,6 +347,8 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
     userIntferfaceProgressionNodes: userInterfaceProgression,
     carrotProgressionNodes: carrotProgression,
     potatoProgressionNodes: potatoProgression,
+    beetProgressionNodes: beetProgression,
+    turnipProgressionNodes: turnipProgression,
   };
 }
 

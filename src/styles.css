@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #051e05;
+  background-color: #010601;
 }
 
 /* HEADER STYLES */
@@ -14,7 +14,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #010601;
+  background: #010601;
+  &.Skybox {
+    background: linear-gradient(
+      0deg,
+      rgba(1, 6, 1, 1) 0%,
+      rgba(1, 6, 1, 1) 50%,
+      rgba(101, 201, 235, 1) 100%
+    );
+  }
 }
 
 .TitleContainer {
@@ -189,6 +197,10 @@
   &.FullyGrown {
     border: dotted aquamarine 3px;
   }
+
+  &.Skybox {
+    background-color: rgba(101, 201, 235, 1);
+  }
 }
 
 .ClickerDirt {
@@ -326,25 +338,41 @@
   user-select: none;
   border-radius: 25px;
   margin-bottom: 1%;
+  padding: 1%;
   &:hover {
     background-color: rgb(75, 207, 163);
+  }
+  &.Earned {
+    background-color: rgb(5, 30, 5);
+    cursor: auto;
   }
 }
 
 .ProgressionNodeListingName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: fit-content;
   color: #051e05;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: fantasy;
   font-size: 1.5rem;
   font-weight: bolder;
   text-align: center;
+  text-wrap: nowrap;
+  &.Earned {
+    color: aquamarine;
+  }
 }
 
 .ProgressionNodeListingDescription {
   color: #051e05;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: fantasy;
   font-size: 1rem;
   font-weight: 100;
   text-align: center;
+  &.Earned {
+    color: aquamarine;
+  }
 }
 
 /* MAIN BODY STYLES */

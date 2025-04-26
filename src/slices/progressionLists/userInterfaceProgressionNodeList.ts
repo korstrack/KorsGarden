@@ -8,7 +8,8 @@ const ButtonsCanSpin: string = "YouSpinMeRightRound";
 const LocalButtonsCanSpin = localStorage.getItem(ButtonsCanSpin);
 UserInterfaceProgressionNodeList[ButtonsCanSpin] = {
   name: ButtonsCanSpin,
-  description: "This unlocks the button progression that lets them spin.",
+  description:
+    "This unlocks the button progression that lets them spin. also not implementedyet, so have fun!",
   multiplier: 0.0,
   cost: 1000000,
   isEarned:
@@ -16,6 +17,7 @@ UserInterfaceProgressionNodeList[ButtonsCanSpin] = {
       ? true
       : false,
   progressionType,
+  blockingNodes: [],
 };
 if (!LocalButtonsCanSpin) {
   localStorage.setItem(ButtonsCanSpin, "false");

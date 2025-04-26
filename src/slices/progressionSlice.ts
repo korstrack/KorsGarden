@@ -6,16 +6,22 @@ import { GardenProgressionNodeList } from "./progressionLists/gardenProgressionN
 import { NewButtonsProgressionNodeList } from "./progressionLists/newButtonsProgressionNodeList";
 import { UserInterfaceProgressionNodeList } from "./progressionLists/userInterfaceProgressionNodeList";
 import { PotatoProgressionNodeList } from "./progressionLists/potatoProgressionNodeList";
+import { BeetProgressionNodeList } from "./progressionLists/beetProgressionNodeList";
+import { TurnipProgressionNodeList } from "./progressionLists/turnipProgressionNodeList";
 
 interface ProgressionState {
   gardenMultiplier: number;
   carrotMultiplier: number;
   potatoMultiplier: number;
+  beetMultiplier: number;
+  turnipMultiplier: number;
   gardenProgression: Dictionary<ProgressionNode>;
   newButtonsProgression: Dictionary<ProgressionNode>;
   userInterfaceProgression: Dictionary<ProgressionNode>;
   carrotProgression: Dictionary<ProgressionNode>;
   potatoProgression: Dictionary<ProgressionNode>;
+  beetProgression: Dictionary<ProgressionNode>;
+  turnipProgression: Dictionary<ProgressionNode>;
 }
 
 // get local values of multipliers if they exist.
@@ -31,16 +37,28 @@ const ParsedLocalCarrotMultiplier: number =
 const localPotatoMultiplier: string = localStorage.getItem("PotatoMultiplier");
 const ParsedLocalPotatoMultiplier: number =
   localPotatoMultiplier == null ? 2 : parseFloat(localPotatoMultiplier);
+//beet multiplier
+const localBeetMultiplier: string = localStorage.getItem("BeetMultiplier");
+const ParsedLocalBeetMultiplier: number =
+  localBeetMultiplier == null ? 4 : parseFloat(localBeetMultiplier);
+//turnip multiplier
+const localTurnipMultiplier: string = localStorage.getItem("TurnipMultiplier");
+const ParsedLocalTurnipMultiplier: number =
+  localTurnipMultiplier == null ? 8 : parseFloat(localTurnipMultiplier);
 
 const defaultProgressionState: ProgressionState = {
   gardenMultiplier: ParsedLocalGardenMultiplier,
   carrotMultiplier: ParsedLocalCarrotMultiplier,
   potatoMultiplier: ParsedLocalPotatoMultiplier,
+  beetMultiplier: ParsedLocalBeetMultiplier,
+  turnipMultiplier: ParsedLocalTurnipMultiplier,
   gardenProgression: GardenProgressionNodeList,
   newButtonsProgression: NewButtonsProgressionNodeList,
   userInterfaceProgression: UserInterfaceProgressionNodeList,
   carrotProgression: CarrotProgressionNodeList,
   potatoProgression: PotatoProgressionNodeList,
+  beetProgression: BeetProgressionNodeList,
+  turnipProgression: TurnipProgressionNodeList,
 };
 
 export const progressionSlice = createSlice({
@@ -173,7 +191,7 @@ export const progressionSlice = createSlice({
       // make sure this is the correct progression type being added
       if (action.payload.progressionType != ProgressionType.potato) {
         console.error(
-          "For some reason we tried to update Carrot Progression with this progression type? : ",
+          "For some reason we tried to update Potato Progression with this progression type? : ",
           action.payload.progressionType,
           "Here is the entire node passed in : ",
           action.payload
@@ -198,6 +216,67 @@ export const progressionSlice = createSlice({
         );
       }
     },
+    addBeetProgression: (
+      state: ProgressionState,
+      action: PayloadAction<ProgressionNode>
+    ) => {
+      // make sure this is the correct progression type being added
+      if (action.payload.progressionType != ProgressionType.beet) {
+        console.error(
+          "For some reason we tried to update Beet Progression with this progression type? : ",
+          action.payload.progressionType,
+          "Here is the entire node passed in : ",
+          action.payload
+        );
+        return;
+      }
+      let node = state.beetProgression[action.payload.name];
+      if (node) {
+        state.beetMultiplier += node.multiplier;
+        localStorage.setItem("BeetMultiplier", state.beetMultiplier.toString());
+        node.isEarned = true;
+        state.beetProgression[action.payload.name] = node;
+        localStorage.setItem(action.payload.name, "true");
+      } else {
+        console.error(
+          "What progress are you trying to earn??? We don't even have a box to check for that!! You earned?!?!?! : ",
+          action.payload,
+          state.potatoProgression
+        );
+      }
+    },
+    addTurnipProgression: (
+      state: ProgressionState,
+      action: PayloadAction<ProgressionNode>
+    ) => {
+      // make sure this is the correct progression type being added
+      if (action.payload.progressionType != ProgressionType.turnip) {
+        console.error(
+          "For some reason we tried to update Beet Progression with this progression type? : ",
+          action.payload.progressionType,
+          "Here is the entire node passed in : ",
+          action.payload
+        );
+        return;
+      }
+      let node = state.turnipProgression[action.payload.name];
+      if (node) {
+        state.turnipMultiplier += node.multiplier;
+        localStorage.setItem(
+          "TurnipMultiplier",
+          state.turnipMultiplier.toString()
+        );
+        node.isEarned = true;
+        state.turnipProgression[action.payload.name] = node;
+        localStorage.setItem(action.payload.name, "true");
+      } else {
+        console.error(
+          "What progress are you trying to earn??? We don't even have a box to check for that!! You earned?!?!?! : ",
+          action.payload,
+          state.potatoProgression
+        );
+      }
+    },
   },
 });
 
@@ -208,6 +287,8 @@ export const {
   addUserInterfaceProgression,
   addCarrotProgression,
   addPotatoProgression,
+  addBeetProgression,
+  addTurnipProgression,
 } = progressionSlice.actions;
 
 export default progressionSlice.reducer;

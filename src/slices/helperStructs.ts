@@ -5,6 +5,12 @@ export interface ProgressionNode {
   cost: number;
   isEarned: boolean;
   progressionType: ProgressionType;
+  blockingNodes: BlockingNode[];
+}
+
+interface BlockingNode {
+  progressionType: ProgressionType;
+  name: string;
 }
 
 export enum ProgressionType {

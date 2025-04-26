@@ -3,7 +3,7 @@ import { JSX } from "react";
 import { RootState } from "../store";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { ProgressionType } from "../slices/helperStructs";
+import { ProgressionNode, ProgressionType } from "../slices/helperStructs";
 import { Kors } from "./Icons/Kors";
 import { increment } from "../slices/counterSlice";
 import { Dictionary } from "lodash";
@@ -23,6 +23,7 @@ interface ReactProps {
 interface InjectedProps {
   plantMultiplier: number;
   gardenMultiplier: number;
+  progression: Dictionary<ProgressionNode>;
   dispatch?: Dispatch;
 }
 type Props = ReactProps & InjectedProps;
@@ -41,6 +42,7 @@ class AClicker extends React.Component<Props, State> {
   render(): JSX.Element {
     const fullyGrown: string =
       this.state.growthStage === GrowthStage.FullyGrown ? "FullyGrown" : "";
+    const skybox: string = this.getSkybox();
     return (
       <div className={"ClickerContainer"} onClick={this.onClick.bind(this)}>
         {Object.values(this.state.borders)}
@@ -55,7 +57,7 @@ class AClicker extends React.Component<Props, State> {
             <Kors />
           </div>
         </div>
-        <div className={`ClickerPlantContainer ${fullyGrown}`}>
+        <div className={`ClickerPlantContainer ${fullyGrown} ${skybox}`}>
           {this.getSecondLeaf(fullyGrown)}
           {this.getFirstLeaf(fullyGrown)}
           {this.getStem(fullyGrown)}
@@ -113,6 +115,11 @@ class AClicker extends React.Component<Props, State> {
       return null;
     }
     return <div className={`ClickerBorderGlow KorShimmer`}></div>;
+  }
+
+  private getSkybox(): string {
+    const nodeName = `${this.props.PlantType}box!`;
+    return this.props.progression[nodeName]?.isEarned ? "Skybox" : "";
   }
 
   private getClickerInstructions(fullyGrown: string): JSX.Element {
@@ -373,12 +380,28 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
         ...ownProps,
         plantMultiplier: state.progression.carrotMultiplier,
         gardenMultiplier: state.progression.gardenMultiplier,
+        progression: state.progression.carrotProgression,
       };
     case ProgressionType.potato:
       return {
         ...ownProps,
         plantMultiplier: state.progression.potatoMultiplier,
         gardenMultiplier: state.progression.gardenMultiplier,
+        progression: state.progression.potatoProgression,
+      };
+    case ProgressionType.beet:
+      return {
+        ...ownProps,
+        plantMultiplier: state.progression.beetMultiplier,
+        gardenMultiplier: state.progression.gardenMultiplier,
+        progression: state.progression.beetProgression,
+      };
+    case ProgressionType.turnip:
+      return {
+        ...ownProps,
+        plantMultiplier: state.progression.turnipMultiplier,
+        gardenMultiplier: state.progression.gardenMultiplier,
+        progression: state.progression.turnipProgression,
       };
     default:
       console.error(
@@ -390,6 +413,7 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
         ...ownProps,
         plantMultiplier: 1,
         gardenMultiplier: state.progression.gardenMultiplier,
+        progression: {},
       };
   }
 }

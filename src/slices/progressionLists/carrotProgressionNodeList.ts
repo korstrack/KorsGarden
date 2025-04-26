@@ -17,6 +17,7 @@ CarrotProgressionNodeList[GotThePoint] = {
   isEarned:
     localGotThePoint != null && localGotThePoint === "true" ? true : false,
   progressionType,
+  blockingNodes: [],
 };
 if (!localGotThePoint) {
   localStorage.setItem(GotThePoint, "false");
@@ -32,9 +33,25 @@ CarrotProgressionNodeList[SecondPoint] = {
   isEarned:
     localSecondPoint != null && localSecondPoint === "true" ? true : false,
   progressionType,
+  blockingNodes: [],
 };
 if (!localSecondPoint) {
   localStorage.setItem(SecondPoint, "false");
+}
+
+const Skybox = "carrotbox!";
+const localSkybox = localStorage.getItem(Skybox);
+CarrotProgressionNodeList[Skybox] = {
+  name: Skybox,
+  description: "Lets your carrots see the open air!",
+  multiplier: 5,
+  cost: 100,
+  isEarned: localSkybox != null && localSkybox === "true" ? true : false,
+  progressionType,
+  blockingNodes: [{ progressionType: ProgressionType.garden, name: "Skybox!" }],
+};
+if (!localSkybox) {
+  localStorage.setItem(Skybox, "false");
 }
 
 // export function getPointProgressionNodeList(): Dictionary<ProgressionNode> {

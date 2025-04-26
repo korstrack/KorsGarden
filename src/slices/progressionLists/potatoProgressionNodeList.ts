@@ -14,7 +14,23 @@ PotatoProgressionNodeList[MoreNubby] = {
   cost: 50,
   isEarned: LocalMoreNubby != null && LocalMoreNubby === "true" ? true : false,
   progressionType,
+  blockingNodes: [],
 };
 if (!LocalMoreNubby) {
   localStorage.setItem(MoreNubby, "false");
+}
+
+const Skybox = "potatobox!";
+const localSkybox = localStorage.getItem(Skybox);
+PotatoProgressionNodeList[Skybox] = {
+  name: Skybox,
+  description: "Exposes your growing potato to the elements!",
+  multiplier: 5,
+  cost: 100,
+  isEarned: localSkybox != null && localSkybox === "true" ? true : false,
+  progressionType,
+  blockingNodes: [{ progressionType: ProgressionType.garden, name: "Skybox!" }],
+};
+if (!localSkybox) {
+  localStorage.setItem(Skybox, "false");
 }

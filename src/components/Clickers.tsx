@@ -27,6 +27,8 @@ class AClickers extends React.Component<Props> {
         </div>
         <Clicker PlantType={ProgressionType.carrot} />
         {this.getPotato(this.props.newButtonsProgression["UnlockPotato"])}
+        {this.getBeet(this.props.newButtonsProgression["UnlockBeet"])}
+        {this.getTurnip(this.props.newButtonsProgression["UnlockTurnip"])}
         <div
           className="Clicker"
           onClick={this.clearCount.bind(this)}
@@ -50,6 +52,20 @@ class AClickers extends React.Component<Props> {
   private getPotato(progNode: ProgressionNode): JSX.Element {
     if (progNode.isEarned) {
       return <Clicker PlantType={ProgressionType.potato} />;
+    }
+    return null;
+  }
+
+  private getBeet(progNode: ProgressionNode): JSX.Element {
+    if (progNode.isEarned) {
+      return <Clicker PlantType={ProgressionType.beet} />;
+    }
+    return null;
+  }
+
+  private getTurnip(progNode: ProgressionNode): JSX.Element {
+    if (progNode.isEarned) {
+      return <Clicker PlantType={ProgressionType.turnip} />;
     }
     return null;
   }

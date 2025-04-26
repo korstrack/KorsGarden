@@ -18,6 +18,8 @@ const progressionType: ProgressionType = ProgressionType.userInterface;
 //   cost: 1000000, // the cost to buy this progression node.
 //   isEarned: LocalName != null && LocalName === "true" ? true : false, // if this progression node has been earned.
 //   progressionType, // the type of progression this is, what tab the node shows up in.
+//   blockingNodes: [] // list of progression nodes that block this node appearing, each blocking node entry will have
+//      the progression type and name of the node that blocks it. You have to earn all blocking nodes before this node will be visible to the player
 // }; // the node itself.
 // if (!LocalName) {
 //   // if there isn't a local version of this node yet, make one.
@@ -36,6 +38,7 @@ TemplateProgressionNodeList[TempName] = {
   cost: 1000000,
   isEarned: TempLocalName != null && TempLocalName === "true" ? true : false,
   progressionType,
+  blockingNodes: [],
 };
 if (!TempLocalName) {
   localStorage.setItem(TempName, "false");
