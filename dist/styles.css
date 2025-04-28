@@ -1,0 +1,529 @@
+/*!******************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles.css ***!
+  \******************************************************************/
+.MainContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #010601;
+}
+
+/* HEADER STYLES */
+
+.Header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #010601;
+  &.Skybox {
+    background: linear-gradient(
+      0deg,
+      rgba(1, 6, 1, 1) 0%,
+      rgba(1, 6, 1, 1) 50%,
+      rgba(101, 201, 235, 1) 100%
+    );
+  }
+}
+
+.TitleContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 10%;
+}
+
+.Title {
+  color: #00bb0c;
+  font-size: 2.5rem;
+  font-family: fantasy;
+  font-weight: bolder;
+  text-align: center;
+  text-wrap: nowrap;
+  user-select: none;
+}
+
+.TitleBlur {
+  color: #00bb0c;
+  font-size: 2.5rem;
+  font-family: fantasy;
+  font-weight: bolder;
+  text-align: center;
+  text-wrap: nowrap;
+  user-select: none;
+}
+
+.CounterContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-right: 10%;
+}
+
+.Counter {
+  color: #00bb0c;
+  font-size: 2.5rem;
+  font-family: fantasy;
+  font-weight: bolder;
+  text-align: center;
+  text-wrap: nowrap;
+  margin-right: 3.5%;
+  user-select: none;
+}
+
+/* HEADER STYLES */
+/* MAIN BODY STYLES */
+
+.MainBody {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1%;
+}
+
+.Clickers {
+  height: 100%;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+}
+
+.ClickerHeaderContainer {
+  display: flex;
+  width: fit-content;
+  margin-bottom: 1%;
+  background-color: #126512;
+  border-radius: 25px;
+}
+
+.ClickerHeader {
+  color: aquamarine;
+  font-size: 1.5rem;
+  font-family: fantasy;
+  text-align: center;
+  text-wrap: nowrap;
+  border: aquamarine 3px dashed;
+  border-radius: 25px;
+  padding: 0.5rem;
+}
+
+.Clicker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1%;
+  height: 3%;
+  border: aquamarine 3px dashed;
+  background-color: rgb(176, 251, 226);
+  user-select: none;
+  color: #051e05;
+  font-size: 1rem;
+  font-family: fantasy;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-bottom: 1%;
+  &:hover {
+    background-color: rgb(75, 207, 163);
+  }
+}
+
+.ClickerContainer {
+  position: relative;
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1%;
+  padding: 3%;
+  align-items: center;
+  justify-content: space-around;
+  border: aquamarine 3px solid;
+  border-radius: 25px;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    border: aquamarine 3px dashed;
+    animation-name: KorOuterGlowAqua;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+}
+
+.ClickerTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 50%;
+}
+
+.ClickerPlantName {
+  color: aquamarine;
+  font-size: 3rem;
+  font-family: fantasy;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.ClickerSaleDescriptionContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 5%;
+}
+
+.ClickerSaleDescription {
+  color: aquamarine;
+  font-size: 2rem;
+  font-family: fantasy;
+  cursor: pointer;
+}
+
+.ClickerPlantContainer {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  position: relative;
+  width: 20%;
+  height: 80%;
+  border: solid aquamarine 3px;
+
+  &.FullyGrown {
+    border: dotted aquamarine 3px;
+  }
+
+  &.Skybox {
+    background-color: rgba(101, 201, 235, 1);
+  }
+}
+
+.ClickerDirt {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+.ClickerStem {
+  position: absolute;
+  left: 40%;
+  bottom: 40%;
+
+  &.StageOneOffset {
+    left: 45%;
+  }
+
+  &.FullyGrown {
+    transform: rotate(50deg);
+    bottom: 45%;
+  }
+}
+
+.ClickerFirstLeaf {
+  position: absolute;
+  transform: rotate(50deg);
+  bottom: 60%;
+  left: 20%;
+
+  &.FullyGrown {
+    transform: rotate(100deg);
+    bottom: 70%;
+    left: 45%;
+  }
+}
+
+.ClickerSecondLeaf {
+  position: absolute;
+  transform: rotate(-50deg);
+  bottom: 60%;
+  right: 20%;
+
+  &.FullyGrown {
+    transform: rotate(0deg);
+    bottom: 50%;
+    right: 10%;
+  }
+}
+
+.ClickerBorderGlow {
+  height: 100%;
+  width: 100%;
+  border: aquamarine solid 3px;
+  filter: blur(3px);
+}
+
+.ClickerOnClickBorderGrow {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  border: aquamarine 3px dashed;
+  opacity: 0;
+  animation-name: KorBorderGrow;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.ClickerInstructions {
+  color: aquamarine;
+  font-size: 0.6vw;
+  font-family: fantasy;
+  font-weight: bold;
+  text-wrap: nowrap;
+  text-align: center;
+  margin-bottom: 10%;
+  z-index: 1;
+}
+
+.ProgressionContainer {
+  width: 35%;
+  margin-right: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.ProgressionHeaderBar {
+  width: 100%;
+  margin-bottom: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ProgressionHeaderContainer {
+  display: flex;
+  &.Selected {
+    background-color: #126512;
+    border-radius: 25px;
+  }
+}
+
+.ProgressionHeader {
+  color: #00bb0c;
+  font-size: 1.5rem;
+  font-family: fantasy;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem;
+  border: aquamarine 3px dashed;
+  border-radius: 25px;
+  &.Selected {
+    color: aquamarine;
+  }
+}
+
+.ProgressionList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ProgressionNodeListingInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: aquamarine 3px dashed;
+  background-color: rgb(176, 251, 226);
+  cursor: pointer;
+  user-select: none;
+  border-radius: 25px;
+  margin-bottom: 1%;
+  padding: 1%;
+  &:hover {
+    background-color: rgb(75, 207, 163);
+  }
+  &.Earned {
+    background-color: rgb(5, 30, 5);
+    cursor: auto;
+  }
+}
+
+.ProgressionNodeListingName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: fit-content;
+  color: #051e05;
+  font-family: fantasy;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  text-align: center;
+  text-wrap: nowrap;
+  &.Earned {
+    color: aquamarine;
+  }
+}
+
+.ProgressionNodeListingDescription {
+  color: #051e05;
+  font-family: fantasy;
+  font-size: 1rem;
+  font-weight: 100;
+  text-align: center;
+  &.Earned {
+    color: aquamarine;
+  }
+}
+
+/* MAIN BODY STYLES */
+
+/* ICON STYLES */
+
+.KorsContainer {
+  display: flex;
+  position: relative;
+  height: 80%;
+  aspect-ratio: 1/1;
+  margin-left: 0.5%;
+}
+
+@keyframes KorsSpin {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+.KorsSVG {
+  position: absolute;
+  aspect-ratio: 1/1;
+  animation-name: KorsSpin;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+.KorsSVG2 {
+  position: absolute;
+  aspect-ratio: 1/1;
+  top: 16.66%;
+  right: 16.66%;
+  animation-name: KorsSpin;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+.KorsSVG3 {
+  position: absolute;
+  aspect-ratio: 1/1;
+  top: 27.77%;
+  right: 27.77%;
+  animation-name: KorsSpin;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes KorsBlurShimmer {
+  0% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.KorsSVGBlur {
+  filter: blur(4px);
+  animation-name: KorsBlurShimmer;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+.KorSVGBlur2 {
+  filter: blur(3px);
+  animation-name: KorsBlurShimmer;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+/* ICON STYLES */
+
+/* ANIMATION STYLES */
+
+.KorShimmer {
+  position: absolute;
+  filter: blur(3px);
+  animation-name: KorShimmerAnimation;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes KorShimmerAnimation {
+  0% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-4px, 0);
+  }
+  75% {
+    transform: translate(4px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes KorsBlurShimmer {
+  0% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-4px, -4px);
+  }
+  75% {
+    transform: translate(4px, 4px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes KorOuterGlowAqua {
+  0% {
+    box-shadow: 0 0 2vmin 1vmin aquamarine;
+  }
+  50% {
+    box-shadow: 0 0 2vmin 0px aquamarine;
+  }
+  100% {
+    box-shadow: 0 0 2vmin 1vmin aquamarine;
+  }
+}
+
+@keyframes KorBorderGrow {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  100% {
+    width: 115%;
+    height: 115%;
+    opacity: 0;
+  }
+}
+
+/* ANIMATION STYLES */
+
+
+/*# sourceMappingURL=styles.css.map*/
