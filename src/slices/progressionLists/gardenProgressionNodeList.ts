@@ -17,7 +17,25 @@ GardenProgressionNodeList[Sky] = {
   isEarned: LocalSky != null && LocalSky === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!LocalSky) {
   localStorage.setItem(Sky, "false");
+}
+
+// Node unlocked for reading the about me page
+const AboutMe: string = "AboutMe";
+const LocalAboutMe = localStorage.getItem(AboutMe);
+GardenProgressionNodeList[AboutMe] = {
+  name: AboutMe,
+  description: "Thank you for at least clicking on the about me page :D", // description of the node.
+  multiplier: 1,
+  cost: 0,
+  isEarned: LocalAboutMe != null && LocalAboutMe === "true" ? true : false,
+  progressionType,
+  blockingNodes: [],
+  hiddenUntilEarned: true,
+};
+if (!LocalAboutMe) {
+  localStorage.setItem(AboutMe, "false");
 }

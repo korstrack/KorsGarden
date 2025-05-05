@@ -16,6 +16,7 @@ NewButtonsProgressionNodeList[PotatoButton] = {
     localPotatoButton != null && localPotatoButton === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!localPotatoButton) {
   localStorage.setItem(PotatoButton, "false");
@@ -33,6 +34,7 @@ NewButtonsProgressionNodeList[BeetButton] = {
     localBeetButton != null && localBeetButton === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!localBeetButton) {
   localStorage.setItem(BeetButton, "false");
@@ -50,6 +52,7 @@ NewButtonsProgressionNodeList[TurnipButton] = {
     localTurnipButton != null && localTurnipButton === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!localTurnipButton) {
   localStorage.setItem(TurnipButton, "false");

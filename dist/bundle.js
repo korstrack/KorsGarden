@@ -27877,6 +27877,94 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./src/components/AboutMe.tsx":
+/*!************************************!*\
+  !*** ./src/components/AboutMe.tsx ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AboutMe: () => (/* binding */ AboutMe)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../slices/counterSlice */ "./src/slices/counterSlice.ts");
+/* harmony import */ var _slices_progressionSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../slices/progressionSlice */ "./src/slices/progressionSlice.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+
+
+var AAboutMe = /** @class */ (function (_super) {
+    __extends(AAboutMe, _super);
+    function AAboutMe() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AAboutMe.prototype.render = function () {
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "AboutMeContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "AboutMeHeader", children: this.getIntroHeader() }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "AboutMeBody", children: this.getIntro() }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "AboutMeHeader", children: this.getWebsiteHeader() }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "AboutMeBody", children: [this.getWebsite(), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: "https://github.com/korstrack/KorsGarden", children: "Repo" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "AboutMeHeader", children: ["Linkdin: ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: "https://www.linkedin.com/in/ianschmidtis/", children: "IanSchmidt" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "AboutMeHeader", children: ["Github: ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: "https://github.com/korstrack", children: "Korstrack" })] }), this.getAboutMeBonus()] }));
+    };
+    AAboutMe.prototype.getIntroHeader = function () {
+        return "Hello! I'm Ian Schmidt";
+    };
+    AAboutMe.prototype.getIntro = function () {
+        return "I am a software engineer with a passion for user interface and games. I've been programming professionally for the past 5 years and built this website as a showcase of my skills. I also have adopted Korstrack as the name I frequent the internet with, and thus I welcome you to the garden I am building up.";
+    };
+    AAboutMe.prototype.getWebsiteHeader = function () {
+        return "How This Website Is Built:";
+    };
+    AAboutMe.prototype.getWebsite = function () {
+        return "Kor's Garden is built with the Typescript framework React - Redux. I chose this framework due to a combination of my familiarity with it as well as the ability to store specific state information in a central Redux Store. The Redux Store is split into slices, that I can then connect various individual React Components to. This means that I can limit the volatility of information passed around the UI, as well as only give individual components access to the actual information they need to work. Kor's Garden is built with Webpack, and transpiled with the Typescript loader. If you'd like to see more how I built out various components and took advantage of the centralized Redux Store, you can see all the code behind this website at: ";
+    };
+    AAboutMe.prototype.getAboutMeBonus = function () {
+        if (this.props.aboutMeNode.isEarned) {
+            return;
+        }
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "AboutMeBonus", onClick: this.onClickBonus.bind(this), children: "Thanks For Reading! (Click Me For Bonus Kors :D)" }));
+    };
+    AAboutMe.prototype.onClickBonus = function () {
+        this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__.increment)(100));
+        this.props.dispatch((0,_slices_progressionSlice__WEBPACK_IMPORTED_MODULE_3__.addGardenProgression)(this.props.aboutMeNode));
+    };
+    return AAboutMe;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component));
+function mapStateToProps(state, ownProps) {
+    var aboutMeNode = state.progression.gardenProgression["AboutMe"];
+    return __assign(__assign({}, ownProps), { aboutMeNode: aboutMeNode });
+}
+var AboutMe = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.connect)(mapStateToProps)(AAboutMe);
+
+
+/***/ }),
+
 /***/ "./src/components/Clicker.tsx":
 /*!************************************!*\
   !*** ./src/components/Clicker.tsx ***!
@@ -28336,10 +28424,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../slices/counterSlice */ "./src/slices/counterSlice.ts");
 /* harmony import */ var _Clickers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Clickers */ "./src/components/Clickers.tsx");
 /* harmony import */ var _ProgressionList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProgressionList */ "./src/components/ProgressionList.tsx");
+/* harmony import */ var _AboutMe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AboutMe */ "./src/components/AboutMe.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28372,6 +28461,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+
 var AMain = /** @class */ (function (_super) {
     __extends(AMain, _super);
     function AMain(props) {
@@ -28379,25 +28469,45 @@ var AMain = /** @class */ (function (_super) {
         _this.state = {
             plotsSelected: true,
             upgradesSelected: false,
+            aboutMeSelected: false,
         };
         return _this;
     }
     AMain.prototype.render = function () {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "Main", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderContainer", children: [this.getPlots(), this.getPlotUpgrades()] }), this.state.plotsSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clickers__WEBPACK_IMPORTED_MODULE_3__.Clickers, {}), this.state.upgradesSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionList__WEBPACK_IMPORTED_MODULE_4__.ProgressionList, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "BoundryLine" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearCount.bind(this), children: "Clear Count" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearLocalStorage.bind(this), children: "LS Clear - Resets Progress" })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "Main", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderContainer", children: [this.getPlots(), this.getPlotUpgrades(), this.getAboutMe()] }), this.state.plotsSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clickers__WEBPACK_IMPORTED_MODULE_3__.Clickers, {}), this.state.upgradesSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionList__WEBPACK_IMPORTED_MODULE_4__.ProgressionList, {}), this.state.aboutMeSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_AboutMe__WEBPACK_IMPORTED_MODULE_5__.AboutMe, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "BoundryLine" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearCount.bind(this), children: "Clear Count" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearLocalStorage.bind(this), children: "LS Clear - Resets Progress" })] }));
     };
     AMain.prototype.getPlots = function () {
         var selected = this.state.plotsSelected ? "Selected" : "";
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PlotsButtonContainer ".concat(selected), onClick: this.onPlotsClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Your Plots" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Your Plots" })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderButton ".concat(selected), onClick: this.onPlotsClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Your Plots" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Your Plots" })] }));
     };
     AMain.prototype.onPlotsClick = function () {
-        this.setState({ plotsSelected: true, upgradesSelected: false });
+        this.setState({
+            plotsSelected: true,
+            upgradesSelected: false,
+            aboutMeSelected: false,
+        });
     };
     AMain.prototype.getPlotUpgrades = function () {
         var selected = this.state.upgradesSelected ? "Selected" : "";
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PlotUpgradesButtonContainer ".concat(selected), onClick: this.onUpgradesClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Plot Upgrades" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Plot Upgrades" })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderButton ".concat(selected), onClick: this.onUpgradesClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Plot Upgrades" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Plot Upgrades" })] }));
     };
     AMain.prototype.onUpgradesClick = function () {
-        this.setState({ plotsSelected: false, upgradesSelected: true });
+        this.setState({
+            plotsSelected: false,
+            upgradesSelected: true,
+            aboutMeSelected: false,
+        });
+    };
+    AMain.prototype.getAboutMe = function () {
+        var selected = this.state.aboutMeSelected ? "Selected" : "";
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderButton ".concat(selected), onClick: this.onAboutMeClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "About Me" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "About Me" })] }));
+    };
+    AMain.prototype.onAboutMeClick = function () {
+        this.setState({
+            plotsSelected: false,
+            upgradesSelected: false,
+            aboutMeSelected: true,
+        });
     };
     AMain.prototype.clearCount = function () {
         this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__.clearCount)());
@@ -28411,7 +28521,7 @@ var AMain = /** @class */ (function (_super) {
 function mapStateToProps(state, ownProps) {
     return __assign({}, ownProps);
 }
-var Main = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.connect)(mapStateToProps)(AMain);
+var Main = (0,react_redux__WEBPACK_IMPORTED_MODULE_6__.connect)(mapStateToProps)(AMain);
 
 
 /***/ }),
@@ -28523,6 +28633,7 @@ var AProgressionList = /** @class */ (function (_super) {
         }
     };
     AProgressionList.prototype.makeList = function () {
+        var _this = this;
         var progList = [];
         switch (this.state.selectedProgression) {
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.garden:
@@ -28532,7 +28643,9 @@ var AProgressionList = /** @class */ (function (_super) {
                         progList.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionNodeListing__WEBPACK_IMPORTED_MODULE_3__.ProgressionNodeListing, { node: node }, node.name));
                     }
                 }
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons:
                 for (var key in this.props.newButtonsProgressionNodes) {
                     var node = this.props.newButtonsProgressionNodes[key];
@@ -28540,7 +28653,9 @@ var AProgressionList = /** @class */ (function (_super) {
                         progList.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionNodeListing__WEBPACK_IMPORTED_MODULE_3__.ProgressionNodeListing, { node: node }, node.name));
                     }
                 }
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface:
                 for (var key in this.props.userIntferfaceProgressionNodes) {
                     var node = this.props.userIntferfaceProgressionNodes[key];
@@ -28548,7 +28663,9 @@ var AProgressionList = /** @class */ (function (_super) {
                         progList.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionNodeListing__WEBPACK_IMPORTED_MODULE_3__.ProgressionNodeListing, { node: node }, node.name));
                     }
                 }
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot:
                 for (var key in this.props.carrotProgressionNodes) {
                     var node = this.props.carrotProgressionNodes[key];
@@ -28556,7 +28673,9 @@ var AProgressionList = /** @class */ (function (_super) {
                         progList.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionNodeListing__WEBPACK_IMPORTED_MODULE_3__.ProgressionNodeListing, { node: node }, node.name));
                     }
                 }
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato:
                 for (var key in this.props.potatoProgressionNodes) {
                     var node = this.props.potatoProgressionNodes[key];
@@ -28564,7 +28683,9 @@ var AProgressionList = /** @class */ (function (_super) {
                         progList.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionNodeListing__WEBPACK_IMPORTED_MODULE_3__.ProgressionNodeListing, { node: node }, node.name));
                     }
                 }
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet:
                 for (var key in this.props.beetProgressionNodes) {
                     var node = this.props.beetProgressionNodes[key];
@@ -28572,7 +28693,9 @@ var AProgressionList = /** @class */ (function (_super) {
                         progList.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionNodeListing__WEBPACK_IMPORTED_MODULE_3__.ProgressionNodeListing, { node: node }, node.name));
                     }
                 }
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip:
                 for (var key in this.props.turnipProgressionNodes) {
                     var node = this.props.turnipProgressionNodes[key];
@@ -28580,12 +28703,36 @@ var AProgressionList = /** @class */ (function (_super) {
                         progList.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionNodeListing__WEBPACK_IMPORTED_MODULE_3__.ProgressionNodeListing, { node: node }, node.name));
                     }
                 }
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
             default:
-                return progList;
+                return progList.sort(function (a, b) {
+                    return _this.sortNodes(a, b);
+                });
+        }
+    };
+    AProgressionList.prototype.sortNodes = function (a, b) {
+        if ((a.props.node.isEarned && b.props.node.isEarned) ||
+            (!a.props.node.isEarned && !b.props.node.isEarned)) {
+            if (a.props.node.cost < b.props.node.cost) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+        else if (a.props.node.isEarned && !b.props.node.isEarned) {
+            return 1;
+        }
+        else {
+            return 0;
         }
     };
     AProgressionList.prototype.checkBlockingNodes = function (node) {
+        if (node.hiddenUntilEarned && !node.isEarned) {
+            return false;
+        }
         for (var _i = 0, _a = node.blockingNodes; _i < _a.length; _i++) {
             var blockingNode = _a[_i];
             switch (blockingNode.progressionType) {
@@ -28892,6 +29039,7 @@ BeetProgressionNodeList[BeetsMe] = {
     isEarned: LocalBeetsMe != null && LocalBeetsMe === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!LocalBeetsMe) {
     localStorage.setItem(BeetsMe, "false");
@@ -28906,6 +29054,7 @@ BeetProgressionNodeList[Skybox] = {
     isEarned: localSkybox != null && localSkybox === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Skybox!" }],
+    hiddenUntilEarned: false,
 };
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
@@ -28939,6 +29088,7 @@ CarrotProgressionNodeList[GotThePoint] = {
     isEarned: localGotThePoint != null && localGotThePoint === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!localGotThePoint) {
     localStorage.setItem(GotThePoint, "false");
@@ -28953,6 +29103,7 @@ CarrotProgressionNodeList[SecondPoint] = {
     isEarned: localSecondPoint != null && localSecondPoint === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!localSecondPoint) {
     localStorage.setItem(SecondPoint, "false");
@@ -28967,6 +29118,7 @@ CarrotProgressionNodeList[Skybox] = {
     isEarned: localSkybox != null && localSkybox === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Skybox!" }],
+    hiddenUntilEarned: false,
 };
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
@@ -29004,9 +29156,26 @@ GardenProgressionNodeList[Sky] = {
     isEarned: LocalSky != null && LocalSky === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!LocalSky) {
     localStorage.setItem(Sky, "false");
+}
+// Node unlocked for reading the about me page
+var AboutMe = "AboutMe";
+var LocalAboutMe = localStorage.getItem(AboutMe);
+GardenProgressionNodeList[AboutMe] = {
+    name: AboutMe,
+    description: "Thank you for at least clicking on the about me page :D", // description of the node.
+    multiplier: 1,
+    cost: 0,
+    isEarned: LocalAboutMe != null && LocalAboutMe === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [],
+    hiddenUntilEarned: true,
+};
+if (!LocalAboutMe) {
+    localStorage.setItem(AboutMe, "false");
 }
 
 
@@ -29037,6 +29206,7 @@ NewButtonsProgressionNodeList[PotatoButton] = {
     isEarned: localPotatoButton != null && localPotatoButton === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!localPotatoButton) {
     localStorage.setItem(PotatoButton, "false");
@@ -29052,6 +29222,7 @@ NewButtonsProgressionNodeList[BeetButton] = {
     isEarned: localBeetButton != null && localBeetButton === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!localBeetButton) {
     localStorage.setItem(BeetButton, "false");
@@ -29067,6 +29238,7 @@ NewButtonsProgressionNodeList[TurnipButton] = {
     isEarned: localTurnipButton != null && localTurnipButton === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!localTurnipButton) {
     localStorage.setItem(TurnipButton, "false");
@@ -29099,6 +29271,7 @@ PotatoProgressionNodeList[MoreNubby] = {
     isEarned: LocalMoreNubby != null && LocalMoreNubby === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!LocalMoreNubby) {
     localStorage.setItem(MoreNubby, "false");
@@ -29113,6 +29286,7 @@ PotatoProgressionNodeList[Skybox] = {
     isEarned: localSkybox != null && localSkybox === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Skybox!" }],
+    hiddenUntilEarned: false,
 };
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
@@ -29147,6 +29321,7 @@ TurnipProgressionNodeList[TurnipForWhat] = {
     isEarned: LocalTurnipForWhat != null && LocalTurnipForWhat === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!LocalTurnipForWhat) {
     localStorage.setItem(TurnipForWhat, "false");
@@ -29161,6 +29336,7 @@ TurnipProgressionNodeList[Skybox] = {
     isEarned: localSkybox != null && localSkybox === "true" ? true : false,
     progressionType: progressionType,
     blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Skybox!" }],
+    hiddenUntilEarned: false,
 };
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
@@ -29195,6 +29371,7 @@ UserInterfaceProgressionNodeList[ButtonsCanSpin] = {
         : false,
     progressionType: progressionType,
     blockingNodes: [],
+    hiddenUntilEarned: false,
 };
 if (!LocalButtonsCanSpin) {
     localStorage.setItem(ButtonsCanSpin, "false");

@@ -18,6 +18,7 @@ TurnipProgressionNodeList[TurnipForWhat] = {
     LocalTurnipForWhat != null && LocalTurnipForWhat === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!LocalTurnipForWhat) {
   localStorage.setItem(TurnipForWhat, "false");
@@ -33,6 +34,7 @@ TurnipProgressionNodeList[Skybox] = {
   isEarned: localSkybox != null && localSkybox === "true" ? true : false,
   progressionType,
   blockingNodes: [{ progressionType: ProgressionType.garden, name: "Skybox!" }],
+  hiddenUntilEarned: false,
 };
 if (!localSkybox) {
   localStorage.setItem(Skybox, "false");

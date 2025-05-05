@@ -20,6 +20,7 @@ const progressionType: ProgressionType = ProgressionType.userInterface;
 //   progressionType, // the type of progression this is, what tab the node shows up in.
 //   blockingNodes: [] // list of progression nodes that block this node appearing, each blocking node entry will have
 //      the progression type and name of the node that blocks it. You have to earn all blocking nodes before this node will be visible to the player
+//   hiddenUntilEarned: false // this will means that until this node has been earned it wont appear
 // }; // the node itself.
 // if (!LocalName) {
 //   // if there isn't a local version of this node yet, make one.
@@ -39,6 +40,7 @@ TemplateProgressionNodeList[TempName] = {
   isEarned: TempLocalName != null && TempLocalName === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!TempLocalName) {
   localStorage.setItem(TempName, "false");

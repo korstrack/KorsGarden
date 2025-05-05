@@ -17,6 +17,7 @@ BeetProgressionNodeList[BeetsMe] = {
   isEarned: LocalBeetsMe != null && LocalBeetsMe === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!LocalBeetsMe) {
   localStorage.setItem(BeetsMe, "false");
@@ -32,6 +33,7 @@ BeetProgressionNodeList[Skybox] = {
   isEarned: localSkybox != null && localSkybox === "true" ? true : false,
   progressionType,
   blockingNodes: [{ progressionType: ProgressionType.garden, name: "Skybox!" }],
+  hiddenUntilEarned: false,
 };
 if (!localSkybox) {
   localStorage.setItem(Skybox, "false");

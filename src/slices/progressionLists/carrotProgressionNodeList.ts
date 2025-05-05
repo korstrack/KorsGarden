@@ -18,6 +18,7 @@ CarrotProgressionNodeList[GotThePoint] = {
     localGotThePoint != null && localGotThePoint === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!localGotThePoint) {
   localStorage.setItem(GotThePoint, "false");
@@ -34,6 +35,7 @@ CarrotProgressionNodeList[SecondPoint] = {
     localSecondPoint != null && localSecondPoint === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!localSecondPoint) {
   localStorage.setItem(SecondPoint, "false");
@@ -49,6 +51,7 @@ CarrotProgressionNodeList[Skybox] = {
   isEarned: localSkybox != null && localSkybox === "true" ? true : false,
   progressionType,
   blockingNodes: [{ progressionType: ProgressionType.garden, name: "Skybox!" }],
+  hiddenUntilEarned: false,
 };
 if (!localSkybox) {
   localStorage.setItem(Skybox, "false");

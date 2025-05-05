@@ -15,6 +15,7 @@ PotatoProgressionNodeList[MoreNubby] = {
   isEarned: LocalMoreNubby != null && LocalMoreNubby === "true" ? true : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!LocalMoreNubby) {
   localStorage.setItem(MoreNubby, "false");
@@ -30,6 +31,7 @@ PotatoProgressionNodeList[Skybox] = {
   isEarned: localSkybox != null && localSkybox === "true" ? true : false,
   progressionType,
   blockingNodes: [{ progressionType: ProgressionType.garden, name: "Skybox!" }],
+  hiddenUntilEarned: false,
 };
 if (!localSkybox) {
   localStorage.setItem(Skybox, "false");

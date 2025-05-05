@@ -6,6 +6,7 @@ import { Dispatch } from "redux";
 import { clearCount } from "../slices/counterSlice";
 import { Clickers } from "./Clickers";
 import { ProgressionList } from "./ProgressionList";
+import { AboutMe } from "./AboutMe";
 
 interface ReactProps {}
 interface InjectedProps {
@@ -15,6 +16,7 @@ type Props = ReactProps & InjectedProps;
 interface State {
   plotsSelected: boolean;
   upgradesSelected: boolean;
+  aboutMeSelected: boolean;
 }
 class AMain extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -22,6 +24,7 @@ class AMain extends React.Component<Props, State> {
     this.state = {
       plotsSelected: true,
       upgradesSelected: false,
+      aboutMeSelected: false,
     };
   }
   render(): JSX.Element {
@@ -30,9 +33,11 @@ class AMain extends React.Component<Props, State> {
         <div className={"MainHeaderContainer"}>
           {this.getPlots()}
           {this.getPlotUpgrades()}
+          {this.getAboutMe()}
         </div>
         {this.state.plotsSelected && <Clickers />}
         {this.state.upgradesSelected && <ProgressionList />}
+        {this.state.aboutMeSelected && <AboutMe />}
         <div className={"BoundryLine"} />
         <div
           className="DevButton"
@@ -50,7 +55,7 @@ class AMain extends React.Component<Props, State> {
     const selected = this.state.plotsSelected ? "Selected" : "";
     return (
       <div
-        className={`PlotsButtonContainer ${selected}`}
+        className={`MainHeaderButton ${selected}`}
         onClick={this.onPlotsClick.bind(this)}
       >
         <span className={"ClickerHeader"}>{`Your Plots`}</span>
@@ -60,14 +65,18 @@ class AMain extends React.Component<Props, State> {
   }
 
   private onPlotsClick(): void {
-    this.setState({ plotsSelected: true, upgradesSelected: false });
+    this.setState({
+      plotsSelected: true,
+      upgradesSelected: false,
+      aboutMeSelected: false,
+    });
   }
 
   private getPlotUpgrades(): JSX.Element {
     const selected = this.state.upgradesSelected ? "Selected" : "";
     return (
       <div
-        className={`PlotUpgradesButtonContainer ${selected}`}
+        className={`MainHeaderButton ${selected}`}
         onClick={this.onUpgradesClick.bind(this)}
       >
         <span className={"ClickerHeader"}>{`Plot Upgrades`}</span>
@@ -77,7 +86,32 @@ class AMain extends React.Component<Props, State> {
   }
 
   private onUpgradesClick(): void {
-    this.setState({ plotsSelected: false, upgradesSelected: true });
+    this.setState({
+      plotsSelected: false,
+      upgradesSelected: true,
+      aboutMeSelected: false,
+    });
+  }
+
+  private getAboutMe(): JSX.Element {
+    const selected = this.state.aboutMeSelected ? "Selected" : "";
+    return (
+      <div
+        className={`MainHeaderButton ${selected}`}
+        onClick={this.onAboutMeClick.bind(this)}
+      >
+        <span className={"ClickerHeader"}>{`About Me`}</span>
+        <span className={"ClickerHeader KorShimmer"}>{`About Me`}</span>
+      </div>
+    );
+  }
+
+  private onAboutMeClick(): void {
+    this.setState({
+      plotsSelected: false,
+      upgradesSelected: false,
+      aboutMeSelected: true,
+    });
   }
 
   private clearCount() {

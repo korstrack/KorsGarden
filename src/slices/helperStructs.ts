@@ -6,6 +6,7 @@ export interface ProgressionNode {
   isEarned: boolean;
   progressionType: ProgressionType;
   blockingNodes: BlockingNode[];
+  hiddenUntilEarned: boolean;
 }
 
 interface BlockingNode {

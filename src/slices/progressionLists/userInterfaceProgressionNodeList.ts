@@ -18,6 +18,7 @@ UserInterfaceProgressionNodeList[ButtonsCanSpin] = {
       : false,
   progressionType,
   blockingNodes: [],
+  hiddenUntilEarned: false,
 };
 if (!LocalButtonsCanSpin) {
   localStorage.setItem(ButtonsCanSpin, "false");

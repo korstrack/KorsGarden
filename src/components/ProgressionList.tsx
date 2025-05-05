@@ -214,7 +214,9 @@ class AProgressionList extends React.Component<Props, State> {
             );
           }
         }
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
       case ProgressionType.newButtons:
         for (let key in this.props.newButtonsProgressionNodes) {
           const node = this.props.newButtonsProgressionNodes[key];
@@ -224,7 +226,9 @@ class AProgressionList extends React.Component<Props, State> {
             );
           }
         }
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
       case ProgressionType.userInterface:
         for (let key in this.props.userIntferfaceProgressionNodes) {
           const node = this.props.userIntferfaceProgressionNodes[key];
@@ -234,7 +238,9 @@ class AProgressionList extends React.Component<Props, State> {
             );
           }
         }
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
       case ProgressionType.carrot:
         for (let key in this.props.carrotProgressionNodes) {
           const node = this.props.carrotProgressionNodes[key];
@@ -244,7 +250,9 @@ class AProgressionList extends React.Component<Props, State> {
             );
           }
         }
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
       case ProgressionType.potato:
         for (let key in this.props.potatoProgressionNodes) {
           const node = this.props.potatoProgressionNodes[key];
@@ -254,7 +262,9 @@ class AProgressionList extends React.Component<Props, State> {
             );
           }
         }
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
       case ProgressionType.beet:
         for (let key in this.props.beetProgressionNodes) {
           const node = this.props.beetProgressionNodes[key];
@@ -264,7 +274,9 @@ class AProgressionList extends React.Component<Props, State> {
             );
           }
         }
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
       case ProgressionType.turnip:
         for (let key in this.props.turnipProgressionNodes) {
           const node = this.props.turnipProgressionNodes[key];
@@ -274,13 +286,37 @@ class AProgressionList extends React.Component<Props, State> {
             );
           }
         }
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
       default:
-        return progList;
+        return progList.sort((a, b) => {
+          return this.sortNodes(a, b);
+        });
+    }
+  }
+
+  private sortNodes(a: JSX.Element, b: JSX.Element): number {
+    if (
+      (a.props.node.isEarned && b.props.node.isEarned) ||
+      (!a.props.node.isEarned && !b.props.node.isEarned)
+    ) {
+      if (a.props.node.cost < b.props.node.cost) {
+        return 0;
+      } else {
+        return 1;
+      }
+    } else if (a.props.node.isEarned && !b.props.node.isEarned) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 
   private checkBlockingNodes(node: ProgressionNode): boolean {
+    if (node.hiddenUntilEarned && !node.isEarned) {
+      return false;
+    }
     for (let blockingNode of node.blockingNodes) {
       switch (blockingNode.progressionType) {
         case ProgressionType.garden:

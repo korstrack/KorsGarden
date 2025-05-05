@@ -102,26 +102,17 @@
 .MainHeaderContainer {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   margin-bottom: 1%;
 }
 
-.PlotsButtonContainer {
+.MainHeaderButton {
   display: flex;
   width: fit-content;
   border-radius: 25px;
   cursor: pointer;
   margin-right: 1%;
-  user-select: none;
-  &.Selected {
-    background-color: #126512;
-  }
-}
-
-.PlotUpgradesButtonContainer {
-  display: flex;
-  width: fit-content;
-  border-radius: 25px;
-  cursor: pointer;
+  margin-bottom: 1%;
   user-select: none;
   &.Selected {
     background-color: #126512;
@@ -444,6 +435,46 @@
   text-align: center;
   &.Earned {
     color: aquamarine;
+  }
+}
+
+.AboutMeContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  height: fit-content;
+  width: 100%;
+  color: aquamarine;
+  font-family: arial;
+  font-weight: bold;
+  text-align: center;
+}
+
+.AboutMeHeader {
+  position: relative;
+  font-size: 2rem;
+  margin-bottom: 1%;
+  text-decoration: underline;
+}
+
+.AboutMeBody {
+  position: relative;
+  font-size: 1.5rem;
+  margin-bottom: 5%;
+}
+
+.AboutMeBonus {
+  position: relative;
+  font-size: 1rem;
+  border: aquamarine 3px dashed;
+  border-radius: 25px;
+  padding: 0.5%;
+  cursor: pointer;
+  &:hover {
+    background-color: #126512;
   }
 }
 
