@@ -367,10 +367,11 @@
   cursor: pointer;
   user-select: none;
   padding: 0.5rem;
-  border: aquamarine 3px dashed;
+  border: #00bb0c 3px dashed;
   border-radius: 25px;
   &.Selected {
     color: aquamarine;
+    border: aquamarine 3px dashed;
   }
 }
 
@@ -382,6 +383,7 @@
 
 .ProgressionNodeListingInner {
   display: flex;
+  height: fit-content;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -411,6 +413,22 @@
   font-size: 1.5rem;
   font-weight: bolder;
   text-align: center;
+  &.Earned {
+    color: aquamarine;
+  }
+}
+
+.ProgressionNodeListingCost {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: fit-content;
+  color: #051e05;
+  font-family: arial;
+  font-size: 1.25rem;
+  font-weight: bolder;
+  text-align: center;
+  text-wrap: nowrap;
   &.Earned {
     color: aquamarine;
   }

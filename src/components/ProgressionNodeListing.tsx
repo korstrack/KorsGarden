@@ -28,15 +28,18 @@ interface State {}
 class AProgressionNodeListing extends React.Component<Props, State> {
   render(): JSX.Element {
     const isEarned = this.props.node.isEarned ? "Earned" : "";
-    const cost = this.props.node.isEarned ? "Earned" : this.props.node.cost;
+    const cost = this.props.node.isEarned ? "Unlocked" : this.props.node.cost;
     return (
       <div
         className={`ProgressionNodeListingInner ${isEarned}`}
         onClick={this.onClick.bind(this)}
       >
         <span className={`ProgressionNodeListingName ${isEarned}`}>
-          {`${this.props.node.name}: ${cost}`}
-          {!isEarned && <Kors />}
+          {`${this.props.node.name}:`}
+        </span>
+        <span className={`ProgressionNodeListingCost ${isEarned}`}>
+          {cost}
+          {!this.props.node.isEarned && <Kors />}
         </span>
         <span className={`ProgressionNodeListingDescription ${isEarned}`}>
           {this.props.node.description}

@@ -28698,8 +28698,8 @@ var AProgressionNodeListing = /** @class */ (function (_super) {
     }
     AProgressionNodeListing.prototype.render = function () {
         var isEarned = this.props.node.isEarned ? "Earned" : "";
-        var cost = this.props.node.isEarned ? "Earned" : this.props.node.cost;
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionNodeListingInner ".concat(isEarned), onClick: this.onClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "ProgressionNodeListingName ".concat(isEarned), children: ["".concat(this.props.node.name, ": ").concat(cost), !isEarned && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_5__.Kors, {})] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingDescription ".concat(isEarned), children: this.props.node.description })] }));
+        var cost = this.props.node.isEarned ? "Unlocked" : this.props.node.cost;
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionNodeListingInner ".concat(isEarned), onClick: this.onClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingName ".concat(isEarned), children: "".concat(this.props.node.name, ":") }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "ProgressionNodeListingCost ".concat(isEarned), children: [cost, !this.props.node.isEarned && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_5__.Kors, {})] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingDescription ".concat(isEarned), children: this.props.node.description })] }));
     };
     AProgressionNodeListing.prototype.onClick = function () {
         if (!this.props.node.isEarned && this.props.count >= this.props.node.cost) {
