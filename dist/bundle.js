@@ -28062,10 +28062,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
-/* harmony import */ var _slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../slices/counterSlice */ "./src/slices/counterSlice.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _Clicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Clicker */ "./src/components/Clicker.tsx");
 /* harmony import */ var _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../slices/helperStructs */ "./src/slices/helperStructs.ts");
-/* harmony import */ var _Clicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Clicker */ "./src/components/Clicker.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28097,36 +28096,32 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
-
 var AClickers = /** @class */ (function (_super) {
     __extends(AClickers, _super);
     function AClickers() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     AClickers.prototype.render = function () {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerHeaderContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Your Plots" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Your Plots" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_4__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.carrot }), this.getPotato(this.props.newButtonsProgression["UnlockPotato"]), this.getBeet(this.props.newButtonsProgression["UnlockBeet"]), this.getTurnip(this.props.newButtonsProgression["UnlockTurnip"]), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "Clicker", onClick: this.clearCount.bind(this), children: "Clear Count" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "Clicker", onClick: this.clearLocalStorage.bind(this), children: "Local Storage Full Clear" })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickersContainer", children: [this.getCarrot(), this.getPotato(this.props.newButtonsProgression["UnlockPotato"]), this.getBeet(this.props.newButtonsProgression["UnlockBeet"]), this.getTurnip(this.props.newButtonsProgression["UnlockTurnip"])] }));
     };
-    AClickers.prototype.clearCount = function () {
-        this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__.clearCount)());
-    };
-    AClickers.prototype.clearLocalStorage = function () {
-        localStorage.clear();
+    AClickers.prototype.getCarrot = function () {
+        return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_2__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.carrot });
     };
     AClickers.prototype.getPotato = function (progNode) {
         if (progNode.isEarned) {
-            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_4__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.potato });
+            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_2__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.potato });
         }
         return null;
     };
     AClickers.prototype.getBeet = function (progNode) {
         if (progNode.isEarned) {
-            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_4__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.beet });
+            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_2__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.beet });
         }
         return null;
     };
     AClickers.prototype.getTurnip = function (progNode) {
         if (progNode.isEarned) {
-            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_4__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.turnip });
+            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clicker__WEBPACK_IMPORTED_MODULE_2__.Clicker, { PlantType: _slices_helperStructs__WEBPACK_IMPORTED_MODULE_3__.ProgressionType.turnip });
         }
         return null;
     };
@@ -28136,7 +28131,7 @@ function mapStateToProps(state, ownProps) {
     var _a = state.progression, gardenMultiplier = _a.gardenMultiplier, carrotMultiplier = _a.carrotMultiplier, potatoMultiplier = _a.potatoMultiplier, newButtonsProgression = _a.newButtonsProgression;
     return __assign(__assign({}, ownProps), { gardenMultiplier: gardenMultiplier, carrotMultiplier: carrotMultiplier, potatoMultiplier: potatoMultiplier, newButtonsProgression: newButtonsProgression });
 }
-var Clickers = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.connect)(mapStateToProps)(AClickers);
+var Clickers = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.connect)(mapStateToProps)(AClickers);
 
 
 /***/ }),
@@ -28192,7 +28187,7 @@ var ACounter = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     ACounter.prototype.render = function () {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "CounterContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "Counter", children: "Current Kors: ".concat(this.props.counter) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "Counter KorShimmer", children: "Current Kors: ".concat(this.props.counter) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_2__.Kors, {})] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "CounterContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "CounterTextContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "Counter", children: "Current Kors: ".concat(this.props.counter) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "Counter KorShimmer", children: "Current Kors: ".concat(this.props.counter) })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_2__.Kors, {})] }));
     };
     return ACounter;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component));
@@ -28324,6 +28319,99 @@ var Kors = /** @class */ (function (_super) {
     return Kors;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component));
 
+
+
+/***/ }),
+
+/***/ "./src/components/Main.tsx":
+/*!*********************************!*\
+  !*** ./src/components/Main.tsx ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Main: () => (/* binding */ Main)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../slices/counterSlice */ "./src/slices/counterSlice.ts");
+/* harmony import */ var _Clickers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Clickers */ "./src/components/Clickers.tsx");
+/* harmony import */ var _ProgressionList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProgressionList */ "./src/components/ProgressionList.tsx");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+
+
+
+var AMain = /** @class */ (function (_super) {
+    __extends(AMain, _super);
+    function AMain(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            plotsSelected: true,
+            upgradesSelected: false,
+        };
+        return _this;
+    }
+    AMain.prototype.render = function () {
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "Main", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderContainer", children: [this.getPlots(), this.getPlotUpgrades()] }), this.state.plotsSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clickers__WEBPACK_IMPORTED_MODULE_3__.Clickers, {}), this.state.upgradesSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionList__WEBPACK_IMPORTED_MODULE_4__.ProgressionList, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "BoundryLine" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearCount.bind(this), children: "Clear Count" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearLocalStorage.bind(this), children: "LS Clear - Resets Progress" })] }));
+    };
+    AMain.prototype.getPlots = function () {
+        var selected = this.state.plotsSelected ? "Selected" : "";
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PlotsButtonContainer ".concat(selected), onClick: this.onPlotsClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Your Plots" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Your Plots" })] }));
+    };
+    AMain.prototype.onPlotsClick = function () {
+        this.setState({ plotsSelected: true, upgradesSelected: false });
+    };
+    AMain.prototype.getPlotUpgrades = function () {
+        var selected = this.state.upgradesSelected ? "Selected" : "";
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PlotUpgradesButtonContainer ".concat(selected), onClick: this.onUpgradesClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Plot Upgrades" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Plot Upgrades" })] }));
+    };
+    AMain.prototype.onUpgradesClick = function () {
+        this.setState({ plotsSelected: false, upgradesSelected: true });
+    };
+    AMain.prototype.clearCount = function () {
+        this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__.clearCount)());
+    };
+    AMain.prototype.clearLocalStorage = function () {
+        localStorage.clear();
+        location.reload();
+    };
+    return AMain;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component));
+function mapStateToProps(state, ownProps) {
+    return __assign({}, ownProps);
+}
+var Main = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.connect)(mapStateToProps)(AMain);
 
 
 /***/ }),
@@ -29259,7 +29347,7 @@ var progressionSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_8__.createSl
         addPotatoProgression: function (state, action) {
             // make sure this is the correct progression type being added
             if (action.payload.progressionType != _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.potato) {
-                console.error("For some reason we tried to update Beet Progression with this progression type? : ", action.payload.progressionType, "Here is the entire node passed in : ", action.payload);
+                console.error("For some reason we tried to update Potato Progression with this progression type? : ", action.payload.progressionType, "Here is the entire node passed in : ", action.payload);
                 return;
             }
             var node = state.potatoProgression[action.payload.name];
@@ -35338,12 +35426,11 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _components_Clickers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Clickers */ "./src/components/Clickers.tsx");
+/* harmony import */ var _components_Main__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Main */ "./src/components/Main.tsx");
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./src/store.ts");
-/* harmony import */ var _components_ProgressionList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ProgressionList */ "./src/components/ProgressionList.tsx");
-/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Header */ "./src/components/Header.tsx");
+/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Header */ "./src/components/Header.tsx");
 
 
 
@@ -35351,8 +35438,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-(0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(document.getElementById("root")).render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_7__.Provider, { store: _store__WEBPACK_IMPORTED_MODULE_4__.store, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_Header__WEBPACK_IMPORTED_MODULE_6__.Header, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainBody", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "Clickers", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_Clickers__WEBPACK_IMPORTED_MODULE_2__.Clickers, {}) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProgressionList__WEBPACK_IMPORTED_MODULE_5__.ProgressionList, {})] })] }) }));
+(0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(document.getElementById("root")).render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_6__.Provider, { store: _store__WEBPACK_IMPORTED_MODULE_4__.store, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_Header__WEBPACK_IMPORTED_MODULE_5__.Header, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "MainBody", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_Main__WEBPACK_IMPORTED_MODULE_2__.Main, {}) })] }) }));
 
 })();
 

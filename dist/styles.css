@@ -15,8 +15,8 @@
 .Header {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   background: #010601;
   &.Skybox {
     background: linear-gradient(
@@ -33,13 +33,12 @@
   flex-direction: row;
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 10%;
 }
 
 .Title {
   color: #00bb0c;
   font-size: 2.5rem;
-  font-family: fantasy;
+  font-family: arial;
   font-weight: bolder;
   text-align: center;
   text-wrap: nowrap;
@@ -49,7 +48,7 @@
 .TitleBlur {
   color: #00bb0c;
   font-size: 2.5rem;
-  font-family: fantasy;
+  font-family: arial;
   font-weight: bolder;
   text-align: center;
   text-wrap: nowrap;
@@ -62,17 +61,24 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  margin-right: 10%;
+  margin-bottom: 1%;
+}
+
+.CounterTextContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  margin-right: 1%;
 }
 
 .Counter {
   color: #00bb0c;
-  font-size: 2.5rem;
-  font-family: fantasy;
+  font-size: 2rem;
+  font-family: arial;
   font-weight: bolder;
   text-align: center;
   text-wrap: nowrap;
-  margin-right: 3.5%;
   user-select: none;
 }
 
@@ -88,26 +94,45 @@
   margin-top: 1%;
 }
 
-.Clickers {
+.Main {
   height: 100%;
-  width: 35%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   margin-left: 10%;
 }
 
-.ClickerHeaderContainer {
+.MainHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1%;
+}
+
+.PlotsButtonContainer {
   display: flex;
   width: fit-content;
-  margin-bottom: 1%;
-  background-color: #126512;
   border-radius: 25px;
+  cursor: pointer;
+  margin-right: 1%;
+  &.Selected {
+    background-color: #126512;
+  }
+}
+
+.PlotUpgradesButtonContainer {
+  display: flex;
+  width: fit-content;
+  border-radius: 25px;
+  cursor: pointer;
+  &.Selected {
+    background-color: #126512;
+  }
 }
 
 .ClickerHeader {
   color: aquamarine;
   font-size: 1.5rem;
-  font-family: fantasy;
+  font-family: arial;
   text-align: center;
   text-wrap: nowrap;
   border: aquamarine 3px dashed;
@@ -115,39 +140,61 @@
   padding: 0.5rem;
 }
 
-.Clicker {
+.ClickersContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.BoundryLine {
+  height: 1px;
+  width: 100%;
+  background-color: aquamarine;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.DevButton {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 1%;
   height: 3%;
   border: aquamarine 3px dashed;
-  background-color: rgb(176, 251, 226);
   user-select: none;
-  color: #051e05;
+  color: aquamarine;
   font-size: 1rem;
-  font-family: fantasy;
+  font-family: arial;
+  font-weight: bold;
   cursor: pointer;
   border-radius: 25px;
   margin-bottom: 1%;
+
   &:hover {
-    background-color: rgb(75, 207, 163);
+    background-color: #041804;
   }
 }
 
 .ClickerContainer {
   position: relative;
-  height: 15%;
+  width: 25%;
+  aspect-ratio: 1/1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-bottom: 1%;
-  padding: 3%;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   border: aquamarine 3px solid;
   border-radius: 25px;
   user-select: none;
   cursor: pointer;
+
+  @media screen and (orientation: portrait) {
+    width: 100%;
+  }
 
   &:hover {
     border: aquamarine 3px dashed;
@@ -161,15 +208,13 @@
 .ClickerTextContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  width: 50%;
+  align-items: center;
 }
 
 .ClickerPlantName {
   color: aquamarine;
   font-size: 3rem;
-  font-family: fantasy;
+  font-family: arial;
   text-transform: capitalize;
   cursor: pointer;
 }
@@ -178,14 +223,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 5%;
 }
 
 .ClickerSaleDescription {
   color: aquamarine;
   font-size: 2rem;
-  font-family: fantasy;
+  font-family: arial;
   cursor: pointer;
+  text-wrap: nowrap;
+  @media screen and (orientation: portrait) {
+    font-size: 1.5rem;
+  }
 }
 
 .ClickerPlantContainer {
@@ -193,8 +241,8 @@
   justify-content: center;
   align-items: end;
   position: relative;
-  width: 20%;
-  height: 80%;
+  width: 40%;
+  height: 50%;
   border: solid aquamarine 3px;
 
   &.FullyGrown {
@@ -276,18 +324,21 @@
 
 .ClickerInstructions {
   color: aquamarine;
-  font-size: 0.6vw;
-  font-family: fantasy;
+  font-size: 1rem;
+  font-family: arial;
   font-weight: bold;
   text-wrap: nowrap;
   text-align: center;
-  margin-bottom: 10%;
+  margin-bottom: 15%;
   z-index: 1;
+
+  @media screen and (orientation: portrait) {
+    font-size: 0.75rem;
+  }
 }
 
 .ProgressionContainer {
-  width: 35%;
-  margin-right: 10%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -298,11 +349,13 @@
   margin-bottom: 1%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .ProgressionHeaderContainer {
   display: flex;
+  margin-right: 1%;
+  margin-bottom: 1%;
   &.Selected {
     background-color: #126512;
     border-radius: 25px;
@@ -312,7 +365,7 @@
 .ProgressionHeader {
   color: #00bb0c;
   font-size: 1.5rem;
-  font-family: fantasy;
+  font-family: arial;
   text-align: center;
   cursor: pointer;
   user-select: none;
@@ -357,11 +410,10 @@
   align-items: center;
   height: fit-content;
   color: #051e05;
-  font-family: fantasy;
+  font-family: arial;
   font-size: 1.5rem;
   font-weight: bolder;
   text-align: center;
-  text-wrap: nowrap;
   &.Earned {
     color: aquamarine;
   }
@@ -369,7 +421,7 @@
 
 .ProgressionNodeListingDescription {
   color: #051e05;
-  font-family: fantasy;
+  font-family: arial;
   font-size: 1rem;
   font-weight: 100;
   text-align: center;
@@ -463,9 +515,9 @@
 .KorShimmer {
   position: absolute;
   filter: blur(3px);
-  animation-name: KorShimmerAnimation;
+  /* animation-name: KorShimmerAnimation;
   animation-duration: 8s;
-  animation-iteration-count: infinite;
+  animation-iteration-count: infinite; */
 }
 
 @keyframes KorShimmerAnimation {

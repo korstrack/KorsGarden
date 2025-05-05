@@ -13,12 +13,14 @@ class ACounter extends React.Component<Props> {
   render(): JSX.Element {
     return (
       <div className="CounterContainer">
-        <span
-          className={"Counter"}
-        >{`Current Kors: ${this.props.counter}`}</span>
-        <span
-          className={"Counter KorShimmer"}
-        >{`Current Kors: ${this.props.counter}`}</span>
+        <div className={"CounterTextContainer"}>
+          <span
+            className={"Counter"}
+          >{`Current Kors: ${this.props.counter}`}</span>
+          <span
+            className={"Counter KorShimmer"}
+          >{`Current Kors: ${this.props.counter}`}</span>
+        </div>
         <Kors />
       </div>
     );

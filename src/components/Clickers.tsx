@@ -1,12 +1,10 @@
 import * as React from "react";
 import { JSX } from "react";
-import { connect } from "react-redux";
 import { RootState } from "../store";
-import { Dispatch } from "redux";
-import { clearCount } from "../slices/counterSlice";
-import { Dictionary } from "lodash";
-import { ProgressionNode, ProgressionType } from "../slices/helperStructs";
+import { connect } from "react-redux";
 import { Clicker } from "./Clicker";
+import { ProgressionNode, ProgressionType } from "../slices/helperStructs";
+import { Dictionary } from "lodash";
 
 interface ReactProps {}
 interface InjectedProps {
@@ -14,39 +12,23 @@ interface InjectedProps {
   carrotMultiplier: number;
   potatoMultiplier: number;
   newButtonsProgression: Dictionary<ProgressionNode>;
-  dispatch?: Dispatch;
 }
 type Props = ReactProps & InjectedProps;
-class AClickers extends React.Component<Props> {
+interface State {}
+class AClickers extends React.Component<Props, State> {
   render(): JSX.Element {
     return (
-      <>
-        <div className={"ClickerHeaderContainer"}>
-          <span className={"ClickerHeader"}>{`Your Plots`}</span>
-          <span className={"ClickerHeader KorShimmer"}>{`Your Plots`}</span>
-        </div>
-        <Clicker PlantType={ProgressionType.carrot} />
+      <div className={"ClickersContainer"}>
+        {this.getCarrot()}
         {this.getPotato(this.props.newButtonsProgression["UnlockPotato"])}
         {this.getBeet(this.props.newButtonsProgression["UnlockBeet"])}
         {this.getTurnip(this.props.newButtonsProgression["UnlockTurnip"])}
-        <div
-          className="Clicker"
-          onClick={this.clearCount.bind(this)}
-        >{`Clear Count`}</div>
-        <div
-          className={"Clicker"}
-          onClick={this.clearLocalStorage.bind(this)}
-        >{`Local Storage Full Clear`}</div>
-      </>
+      </div>
     );
   }
 
-  private clearCount() {
-    this.props.dispatch(clearCount());
-  }
-
-  private clearLocalStorage() {
-    localStorage.clear();
+  private getCarrot(): JSX.Element {
+    return <Clicker PlantType={ProgressionType.carrot} />;
   }
 
   private getPotato(progNode: ProgressionNode): JSX.Element {

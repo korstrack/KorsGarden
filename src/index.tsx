@@ -1,10 +1,9 @@
 import * as _ from "lodash";
 import { createRoot } from "react-dom/client";
-import { Clickers } from "./components/Clickers";
+import { Main } from "./components/Main";
 import "./styles.css";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import { ProgressionList } from "./components/ProgressionList";
 import { Header } from "./components/Header";
 
 createRoot(document.getElementById("root")).render(
@@ -12,10 +11,7 @@ createRoot(document.getElementById("root")).render(
     <div className={"MainContainer"}>
       <Header />
       <div className={"MainBody"}>
-        <div className={"Clickers"}>
-          <Clickers />
-        </div>
-        <ProgressionList />
+        <Main />
       </div>
     </div>
   </Provider>
