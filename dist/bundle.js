@@ -28051,6 +28051,7 @@ var AClicker = /** @class */ (function (_super) {
         }
         else {
             this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__.increment)(1 * this.props.plantMultiplier * this.props.gardenMultiplier));
+            this.trackSale();
             var borders = this.state.borders;
             var pulse = this.getPulse();
             borders[pulse.dateID] = pulse.element;
@@ -28058,12 +28059,31 @@ var AClicker = /** @class */ (function (_super) {
                 growthStage: GrowthStage.Barren,
                 borders: borders,
             });
+            setTimeout(this.removePulse.bind(this, pulse.dateID), 3000);
         }
     };
     AClicker.prototype.getPulse = function () {
         var dateID = Date.now().toString();
         var element = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "ClickerOnClickBorderGrow" }, dateID));
         return { element: element, dateID: dateID };
+    };
+    AClicker.prototype.trackSale = function () {
+        switch (this.props.PlantType) {
+            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot:
+                this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__.incrementCarrot)());
+                return;
+            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato:
+                this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__.incrementPotato)());
+                return;
+            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet:
+                this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__.incrementBeet)());
+                return;
+            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip:
+                this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__.incrementTurnip)());
+                return;
+            default:
+                return;
+        }
     };
     AClicker.prototype.removePulse = function (dateID) {
         var borders = this.state.borders;
@@ -28424,11 +28444,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _slices_counterSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../slices/counterSlice */ "./src/slices/counterSlice.ts");
 /* harmony import */ var _Clickers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Clickers */ "./src/components/Clickers.tsx");
 /* harmony import */ var _ProgressionList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProgressionList */ "./src/components/ProgressionList.tsx");
 /* harmony import */ var _AboutMe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AboutMe */ "./src/components/AboutMe.tsx");
+/* harmony import */ var _PlotStats__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PlotStats */ "./src/components/PlotStats.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28462,6 +28483,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+
 var AMain = /** @class */ (function (_super) {
     __extends(AMain, _super);
     function AMain(props) {
@@ -28470,11 +28492,12 @@ var AMain = /** @class */ (function (_super) {
             plotsSelected: true,
             upgradesSelected: false,
             aboutMeSelected: false,
+            plotStatsSelected: false,
         };
         return _this;
     }
     AMain.prototype.render = function () {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "Main", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderContainer", children: [this.getPlots(), this.getPlotUpgrades(), this.getAboutMe()] }), this.state.plotsSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clickers__WEBPACK_IMPORTED_MODULE_3__.Clickers, {}), this.state.upgradesSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionList__WEBPACK_IMPORTED_MODULE_4__.ProgressionList, {}), this.state.aboutMeSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_AboutMe__WEBPACK_IMPORTED_MODULE_5__.AboutMe, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "BoundryLine" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearCount.bind(this), children: "Clear Count" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearLocalStorage.bind(this), children: "LS Clear - Resets Progress" })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "Main", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderContainer", children: [this.getPlots(), this.getPlotUpgrades(), this.getPlotStats(), this.getAboutMe()] }), this.state.plotsSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Clickers__WEBPACK_IMPORTED_MODULE_3__.Clickers, {}), this.state.upgradesSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProgressionList__WEBPACK_IMPORTED_MODULE_4__.ProgressionList, {}), this.state.plotStatsSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PlotStats__WEBPACK_IMPORTED_MODULE_6__.PlotStats, {}), this.state.aboutMeSelected && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_AboutMe__WEBPACK_IMPORTED_MODULE_5__.AboutMe, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "BoundryLine" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearCount.bind(this), children: "Clear Count" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "DevButton", onClick: this.clearLocalStorage.bind(this), children: "LS Clear - Resets Progress" })] }));
     };
     AMain.prototype.getPlots = function () {
         var selected = this.state.plotsSelected ? "Selected" : "";
@@ -28485,6 +28508,7 @@ var AMain = /** @class */ (function (_super) {
             plotsSelected: true,
             upgradesSelected: false,
             aboutMeSelected: false,
+            plotStatsSelected: false,
         });
     };
     AMain.prototype.getPlotUpgrades = function () {
@@ -28496,6 +28520,7 @@ var AMain = /** @class */ (function (_super) {
             plotsSelected: false,
             upgradesSelected: true,
             aboutMeSelected: false,
+            plotStatsSelected: false,
         });
     };
     AMain.prototype.getAboutMe = function () {
@@ -28507,6 +28532,19 @@ var AMain = /** @class */ (function (_super) {
             plotsSelected: false,
             upgradesSelected: false,
             aboutMeSelected: true,
+            plotStatsSelected: false,
+        });
+    };
+    AMain.prototype.getPlotStats = function () {
+        var selected = this.state.plotStatsSelected ? "Selected" : "";
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "MainHeaderButton ".concat(selected), onClick: this.onPlotStatsClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader", children: "Plot Stats" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerHeader KorShimmer", children: "Plot Stats" })] }));
+    };
+    AMain.prototype.onPlotStatsClick = function () {
+        this.setState({
+            plotsSelected: false,
+            upgradesSelected: false,
+            aboutMeSelected: false,
+            plotStatsSelected: true,
         });
     };
     AMain.prototype.clearCount = function () {
@@ -28521,7 +28559,70 @@ var AMain = /** @class */ (function (_super) {
 function mapStateToProps(state, ownProps) {
     return __assign({}, ownProps);
 }
-var Main = (0,react_redux__WEBPACK_IMPORTED_MODULE_6__.connect)(mapStateToProps)(AMain);
+var Main = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(mapStateToProps)(AMain);
+
+
+/***/ }),
+
+/***/ "./src/components/PlotStats.tsx":
+/*!**************************************!*\
+  !*** ./src/components/PlotStats.tsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PlotStats: () => (/* binding */ PlotStats)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+var APlotStats = /** @class */ (function (_super) {
+    __extends(APlotStats, _super);
+    function APlotStats() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    APlotStats.prototype.render = function () {
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PlotStatsContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsHeader", children: "Here are the statistics for your plots!" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Current Kors: ".concat(this.props.count) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Total Kors Earned: ".concat(this.props.totalKorsEarned) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Total Plants Sold: ".concat(this.props.totalSold) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Carrots Sold: ".concat(this.props.totalCarrotsSold) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Potatos Sold: ".concat(this.props.totalPotatoSold) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Beets Sold: ".concat(this.props.totalBeetsSold) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Turnips Sold: ".concat(this.props.totalTurnipsSold) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsHeader", children: "Here are your multipliers, a plant sells for your (Garden Multiplier x Plant Multiplier):" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Garden Multiplier: ".concat(this.props.gardenMultiplier) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Carrot Multiplier: ".concat(this.props.carrotMultiplier) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Potato Multiplier: ".concat(this.props.potatoMultiplier) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Beet Multiplier: ".concat(this.props.beetMultiplier) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "PlotStatsValue", children: "Turnip Multiplier: ".concat(this.props.turnipMultiplier) })] }));
+    };
+    return APlotStats;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component));
+function mapStateToProps(state, ownProps) {
+    var _a = state.counter, count = _a.count, totalSold = _a.totalSold, totalCarrotsSold = _a.totalCarrotsSold, totalPotatoSold = _a.totalPotatoSold, totalBeetsSold = _a.totalBeetsSold, totalTurnipsSold = _a.totalTurnipsSold, totalKorsEarned = _a.totalKorsEarned;
+    var _b = state.progression, gardenMultiplier = _b.gardenMultiplier, carrotMultiplier = _b.carrotMultiplier, potatoMultiplier = _b.potatoMultiplier, beetMultiplier = _b.beetMultiplier, turnipMultiplier = _b.turnipMultiplier;
+    return __assign(__assign({}, ownProps), { count: count, totalSold: totalSold, totalCarrotsSold: totalCarrotsSold, totalPotatoSold: totalPotatoSold, totalBeetsSold: totalBeetsSold, totalTurnipsSold: totalTurnipsSold, totalKorsEarned: totalKorsEarned, gardenMultiplier: gardenMultiplier, carrotMultiplier: carrotMultiplier, potatoMultiplier: potatoMultiplier, beetMultiplier: beetMultiplier, turnipMultiplier: turnipMultiplier });
+}
+var PlotStats = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps)(APlotStats);
 
 
 /***/ }),
@@ -28592,7 +28693,7 @@ var AProgressionList = /** @class */ (function (_super) {
         var PlantsIsSelected = this.state.selectedProgression === _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons
             ? "Selected"
             : "";
-        var CorruptionIsSelected = this.state.selectedProgression === _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface
+        var CorruptionIsSelected = this.state.selectedProgression === _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption
             ? "Selected"
             : "";
         var CarrotIsSelected = this.state.selectedProgression === _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot
@@ -28605,7 +28706,7 @@ var AProgressionList = /** @class */ (function (_super) {
         var TurnipIsSelected = this.state.selectedProgression === _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip
             ? "Selected"
             : "";
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderBar", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(gardenIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(gardenIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.garden), children: "Garden" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(gardenIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.garden), children: "Garden" })] }, "garden"), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(PlantsIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PlantsIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons), children: "Plants" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PlantsIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons), children: "Plants" })] }, "plants"), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(CorruptionIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CorruptionIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface), children: "Corruption" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CorruptionIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface), children: "Corruption" })] }, "corruption"), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(CarrotIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CarrotIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot), children: "Carrot" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CarrotIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot), children: "Carrot" })] }, "carrot"), this.isPlantUnlocked(_slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(PotatoIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PotatoIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato), children: "Potato" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PotatoIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato), children: "Potato" })] }, "potato")), this.isPlantUnlocked(_slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(BeetIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(BeetIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet), children: "Beet" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(BeetIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet), children: "Beet" })] }, "Beet")), this.isPlantUnlocked(_slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(TurnipIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(TurnipIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip), children: "Turnip" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(TurnipIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip), children: "Turnip" })] }, "Turnip"))] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderBar", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(gardenIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(gardenIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.garden), children: "Garden" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(gardenIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.garden), children: "Garden" })] }, "garden"), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(PlantsIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PlantsIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons), children: "Plants" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PlantsIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons), children: "Plants" })] }, "plants"), this.isPlantUnlocked(_slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(CorruptionIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CorruptionIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption), children: "Corruption" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CorruptionIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption), children: "Corruption" })] }, "corruption")), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(CarrotIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CarrotIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot), children: "Carrot" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(CarrotIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot), children: "Carrot" })] }, "carrot"), this.isPlantUnlocked(_slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(PotatoIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PotatoIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato), children: "Potato" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(PotatoIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato), children: "Potato" })] }, "potato")), this.isPlantUnlocked(_slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(BeetIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(BeetIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet), children: "Beet" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(BeetIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet), children: "Beet" })] }, "Beet")), this.isPlantUnlocked(_slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionHeaderContainer ".concat(TurnipIsSelected), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(TurnipIsSelected, " KorShimmer"), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip), children: "Turnip" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionHeader ".concat(TurnipIsSelected), onClick: this.onHeaderClick.bind(this, _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip), children: "Turnip" })] }, "Turnip"))] }));
     };
     AProgressionList.prototype.onHeaderClick = function (type) {
         this.setState({
@@ -28618,8 +28719,8 @@ var AProgressionList = /** @class */ (function (_super) {
                 return true;
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons:
                 return true;
-            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface:
-                return this.props.gardenProgressionNodes["Skybox!"].isEarned;
+            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption:
+                return this.props.gardenProgressionNodes["Corruption"].isEarned;
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot:
                 return true;
             case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato:
@@ -28656,7 +28757,7 @@ var AProgressionList = /** @class */ (function (_super) {
                 return progList.sort(function (a, b) {
                     return _this.sortNodes(a, b);
                 });
-            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface:
+            case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption:
                 for (var key in this.props.userIntferfaceProgressionNodes) {
                     var node = this.props.userIntferfaceProgressionNodes[key];
                     if (this.checkBlockingNodes(node)) {
@@ -28746,7 +28847,7 @@ var AProgressionList = /** @class */ (function (_super) {
                         return false;
                     }
                     continue;
-                case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface:
+                case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption:
                     if (!this.props.userIntferfaceProgressionNodes[blockingNode.name]
                         .isEarned) {
                         return false;
@@ -28846,7 +28947,7 @@ var AProgressionNodeListing = /** @class */ (function (_super) {
     AProgressionNodeListing.prototype.render = function () {
         var isEarned = this.props.node.isEarned ? "Earned" : "";
         var cost = this.props.node.isEarned ? "Unlocked" : this.props.node.cost;
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionNodeListingInner ".concat(isEarned), onClick: this.onClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingName ".concat(isEarned), children: "".concat(this.props.node.name, ":") }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "ProgressionNodeListingCost ".concat(isEarned), children: [cost, !this.props.node.isEarned && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_5__.Kors, {})] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingDescription ".concat(isEarned), children: this.props.node.description })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ProgressionNodeListingInner ".concat(isEarned), onClick: this.onClick.bind(this), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingName ".concat(isEarned), children: "".concat(this.props.node.name, ":") }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "ProgressionNodeListingCost ".concat(isEarned), children: [cost, !this.props.node.isEarned && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_5__.Kors, {})] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingDescription ".concat(isEarned), children: this.props.node.description }), this.getMultiplier(isEarned)] }));
     };
     AProgressionNodeListing.prototype.onClick = function () {
         if (!this.props.node.isEarned && this.props.count >= this.props.node.cost) {
@@ -28858,7 +28959,7 @@ var AProgressionNodeListing = /** @class */ (function (_super) {
                 case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons:
                     this.props.dispatch((0,_slices_progressionSlice__WEBPACK_IMPORTED_MODULE_4__.addNewButtonProgression)(this.props.node));
                     return;
-                case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.userInterface:
+                case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption:
                     this.props.dispatch((0,_slices_progressionSlice__WEBPACK_IMPORTED_MODULE_4__.addUserInterfaceProgression)(this.props.node));
                     return;
                 case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot:
@@ -28878,6 +28979,13 @@ var AProgressionNodeListing = /** @class */ (function (_super) {
                     return;
             }
         }
+    };
+    AProgressionNodeListing.prototype.getMultiplier = function (isEarned) {
+        if (this.props.node.progressionType === _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.newButtons ||
+            this.props.node.progressionType === _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.corruption) {
+            return;
+        }
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ProgressionNodeListingDescription ".concat(isEarned), children: "Increases your ".concat(this.props.node.progressionType, " multiplier by ").concat(this.props.node.multiplier, ".") }));
     };
     return AProgressionNodeListing;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component));
@@ -28948,15 +29056,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   counterSlice: () => (/* binding */ counterSlice),
 /* harmony export */   decrement: () => (/* binding */ decrement),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   increment: () => (/* binding */ increment)
+/* harmony export */   increment: () => (/* binding */ increment),
+/* harmony export */   incrementBeet: () => (/* binding */ incrementBeet),
+/* harmony export */   incrementCarrot: () => (/* binding */ incrementCarrot),
+/* harmony export */   incrementPotato: () => (/* binding */ incrementPotato),
+/* harmony export */   incrementTurnip: () => (/* binding */ incrementTurnip)
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
 var _a;
 
 var localCount = localStorage.getItem("Count");
 var checkedCount = localCount == null ? 0 : parseInt(localCount);
+var localtotalSold = localStorage.getItem("TotalSold");
+var checkedtotalSold = localtotalSold == null ? 0 : parseInt(localtotalSold);
+var localtotalCarrotsSold = localStorage.getItem("TotalCarrotsSold");
+var checkedtotalCarrotsSold = localtotalCarrotsSold == null ? 0 : parseInt(localtotalCarrotsSold);
+var localtotalPotatoSold = localStorage.getItem("TotalPotatosSold");
+var checkedtotalPotatoSold = localtotalPotatoSold == null ? 0 : parseInt(localtotalPotatoSold);
+var localtotalBeetsSold = localStorage.getItem("TotalBeetsSold");
+var checkedtotalBeetsSold = localtotalBeetsSold == null ? 0 : parseInt(localtotalBeetsSold);
+var localtotalTurnipsSold = localStorage.getItem("TotalTurnipsSold");
+var checkedtotalTurnipsSold = localtotalTurnipsSold == null ? 0 : parseInt(localtotalTurnipsSold);
+var localtotalKorsEarned = localStorage.getItem("TotalKorsEarned");
+var checkedtotalKorsEarned = localtotalKorsEarned == null ? 0 : parseInt(localtotalKorsEarned);
 var defaultCounterState = {
     count: checkedCount,
+    totalSold: checkedtotalSold,
+    totalCarrotsSold: checkedtotalCarrotsSold,
+    totalPotatoSold: checkedtotalPotatoSold,
+    totalBeetsSold: checkedtotalBeetsSold,
+    totalTurnipsSold: checkedtotalTurnipsSold,
+    totalKorsEarned: checkedtotalKorsEarned,
 };
 var counterSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
     name: "counter",
@@ -28964,7 +29094,9 @@ var counterSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)
     reducers: {
         increment: function (state, action) {
             state.count += action.payload;
+            state.totalKorsEarned += action.payload;
             localStorage.setItem("Count", state.count.toString());
+            localStorage.setItem("TotalKorsEarned", state.totalKorsEarned.toString());
         },
         decrement: function (state, action) {
             if (state.count < action.payload) {
@@ -28980,10 +29112,34 @@ var counterSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)
             state.count = 0;
             localStorage.setItem("Count", "0");
         },
+        incrementCarrot: function (state) {
+            state.totalCarrotsSold += 1;
+            localStorage.setItem("TotalCarrotsSold", state.totalCarrotsSold.toString());
+            state.totalSold += 1;
+            localStorage.setItem("TotalSold", state.totalSold.toString());
+        },
+        incrementPotato: function (state) {
+            state.totalPotatoSold += 1;
+            localStorage.setItem("TotalPotatosSold", state.totalPotatoSold.toString());
+            state.totalSold += 1;
+            localStorage.setItem("TotalSold", state.totalSold.toString());
+        },
+        incrementBeet: function (state) {
+            state.totalBeetsSold += 1;
+            localStorage.setItem("TotalBeetsSold", state.totalBeetsSold.toString());
+            state.totalSold += 1;
+            localStorage.setItem("TotalSold", state.totalSold.toString());
+        },
+        incrementTurnip: function (state) {
+            state.totalTurnipsSold += 1;
+            localStorage.setItem("TotalTurnipsSold", state.totalBeetsSold.toString());
+            state.totalSold += 1;
+            localStorage.setItem("TotalSold", state.totalSold.toString());
+        },
     },
 });
 // Action creators are generated for each case reducer function
-var increment = (_a = counterSlice.actions, _a.increment), decrement = _a.decrement, clearCount = _a.clearCount;
+var increment = (_a = counterSlice.actions, _a.increment), decrement = _a.decrement, clearCount = _a.clearCount, incrementCarrot = _a.incrementCarrot, incrementPotato = _a.incrementPotato, incrementBeet = _a.incrementBeet, incrementTurnip = _a.incrementTurnip;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (counterSlice.reducer);
 
 
@@ -29003,7 +29159,7 @@ var ProgressionType;
 (function (ProgressionType) {
     ProgressionType["garden"] = "garden";
     ProgressionType["newButtons"] = "newButtons";
-    ProgressionType["userInterface"] = "userInterface";
+    ProgressionType["corruption"] = "corruption";
     ProgressionType["carrot"] = "carrot";
     ProgressionType["potato"] = "potato";
     ProgressionType["beet"] = "beet";
@@ -29098,7 +29254,7 @@ var localSecondPoint = localStorage.getItem(SecondPoint);
 CarrotProgressionNodeList[SecondPoint] = {
     name: SecondPoint,
     description: "The second point of progression! Worth significantly less.",
-    multiplier: 0.1,
+    multiplier: 1,
     cost: 100,
     isEarned: localSecondPoint != null && localSecondPoint === "true" ? true : false,
     progressionType: progressionType,
@@ -29176,6 +29332,22 @@ GardenProgressionNodeList[AboutMe] = {
 };
 if (!LocalAboutMe) {
     localStorage.setItem(AboutMe, "false");
+}
+// Unlock for the Corruption Progression Nodes
+var Corruption = "Corruption";
+var LocalCorruption = localStorage.getItem(Corruption);
+GardenProgressionNodeList[Corruption] = {
+    name: Corruption,
+    description: "With great power comes horrible UI design.", // description of the node.
+    multiplier: -1,
+    cost: 5000,
+    isEarned: LocalCorruption != null && LocalCorruption === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [],
+    hiddenUntilEarned: true,
+};
+if (!LocalCorruption) {
+    localStorage.setItem(Corruption, "false");
 }
 
 
@@ -29358,7 +29530,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helperStructs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helperStructs */ "./src/slices/helperStructs.ts");
 
 var UserInterfaceProgressionNodeList = {};
-var progressionType = _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.userInterface;
+var progressionType = _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.corruption;
 var ButtonsCanSpin = "YouSpinMeRightRound";
 var LocalButtonsCanSpin = localStorage.getItem(ButtonsCanSpin);
 UserInterfaceProgressionNodeList[ButtonsCanSpin] = {
@@ -29487,7 +29659,7 @@ var progressionSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_8__.createSl
         },
         addUserInterfaceProgression: function (state, action) {
             // make sure this is the correct progression type being added
-            if (action.payload.progressionType != _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.userInterface) {
+            if (action.payload.progressionType != _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.corruption) {
                 console.error("For some reason we tried to update Carrot Progression with this progression type? : ", action.payload.progressionType, "Here is the entire node passed in : ", action.payload);
                 return;
             }

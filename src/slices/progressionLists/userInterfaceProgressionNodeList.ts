@@ -2,7 +2,7 @@ import { Dictionary } from "lodash";
 import { ProgressionNode, ProgressionType } from "../helperStructs";
 
 export const UserInterfaceProgressionNodeList: Dictionary<ProgressionNode> = {};
-const progressionType: ProgressionType = ProgressionType.userInterface;
+const progressionType: ProgressionType = ProgressionType.corruption;
 
 const ButtonsCanSpin: string = "YouSpinMeRightRound";
 const LocalButtonsCanSpin = localStorage.getItem(ButtonsCanSpin);

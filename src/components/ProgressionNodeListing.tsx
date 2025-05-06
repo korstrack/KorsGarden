@@ -44,6 +44,7 @@ class AProgressionNodeListing extends React.Component<Props, State> {
         <span className={`ProgressionNodeListingDescription ${isEarned}`}>
           {this.props.node.description}
         </span>
+        {this.getMultiplier(isEarned)}
       </div>
     );
   }
@@ -58,7 +59,7 @@ class AProgressionNodeListing extends React.Component<Props, State> {
         case ProgressionType.newButtons:
           this.props.dispatch(addNewButtonProgression(this.props.node));
           return;
-        case ProgressionType.userInterface:
+        case ProgressionType.corruption:
           this.props.dispatch(addUserInterfaceProgression(this.props.node));
           return;
         case ProgressionType.carrot:
@@ -81,6 +82,20 @@ class AProgressionNodeListing extends React.Component<Props, State> {
           return;
       }
     }
+  }
+
+  private getMultiplier(isEarned: string): JSX.Element {
+    if (
+      this.props.node.progressionType === ProgressionType.newButtons ||
+      this.props.node.progressionType === ProgressionType.corruption
+    ) {
+      return;
+    }
+    return (
+      <span className={`ProgressionNodeListingDescription ${isEarned}`}>
+        {`Increases your ${this.props.node.progressionType} multiplier by ${this.props.node.multiplier}.`}
+      </span>
+    );
   }
 }
 

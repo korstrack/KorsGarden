@@ -5,7 +5,13 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { ProgressionNode, ProgressionType } from "../slices/helperStructs";
 import { Kors } from "./Icons/Kors";
-import { increment } from "../slices/counterSlice";
+import {
+  increment,
+  incrementBeet,
+  incrementCarrot,
+  incrementPotato,
+  incrementTurnip,
+} from "../slices/counterSlice";
 import { Dictionary } from "lodash";
 
 enum GrowthStage {
@@ -83,6 +89,7 @@ class AClicker extends React.Component<Props, State> {
       this.props.dispatch(
         increment(1 * this.props.plantMultiplier * this.props.gardenMultiplier)
       );
+      this.trackSale();
       const borders = this.state.borders;
       const pulse = this.getPulse();
       borders[pulse.dateID] = pulse.element;
@@ -90,6 +97,7 @@ class AClicker extends React.Component<Props, State> {
         growthStage: GrowthStage.Barren,
         borders,
       });
+      setTimeout(this.removePulse.bind(this, pulse.dateID), 3000);
     }
   }
 
@@ -99,6 +107,25 @@ class AClicker extends React.Component<Props, State> {
       <div className={`ClickerOnClickBorderGrow`} key={dateID}></div>
     );
     return { element, dateID };
+  }
+
+  private trackSale(): void {
+    switch (this.props.PlantType) {
+      case ProgressionType.carrot:
+        this.props.dispatch(incrementCarrot());
+        return;
+      case ProgressionType.potato:
+        this.props.dispatch(incrementPotato());
+        return;
+      case ProgressionType.beet:
+        this.props.dispatch(incrementBeet());
+        return;
+      case ProgressionType.turnip:
+        this.props.dispatch(incrementTurnip());
+        return;
+      default:
+        return;
+    }
   }
 
   private removePulse(dateID: string) {

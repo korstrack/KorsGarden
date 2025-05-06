@@ -5,7 +5,7 @@ import { ProgressionNode, ProgressionType } from "../helperStructs";
 export const TemplateProgressionNodeList: Dictionary<ProgressionNode> = {};
 
 // Set the type here so that it automatically matches for all nodes in this list.
-const progressionType: ProgressionType = ProgressionType.userInterface;
+const progressionType: ProgressionType = ProgressionType.corruption;
 
 // Uncomment for easier readying. Probably comment the unannotated one for fewer red lines too.
 // const Name: string = "NameOfNode"; // This will be the name of the node, both used in code and displayed to the user.

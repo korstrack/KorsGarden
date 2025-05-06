@@ -17,7 +17,7 @@ interface BlockingNode {
 export enum ProgressionType {
   garden = "garden", // this is progression for the garden as a whole
   newButtons = "newButtons", // these progression nodes unlock new buttons
-  userInterface = "userInterface", // this is progression that augments the users interaction with the UI
+  corruption = "corruption", // this is progression that augments the users interaction with the UI
   carrot = "carrot",
   potato = "potato",
   beet = "beet",

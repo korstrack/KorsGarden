@@ -39,3 +39,21 @@ GardenProgressionNodeList[AboutMe] = {
 if (!LocalAboutMe) {
   localStorage.setItem(AboutMe, "false");
 }
+
+// Unlock for the Corruption Progression Nodes
+const Corruption: string = "Corruption";
+const LocalCorruption = localStorage.getItem(Corruption);
+GardenProgressionNodeList[Corruption] = {
+  name: Corruption,
+  description: "With great power comes horrible UI design.", // description of the node.
+  multiplier: -1,
+  cost: 5000,
+  isEarned:
+    LocalCorruption != null && LocalCorruption === "true" ? true : false,
+  progressionType,
+  blockingNodes: [],
+  hiddenUntilEarned: true,
+};
+if (!LocalCorruption) {
+  localStorage.setItem(Corruption, "false");
+}

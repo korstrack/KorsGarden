@@ -49,7 +49,7 @@ class AProgressionList extends React.Component<Props, State> {
         ? "Selected"
         : "";
     const CorruptionIsSelected: string =
-      this.state.selectedProgression === ProgressionType.userInterface
+      this.state.selectedProgression === ProgressionType.corruption
         ? "Selected"
         : "";
     const CarrotIsSelected: string =
@@ -94,25 +94,27 @@ class AProgressionList extends React.Component<Props, State> {
             onClick={this.onHeaderClick.bind(this, ProgressionType.newButtons)}
           >{`Plants`}</span>
         </div>
-        <div
-          className={`ProgressionHeaderContainer ${CorruptionIsSelected}`}
-          key={"corruption"}
-        >
-          <span
-            className={`ProgressionHeader ${CorruptionIsSelected} KorShimmer`}
-            onClick={this.onHeaderClick.bind(
-              this,
-              ProgressionType.userInterface
-            )}
-          >{`Corruption`}</span>
-          <span
-            className={`ProgressionHeader ${CorruptionIsSelected}`}
-            onClick={this.onHeaderClick.bind(
-              this,
-              ProgressionType.userInterface
-            )}
-          >{`Corruption`}</span>
-        </div>
+        {this.isPlantUnlocked(ProgressionType.corruption) && (
+          <div
+            className={`ProgressionHeaderContainer ${CorruptionIsSelected}`}
+            key={"corruption"}
+          >
+            <span
+              className={`ProgressionHeader ${CorruptionIsSelected} KorShimmer`}
+              onClick={this.onHeaderClick.bind(
+                this,
+                ProgressionType.corruption
+              )}
+            >{`Corruption`}</span>
+            <span
+              className={`ProgressionHeader ${CorruptionIsSelected}`}
+              onClick={this.onHeaderClick.bind(
+                this,
+                ProgressionType.corruption
+              )}
+            >{`Corruption`}</span>
+          </div>
+        )}
         <div
           className={`ProgressionHeaderContainer ${CarrotIsSelected}`}
           key={"carrot"}
@@ -187,8 +189,8 @@ class AProgressionList extends React.Component<Props, State> {
         return true;
       case ProgressionType.newButtons:
         return true;
-      case ProgressionType.userInterface:
-        return this.props.gardenProgressionNodes["Skybox!"].isEarned;
+      case ProgressionType.corruption:
+        return this.props.gardenProgressionNodes["Corruption"].isEarned;
       case ProgressionType.carrot:
         return true;
       case ProgressionType.potato:
@@ -229,7 +231,7 @@ class AProgressionList extends React.Component<Props, State> {
         return progList.sort((a, b) => {
           return this.sortNodes(a, b);
         });
-      case ProgressionType.userInterface:
+      case ProgressionType.corruption:
         for (let key in this.props.userIntferfaceProgressionNodes) {
           const node = this.props.userIntferfaceProgressionNodes[key];
           if (this.checkBlockingNodes(node)) {
@@ -331,7 +333,7 @@ class AProgressionList extends React.Component<Props, State> {
             return false;
           }
           continue;
-        case ProgressionType.userInterface:
+        case ProgressionType.corruption:
           if (
             !this.props.userIntferfaceProgressionNodes[blockingNode.name]
               .isEarned

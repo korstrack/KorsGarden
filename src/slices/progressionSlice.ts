@@ -127,7 +127,7 @@ export const progressionSlice = createSlice({
       action: PayloadAction<ProgressionNode>
     ) => {
       // make sure this is the correct progression type being added
-      if (action.payload.progressionType != ProgressionType.userInterface) {
+      if (action.payload.progressionType != ProgressionType.corruption) {
         console.error(
           "For some reason we tried to update Carrot Progression with this progression type? : ",
           action.payload.progressionType,

@@ -29,7 +29,7 @@ const localSecondPoint = localStorage.getItem(SecondPoint);
 CarrotProgressionNodeList[SecondPoint] = {
   name: SecondPoint,
   description: "The second point of progression! Worth significantly less.",
-  multiplier: 0.1,
+  multiplier: 1,
   cost: 100,
   isEarned:
     localSecondPoint != null && localSecondPoint === "true" ? true : false,

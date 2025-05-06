@@ -7,6 +7,7 @@ import { clearCount } from "../slices/counterSlice";
 import { Clickers } from "./Clickers";
 import { ProgressionList } from "./ProgressionList";
 import { AboutMe } from "./AboutMe";
+import { PlotStats } from "./PlotStats";
 
 interface ReactProps {}
 interface InjectedProps {
@@ -17,6 +18,7 @@ interface State {
   plotsSelected: boolean;
   upgradesSelected: boolean;
   aboutMeSelected: boolean;
+  plotStatsSelected: boolean;
 }
 class AMain extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -25,6 +27,7 @@ class AMain extends React.Component<Props, State> {
       plotsSelected: true,
       upgradesSelected: false,
       aboutMeSelected: false,
+      plotStatsSelected: false,
     };
   }
   render(): JSX.Element {
@@ -33,10 +36,12 @@ class AMain extends React.Component<Props, State> {
         <div className={"MainHeaderContainer"}>
           {this.getPlots()}
           {this.getPlotUpgrades()}
+          {this.getPlotStats()}
           {this.getAboutMe()}
         </div>
         {this.state.plotsSelected && <Clickers />}
         {this.state.upgradesSelected && <ProgressionList />}
+        {this.state.plotStatsSelected && <PlotStats />}
         {this.state.aboutMeSelected && <AboutMe />}
         <div className={"BoundryLine"} />
         <div
@@ -69,6 +74,7 @@ class AMain extends React.Component<Props, State> {
       plotsSelected: true,
       upgradesSelected: false,
       aboutMeSelected: false,
+      plotStatsSelected: false,
     });
   }
 
@@ -90,6 +96,7 @@ class AMain extends React.Component<Props, State> {
       plotsSelected: false,
       upgradesSelected: true,
       aboutMeSelected: false,
+      plotStatsSelected: false,
     });
   }
 
@@ -111,6 +118,29 @@ class AMain extends React.Component<Props, State> {
       plotsSelected: false,
       upgradesSelected: false,
       aboutMeSelected: true,
+      plotStatsSelected: false,
+    });
+  }
+
+  private getPlotStats(): JSX.Element {
+    const selected = this.state.plotStatsSelected ? "Selected" : "";
+    return (
+      <div
+        className={`MainHeaderButton ${selected}`}
+        onClick={this.onPlotStatsClick.bind(this)}
+      >
+        <span className={"ClickerHeader"}>{`Plot Stats`}</span>
+        <span className={"ClickerHeader KorShimmer"}>{`Plot Stats`}</span>
+      </div>
+    );
+  }
+
+  private onPlotStatsClick(): void {
+    this.setState({
+      plotsSelected: false,
+      upgradesSelected: false,
+      aboutMeSelected: false,
+      plotStatsSelected: true,
     });
   }
 
