@@ -27978,10 +27978,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../slices/helperStructs */ "./src/slices/helperStructs.ts");
 /* harmony import */ var _Icons_Kors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icons/Kors */ "./src/components/Icons/Kors.tsx");
 /* harmony import */ var _slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../slices/counterSlice */ "./src/slices/counterSlice.ts");
+/* harmony import */ var _slices_progressionSlice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../slices/progressionSlice */ "./src/slices/progressionSlice.ts");
+/* harmony import */ var _Icons_Sun__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Icons/Sun */ "./src/components/Icons/Sun.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28014,6 +28016,8 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+
+
 var GrowthStage;
 (function (GrowthStage) {
     GrowthStage[GrowthStage["Barren"] = 0] = "Barren";
@@ -28036,7 +28040,11 @@ var AClicker = /** @class */ (function (_super) {
     AClicker.prototype.render = function () {
         var fullyGrown = this.state.growthStage === GrowthStage.FullyGrown ? "FullyGrown" : "";
         var skybox = this.getSkybox();
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerContainer", onClick: this.onClick.bind(this), children: [Object.values(this.state.borders), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerTextContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerPlantName", children: "".concat(this.props.PlantType) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerSaleDescriptionContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerSaleDescription", children: "Sells for ".concat(this.getSaleAmount(), " Kors") }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_3__.Kors, {})] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerPlantContainer ".concat(fullyGrown, " ").concat(skybox), children: [this.getSecondLeaf(fullyGrown), this.getFirstLeaf(fullyGrown), this.getStem(fullyGrown), this.getDirt(), this.getFullyGrownGlow(fullyGrown), this.getClickerInstructions(fullyGrown)] })] }));
+        if (this.props.gardenBreakPointsReached &&
+            !this.props.massProductionNode.isEarned) {
+            this.props.dispatch((0,_slices_progressionSlice__WEBPACK_IMPORTED_MODULE_5__.addGardenProgression)(this.props.massProductionNode));
+        }
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerContainer", onClick: this.onClick.bind(this), children: [Object.values(this.state.borders), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerTextContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerPlantName", children: "".concat(this.props.PlantType) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerSaleDescriptionContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerSaleDescription", children: "Sells for ".concat(this.getSaleAmount(), " Kors") }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_3__.Kors, {})] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerPlantContainer ".concat(fullyGrown, " ").concat(skybox), children: [this.getSun(), this.getSecondLeaf(fullyGrown), this.getFirstLeaf(fullyGrown), this.getStem(fullyGrown), this.getDirt(), this.getFullyGrownGlow(fullyGrown), this.getClickerInstructions(fullyGrown)] })] }));
     };
     AClicker.prototype.onClick = function () {
         if (this.state.growthStage < Object.keys(GrowthStage).length / 2 - 1) {
@@ -28050,7 +28058,7 @@ var AClicker = /** @class */ (function (_super) {
             setTimeout(this.removePulse.bind(this, pulse.dateID), 3000);
         }
         else {
-            this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__.increment)(1 * this.props.plantMultiplier * this.props.gardenMultiplier));
+            this.props.dispatch((0,_slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__.increment)(this.getSaleAmount()));
             this.trackSale();
             var borders = this.state.borders;
             var pulse = this.getPulse();
@@ -28089,8 +28097,20 @@ var AClicker = /** @class */ (function (_super) {
         var borders = this.state.borders;
         delete borders[dateID];
     };
+    // returns the sale price for this plant, calculated by multiplying the plantMultiplier, by the gardenMultiplier.
+    // the plantMultiplier is increased by number of the plant sold divided by the current gardenBreakPoint if mass producing.
     AClicker.prototype.getSaleAmount = function () {
-        return 1 * this.props.plantMultiplier * this.props.gardenMultiplier;
+        return (1 *
+            (this.props.plantMultiplier + this.getMassProductionMultiplier()) *
+            this.props.gardenMultiplier);
+    };
+    // if we've unlocked mass production, return the total sold of this plant over the gardenBreakpoint. truncated.
+    AClicker.prototype.getMassProductionMultiplier = function () {
+        var _a;
+        if ((_a = this.props.plantProductionNode) === null || _a === void 0 ? void 0 : _a.isEarned) {
+            return Math.trunc(this.props.totalSold / this.props.gardenBreakPoint);
+        }
+        return 1;
     };
     AClicker.prototype.getFullyGrownGlow = function (fullyGrown) {
         if (fullyGrown.length <= 0) {
@@ -28102,6 +28122,15 @@ var AClicker = /** @class */ (function (_super) {
         var _a;
         var nodeName = "".concat(this.props.PlantType, "box!");
         return ((_a = this.props.progression[nodeName]) === null || _a === void 0 ? void 0 : _a.isEarned) ? "Skybox" : "";
+    };
+    AClicker.prototype.getSun = function () {
+        var _a;
+        var nodeName = "".concat(this.props.PlantType, "Sun");
+        if ((_a = this.props.progression[nodeName]) === null || _a === void 0 ? void 0 : _a.isEarned) {
+            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Sun__WEBPACK_IMPORTED_MODULE_6__.Sun, {});
+        }
+        else
+            return;
     };
     AClicker.prototype.getClickerInstructions = function (fullyGrown) {
         var instructionText = fullyGrown.length <= 0 ? "Click Me To Grow!" : "Click Me To Sell!";
@@ -28138,21 +28167,24 @@ var AClicker = /** @class */ (function (_super) {
     return AClicker;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component));
 function mapStateToProps(state, ownProps) {
+    var gardenBreakPointsReached = state.counter.gardenBreakPointsReached;
+    var gardenBreakPoint = state.counter.gardenBreakPoint;
+    var massProductionNode = state.progression.gardenProgression["MassProduction"];
     switch (ownProps.PlantType) {
         case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.carrot:
-            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.carrotMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.carrotProgression });
+            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.carrotMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.carrotProgression, gardenBreakPointsReached: gardenBreakPointsReached, massProductionNode: massProductionNode, plantProductionNode: state.progression.carrotProgression["CarrotProduction!"], totalSold: state.counter.totalCarrotsSold, gardenBreakPoint: gardenBreakPoint });
         case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.potato:
-            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.potatoMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.potatoProgression });
+            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.potatoMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.potatoProgression, gardenBreakPointsReached: gardenBreakPointsReached, massProductionNode: massProductionNode, plantProductionNode: state.progression.potatoProgression["PotatoProduction!"], totalSold: state.counter.totalPotatoSold, gardenBreakPoint: gardenBreakPoint });
         case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.beet:
-            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.beetMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.beetProgression });
+            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.beetMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.beetProgression, gardenBreakPointsReached: gardenBreakPointsReached, massProductionNode: massProductionNode, plantProductionNode: state.progression.beetProgression["BeetProduction!"], totalSold: state.counter.totalBeetsSold, gardenBreakPoint: gardenBreakPoint });
         case _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__.ProgressionType.turnip:
-            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.turnipMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.turnipProgression });
+            return __assign(__assign({}, ownProps), { plantMultiplier: state.progression.turnipMultiplier, gardenMultiplier: state.progression.gardenMultiplier, progression: state.progression.turnipProgression, gardenBreakPointsReached: gardenBreakPointsReached, massProductionNode: massProductionNode, plantProductionNode: state.progression.turnipProgression["TurnipProduction!"], totalSold: state.counter.totalTurnipsSold, gardenBreakPoint: gardenBreakPoint });
         default:
             console.error("Improper Type used when creating clicker, unexpected type: ", ownProps.PlantType, "Setting multiplier to 1.");
-            return __assign(__assign({}, ownProps), { plantMultiplier: 1, gardenMultiplier: state.progression.gardenMultiplier, progression: {} });
+            return __assign(__assign({}, ownProps), { plantMultiplier: 1, gardenMultiplier: state.progression.gardenMultiplier, progression: {}, gardenBreakPointsReached: false, massProductionNode: massProductionNode, plantProductionNode: null, totalSold: 0, gardenBreakPoint: 100 });
     }
 }
-var Clicker = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.connect)(mapStateToProps)(AClicker);
+var Clicker = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(mapStateToProps)(AClicker);
 
 
 /***/ }),
@@ -28321,9 +28353,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Title */ "./src/components/Title.tsx");
 /* harmony import */ var _Counter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Counter */ "./src/components/Counter.tsx");
+/* harmony import */ var _Icons_Sun__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Icons/Sun */ "./src/components/Icons/Sun.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28355,6 +28388,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+
 var AHeader = /** @class */ (function (_super) {
     __extends(AHeader, _super);
     function AHeader() {
@@ -28364,7 +28398,14 @@ var AHeader = /** @class */ (function (_super) {
         var skybox = this.props.gardenProgression["Skybox!"].isEarned
             ? "Skybox"
             : "";
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "Header ".concat(skybox), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Title__WEBPACK_IMPORTED_MODULE_2__.Title, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Counter__WEBPACK_IMPORTED_MODULE_3__.Counter, {})] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "Header ".concat(skybox), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Title__WEBPACK_IMPORTED_MODULE_2__.Title, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Counter__WEBPACK_IMPORTED_MODULE_3__.Counter, {}), this.getSun()] }));
+    };
+    AHeader.prototype.getSun = function () {
+        if (this.props.gardenProgression["LET THERE BE LIGHT"].isEarned) {
+            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Sun__WEBPACK_IMPORTED_MODULE_4__.Sun, {});
+        }
+        else
+            return;
     };
     return AHeader;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component));
@@ -28372,7 +28413,7 @@ function mapStateToProps(state, ownProps) {
     var gardenProgression = state.progression.gardenProgression;
     return __assign(__assign({}, ownProps), { gardenProgression: gardenProgression });
 }
-var Header = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.connect)(mapStateToProps)(AHeader);
+var Header = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.connect)(mapStateToProps)(AHeader);
 
 
 /***/ }),
@@ -28427,6 +28468,67 @@ var Kors = /** @class */ (function (_super) {
     return Kors;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component));
 
+
+
+/***/ }),
+
+/***/ "./src/components/Icons/Sun.tsx":
+/*!**************************************!*\
+  !*** ./src/components/Icons/Sun.tsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Sun: () => (/* binding */ Sun)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+var ASun = /** @class */ (function (_super) {
+    __extends(ASun, _super);
+    function ASun() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ASun.prototype.render = function () {
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { height: "5vw", width: "5vw", xmlns: "http://www.w3.org/2000/svg", className: "Sun", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("ellipse", { rx: "5vw", ry: "5vw", cx: "5vw", cy: "0", fill: "yellow" }) }));
+    };
+    return ASun;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component));
+function mapStateToProps(state, ownProps) {
+    return __assign({}, ownProps);
+}
+var Sun = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps)(ASun);
 
 
 /***/ }),
@@ -29079,6 +29181,24 @@ var localtotalTurnipsSold = localStorage.getItem("TotalTurnipsSold");
 var checkedtotalTurnipsSold = localtotalTurnipsSold == null ? 0 : parseInt(localtotalTurnipsSold);
 var localtotalKorsEarned = localStorage.getItem("TotalKorsEarned");
 var checkedtotalKorsEarned = localtotalKorsEarned == null ? 0 : parseInt(localtotalKorsEarned);
+var localGardenBreakPoint = localStorage.getItem("GardenBreakPoint");
+var checkedGardenBreakPoint = localGardenBreakPoint == null ? 100 : parseInt(localGardenBreakPoint);
+var localCarrotBreakPointReached = localStorage.getItem("CarrotBreakPointReached");
+var checkedCarrotBreakPointReached = localCarrotBreakPointReached == null
+    ? false
+    : localCarrotBreakPointReached === "true";
+var localPotatoBreakPointReached = localStorage.getItem("PotatoBreakPointReached");
+var checkedPotatoBreakPointReached = localPotatoBreakPointReached == null
+    ? false
+    : localPotatoBreakPointReached === "true";
+var localBeetBreakPointReached = localStorage.getItem("BeetBreakPointReached");
+var checkedBeetBreakPointReached = localBeetBreakPointReached == null
+    ? false
+    : localBeetBreakPointReached === "true";
+var localTunripBreakPointReached = localStorage.getItem("TurnipBreakPointReached");
+var checkedTurnipBreakPointReached = localTunripBreakPointReached == null
+    ? false
+    : localTunripBreakPointReached === "true";
 var defaultCounterState = {
     count: checkedCount,
     totalSold: checkedtotalSold,
@@ -29087,6 +29207,15 @@ var defaultCounterState = {
     totalBeetsSold: checkedtotalBeetsSold,
     totalTurnipsSold: checkedtotalTurnipsSold,
     totalKorsEarned: checkedtotalKorsEarned,
+    gardenBreakPoint: checkedGardenBreakPoint,
+    carrotBreakPointReached: checkedCarrotBreakPointReached,
+    potatoBreakPointReached: checkedPotatoBreakPointReached,
+    beetBreakPointReached: checkedBeetBreakPointReached,
+    turnipBreakPointReached: checkedTurnipBreakPointReached,
+    gardenBreakPointsReached: checkedCarrotBreakPointReached &&
+        checkedPotatoBreakPointReached &&
+        checkedBeetBreakPointReached &&
+        checkedTurnipBreakPointReached,
 };
 var counterSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
     name: "counter",
@@ -29117,24 +29246,68 @@ var counterSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)
             localStorage.setItem("TotalCarrotsSold", state.totalCarrotsSold.toString());
             state.totalSold += 1;
             localStorage.setItem("TotalSold", state.totalSold.toString());
+            if (!state.carrotBreakPointReached) {
+                if (state.totalCarrotsSold >= state.gardenBreakPoint) {
+                    state.carrotBreakPointReached = true;
+                    state.gardenBreakPointsReached =
+                        state.carrotBreakPointReached &&
+                            state.potatoBreakPointReached &&
+                            state.beetBreakPointReached &&
+                            state.turnipBreakPointReached;
+                    localStorage.setItem("CarrotBreakPointReached", state.carrotBreakPointReached.toString());
+                }
+            }
         },
         incrementPotato: function (state) {
             state.totalPotatoSold += 1;
             localStorage.setItem("TotalPotatosSold", state.totalPotatoSold.toString());
             state.totalSold += 1;
             localStorage.setItem("TotalSold", state.totalSold.toString());
+            if (!state.potatoBreakPointReached) {
+                if (state.totalPotatoSold >= state.gardenBreakPoint) {
+                    state.potatoBreakPointReached = true;
+                    state.gardenBreakPointsReached =
+                        state.carrotBreakPointReached &&
+                            state.potatoBreakPointReached &&
+                            state.beetBreakPointReached &&
+                            state.turnipBreakPointReached;
+                    localStorage.setItem("PotatoBreakPointReached", state.potatoBreakPointReached.toString());
+                }
+            }
         },
         incrementBeet: function (state) {
             state.totalBeetsSold += 1;
             localStorage.setItem("TotalBeetsSold", state.totalBeetsSold.toString());
             state.totalSold += 1;
             localStorage.setItem("TotalSold", state.totalSold.toString());
+            if (!state.beetBreakPointReached) {
+                if (state.totalBeetsSold >= state.gardenBreakPoint) {
+                    state.beetBreakPointReached = true;
+                    state.gardenBreakPointsReached =
+                        state.carrotBreakPointReached &&
+                            state.potatoBreakPointReached &&
+                            state.beetBreakPointReached &&
+                            state.turnipBreakPointReached;
+                    localStorage.setItem("BeetBreakPointReached", state.beetBreakPointReached.toString());
+                }
+            }
         },
         incrementTurnip: function (state) {
             state.totalTurnipsSold += 1;
             localStorage.setItem("TotalTurnipsSold", state.totalBeetsSold.toString());
             state.totalSold += 1;
             localStorage.setItem("TotalSold", state.totalSold.toString());
+            if (!state.turnipBreakPointReached) {
+                if (state.totalTurnipsSold >= state.gardenBreakPoint) {
+                    state.turnipBreakPointReached = true;
+                    state.gardenBreakPointsReached =
+                        state.carrotBreakPointReached &&
+                            state.potatoBreakPointReached &&
+                            state.beetBreakPointReached &&
+                            state.turnipBreakPointReached;
+                    localStorage.setItem("TunripBreakPointReached", state.turnipBreakPointReached.toString());
+                }
+            }
         },
     },
 });
@@ -29200,6 +29373,41 @@ BeetProgressionNodeList[BeetsMe] = {
 if (!LocalBeetsMe) {
     localStorage.setItem(BeetsMe, "false");
 }
+var BeetsByMe = "BeetsByMe!";
+var LocalBeetsByMe = localStorage.getItem(BeetsByMe);
+BeetProgressionNodeList[BeetsByMe] = {
+    name: BeetsByMe,
+    description: "Well I mean you're growing them, but it's still my farm, yaknow?",
+    multiplier: 1.0,
+    cost: 5000,
+    isEarned: LocalBeetsByMe != null && LocalBeetsByMe === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.beet, name: "BeetsMe!" }],
+    hiddenUntilEarned: false,
+};
+if (!LocalBeetsByMe) {
+    localStorage.setItem(BeetsByMe, "false");
+}
+var BeetUpTheCompetition = "BeetUpTheCompetition!";
+var LocalBeetUpTheCompetition = localStorage.getItem(BeetUpTheCompetition);
+BeetProgressionNodeList[BeetUpTheCompetition] = {
+    name: BeetUpTheCompetition,
+    description: "We can't all be winners, but with produce like these their heads can't handle us!",
+    multiplier: 15.0,
+    cost: 35000,
+    isEarned: LocalBeetUpTheCompetition != null && LocalBeetUpTheCompetition === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.beet, name: "BeetsByMe!" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!LocalBeetUpTheCompetition) {
+    localStorage.setItem(BeetUpTheCompetition, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
 var Skybox = "beetbox!";
 var localSkybox = localStorage.getItem(Skybox);
 BeetProgressionNodeList[Skybox] = {
@@ -29214,6 +29422,43 @@ BeetProgressionNodeList[Skybox] = {
 };
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
+}
+var BeetProduction = "BeetProduction!";
+var localBeetProduction = localStorage.getItem(BeetProduction);
+BeetProgressionNodeList[BeetProduction] = {
+    name: BeetProduction,
+    description: "You've earned a nice reputation selling plants. Keep at it. Now you're price will go up as you sell more.",
+    multiplier: 5,
+    cost: 100,
+    isEarned: localBeetProduction != null && localBeetProduction === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "MassProduction" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localBeetProduction) {
+    localStorage.setItem(BeetProduction, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
+var BeetSun = "beetSun";
+var localBeetSun = localStorage.getItem(BeetSun);
+BeetProgressionNodeList[BeetSun] = {
+    name: BeetSun,
+    description: "This is not a command.",
+    multiplier: 5,
+    cost: 5000,
+    isEarned: localBeetSun != null && localBeetSun === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "LET THERE BE LIGHT" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localBeetSun) {
+    localStorage.setItem(BeetSun, "false");
 }
 
 
@@ -29253,17 +29498,92 @@ var SecondPoint = "SecondPoint";
 var localSecondPoint = localStorage.getItem(SecondPoint);
 CarrotProgressionNodeList[SecondPoint] = {
     name: SecondPoint,
-    description: "The second point of progression! Worth significantly less.",
+    description: "The second point of progression! Significantly less bang for your Kors.",
     multiplier: 1,
     cost: 100,
     isEarned: localSecondPoint != null && localSecondPoint === "true" ? true : false,
     progressionType: progressionType,
-    blockingNodes: [],
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.carrot, name: "GotThePoint" },
+    ],
     hiddenUntilEarned: false,
 };
 if (!localSecondPoint) {
     localStorage.setItem(SecondPoint, "false");
 }
+var BiggerRoots = "BiggerRoots";
+var localBiggerRoots = localStorage.getItem(BiggerRoots);
+CarrotProgressionNodeList[BiggerRoots] = {
+    name: BiggerRoots,
+    description: "We swear the roots got bigger, you just can't tell. Trust.",
+    multiplier: 1,
+    cost: 1000,
+    isEarned: localBiggerRoots != null && localBiggerRoots === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.carrot, name: "SecondPoint" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localBiggerRoots) {
+    localStorage.setItem(BiggerRoots, "false");
+}
+var GreenerLeaves = "GreenerLeaves";
+var localGreenerLeaves = localStorage.getItem(GreenerLeaves);
+CarrotProgressionNodeList[GreenerLeaves] = {
+    name: GreenerLeaves,
+    description: "Yep, those look way healthier.",
+    multiplier: 1,
+    cost: 10000,
+    isEarned: localGreenerLeaves != null && localGreenerLeaves === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.carrot, name: "BiggerRoots" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localGreenerLeaves) {
+    localStorage.setItem(GreenerLeaves, "false");
+}
+var FirstThereIsTheCarrot = "FirstThereIsTheCarrot";
+var localFirstThereIsTheCarrot = localStorage.getItem(FirstThereIsTheCarrot);
+CarrotProgressionNodeList[FirstThereIsTheCarrot] = {
+    name: FirstThereIsTheCarrot,
+    description: "You don't want me to have to go get the stick.",
+    multiplier: 1,
+    cost: 30000,
+    isEarned: localFirstThereIsTheCarrot != null && localFirstThereIsTheCarrot === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.carrot, name: "GreenerLeaves" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localFirstThereIsTheCarrot) {
+    localStorage.setItem(FirstThereIsTheCarrot, "false");
+}
+var JKTheStickIsGreat = "JKTheStickIsGreat";
+var localJKTheStickIsGreat = localStorage.getItem(JKTheStickIsGreat);
+CarrotProgressionNodeList[JKTheStickIsGreat] = {
+    name: JKTheStickIsGreat,
+    description: "I lied the stick is amazing, you really wanted this.",
+    multiplier: 15,
+    cost: 100000,
+    isEarned: localJKTheStickIsGreat != null && localJKTheStickIsGreat === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.carrot, name: "FirstThereIsTheCarrot" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localJKTheStickIsGreat) {
+    localStorage.setItem(JKTheStickIsGreat, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
 var Skybox = "carrotbox!";
 var localSkybox = localStorage.getItem(Skybox);
 CarrotProgressionNodeList[Skybox] = {
@@ -29279,9 +29599,43 @@ CarrotProgressionNodeList[Skybox] = {
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
 }
-// export function getPointProgressionNodeList(): Dictionary<ProgressionNode> {
-//   return PointProgressionNodeList;
-// }
+var CarrotProduction = "CarrotProduction!";
+var localCarrotProduction = localStorage.getItem(CarrotProduction);
+CarrotProgressionNodeList[CarrotProduction] = {
+    name: CarrotProduction,
+    description: "You've earned a nice reputation selling plants. Keep at it. Now you're price will go up as you sell more.",
+    multiplier: 5,
+    cost: 100,
+    isEarned: localCarrotProduction != null && localCarrotProduction === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "MassProduction" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localCarrotProduction) {
+    localStorage.setItem(CarrotProduction, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
+var CarrotSun = "carrotSun";
+var localCarrotSun = localStorage.getItem(CarrotSun);
+CarrotProgressionNodeList[CarrotSun] = {
+    name: CarrotSun,
+    description: "Allow your carrots to embrace the gentle caress of the great Sol.",
+    multiplier: 5,
+    cost: 5000,
+    isEarned: localCarrotSun != null && localCarrotSun === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "LET THERE BE LIGHT" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localCarrotSun) {
+    localStorage.setItem(CarrotSun, "false");
+}
 
 
 /***/ }),
@@ -29348,6 +29702,42 @@ GardenProgressionNodeList[Corruption] = {
 };
 if (!LocalCorruption) {
     localStorage.setItem(Corruption, "false");
+}
+// Unlocks the scaling multiplier nodes for each plant
+var MassProduction = "MassProduction";
+var LocalMassProduction = localStorage.getItem(MassProduction);
+GardenProgressionNodeList[MassProduction] = {
+    name: MassProduction,
+    description: "Congratulations on selling all those plants! You're way better at it now that you've tried so many times.", // description of the node.
+    multiplier: 5,
+    cost: 0,
+    isEarned: LocalMassProduction != null && LocalMassProduction === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [],
+    hiddenUntilEarned: true,
+};
+if (!LocalMassProduction) {
+    localStorage.setItem(MassProduction, "false");
+}
+// Unlocks the sun
+var LETTHEREBELIGHT = "LET THERE BE LIGHT";
+var LocalLETTHEREBELIGHT = localStorage.getItem(LETTHEREBELIGHT);
+GardenProgressionNodeList[LETTHEREBELIGHT] = {
+    name: LETTHEREBELIGHT,
+    description: "Praise The Sun!",
+    multiplier: 5,
+    cost: 10000,
+    isEarned: LocalLETTHEREBELIGHT != null && LocalLETTHEREBELIGHT === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Skybox!" }],
+    hiddenUntilEarned: false,
+};
+if (!LocalLETTHEREBELIGHT) {
+    localStorage.setItem(LETTHEREBELIGHT, "false");
 }
 
 
@@ -29448,7 +29838,62 @@ PotatoProgressionNodeList[MoreNubby] = {
 if (!LocalMoreNubby) {
     localStorage.setItem(MoreNubby, "false");
 }
-var Skybox = "potatobox!";
+var RounderNubs = "RounderNubs";
+var LocalRounderNubs = localStorage.getItem(RounderNubs);
+PotatoProgressionNodeList[RounderNubs] = {
+    name: RounderNubs,
+    description: "Lets round out our taters a bit.",
+    multiplier: 1.0,
+    cost: 200,
+    isEarned: LocalRounderNubs != null && LocalRounderNubs === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.potato, name: "MoreNubby" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!LocalRounderNubs) {
+    localStorage.setItem(RounderNubs, "false");
+}
+var SpottyNubs = "SpottyNubs";
+var LocalSpottyNubs = localStorage.getItem(SpottyNubs);
+PotatoProgressionNodeList[SpottyNubs] = {
+    name: SpottyNubs,
+    description: "These are the good type of spots.",
+    multiplier: 1.0,
+    cost: 500,
+    isEarned: LocalSpottyNubs != null && LocalSpottyNubs === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.potato, name: "RounderNubs" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!LocalSpottyNubs) {
+    localStorage.setItem(SpottyNubs, "false");
+}
+var PoooooEmphasisOnTheToes = "Pooooo-emphasis-on-the-toes";
+var LocalPoooooEmphasisOnTheToes = localStorage.getItem(PoooooEmphasisOnTheToes);
+PotatoProgressionNodeList[PoooooEmphasisOnTheToes] = {
+    name: PoooooEmphasisOnTheToes,
+    description: "Look if we market them this way some people just really want to spend more Kors on them for some reason.",
+    multiplier: 15.0,
+    cost: 15000,
+    isEarned: LocalPoooooEmphasisOnTheToes != null &&
+        LocalPoooooEmphasisOnTheToes === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.potato, name: "SpottyNubs" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!LocalPoooooEmphasisOnTheToes) {
+    localStorage.setItem(PoooooEmphasisOnTheToes, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
+var Skybox = "botatobox!";
 var localSkybox = localStorage.getItem(Skybox);
 PotatoProgressionNodeList[Skybox] = {
     name: Skybox,
@@ -29462,6 +29907,43 @@ PotatoProgressionNodeList[Skybox] = {
 };
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
+}
+var PotatoProduction = "PotatoProduction!";
+var localPotatoProduction = localStorage.getItem(PotatoProduction);
+PotatoProgressionNodeList[PotatoProduction] = {
+    name: PotatoProduction,
+    description: "You've earned a nice reputation selling plants. Keep at it. Now you're price will go up as you sell more.",
+    multiplier: 5,
+    cost: 100,
+    isEarned: localPotatoProduction != null && localPotatoProduction === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "MassProduction" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localPotatoProduction) {
+    localStorage.setItem(PotatoProduction, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
+var PotatoSun = "potatoSun";
+var localPotatoSun = localStorage.getItem(PotatoSun);
+PotatoProgressionNodeList[PotatoSun] = {
+    name: PotatoSun,
+    description: "It works just as well as the other Suns on the market.",
+    multiplier: 5,
+    cost: 5000,
+    isEarned: localPotatoSun != null && localPotatoSun === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "LET THERE BE LIGHT" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localPotatoSun) {
+    localStorage.setItem(PotatoSun, "false");
 }
 
 
@@ -29498,6 +29980,54 @@ TurnipProgressionNodeList[TurnipForWhat] = {
 if (!LocalTurnipForWhat) {
     localStorage.setItem(TurnipForWhat, "false");
 }
+var TurnIn = "TurnIn";
+var LocalTurnIn = localStorage.getItem(TurnIn);
+TurnipProgressionNodeList[TurnIn] = {
+    name: TurnIn,
+    description: "More like we can turn these in for more Kors now amIRight???",
+    multiplier: 1.0,
+    cost: 2000,
+    isEarned: LocalTurnIn != null && LocalTurnIn === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.turnip, name: "TurnipForWhat" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!LocalTurnIn) {
+    localStorage.setItem(TurnIn, "false");
+}
+var Bleach = "Bleach";
+var LocalBleach = localStorage.getItem(Bleach);
+TurnipProgressionNodeList[Bleach] = {
+    name: Bleach,
+    description: "It's organic tho, I swear.",
+    multiplier: 1.0,
+    cost: 5000,
+    isEarned: LocalBleach != null && LocalBleach === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.turnip, name: "TurnIn" }],
+    hiddenUntilEarned: false,
+};
+if (!LocalBleach) {
+    localStorage.setItem(Bleach, "false");
+}
+var TurnUpTheGMO = "TurnUpTheGMO";
+var LocalTurnUpTheGMO = localStorage.getItem(TurnUpTheGMO);
+TurnipProgressionNodeList[TurnUpTheGMO] = {
+    name: TurnUpTheGMO,
+    description: "All naturally enchanced with science!",
+    multiplier: 15.0,
+    cost: 500000,
+    isEarned: LocalTurnUpTheGMO != null && LocalTurnUpTheGMO === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [{ progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.turnip, name: "Bleach" }],
+    hiddenUntilEarned: false,
+};
+if (!LocalTurnUpTheGMO) {
+    localStorage.setItem(TurnUpTheGMO, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
 var Skybox = "turnipbox!";
 var localSkybox = localStorage.getItem(Skybox);
 TurnipProgressionNodeList[Skybox] = {
@@ -29512,6 +30042,43 @@ TurnipProgressionNodeList[Skybox] = {
 };
 if (!localSkybox) {
     localStorage.setItem(Skybox, "false");
+}
+var TurnipProduction = "TurnipProduction!";
+var localTurnipProduction = localStorage.getItem(TurnipProduction);
+TurnipProgressionNodeList[TurnipProduction] = {
+    name: TurnipProduction,
+    description: "You've earned a nice reputation selling plants. Keep at it. Now you're price will go up as you sell more.",
+    multiplier: 5,
+    cost: 100,
+    isEarned: localTurnipProduction != null && localTurnipProduction === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "MassProduction" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localTurnipProduction) {
+    localStorage.setItem(TurnipProduction, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
+var TurnipSun = "turnipSun";
+var localTurnipSun = localStorage.getItem(TurnipSun);
+TurnipProgressionNodeList[TurnipSun] = {
+    name: TurnipSun,
+    description: "If you add spaces to the title you get 'Turn IP Sun', which is neat ain't it?",
+    multiplier: 5,
+    cost: 5000,
+    isEarned: localTurnipSun != null && localTurnipSun === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "LET THERE BE LIGHT" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localTurnipSun) {
+    localStorage.setItem(TurnipSun, "false");
 }
 
 

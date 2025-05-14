@@ -57,3 +57,44 @@ GardenProgressionNodeList[Corruption] = {
 if (!LocalCorruption) {
   localStorage.setItem(Corruption, "false");
 }
+
+// Unlocks the scaling multiplier nodes for each plant
+const MassProduction: string = "MassProduction";
+const LocalMassProduction = localStorage.getItem(MassProduction);
+GardenProgressionNodeList[MassProduction] = {
+  name: MassProduction,
+  description:
+    "Congratulations on selling all those plants! You're way better at it now that you've tried so many times.", // description of the node.
+  multiplier: 5,
+  cost: 0,
+  isEarned:
+    LocalMassProduction != null && LocalMassProduction === "true"
+      ? true
+      : false,
+  progressionType,
+  blockingNodes: [],
+  hiddenUntilEarned: true,
+};
+if (!LocalMassProduction) {
+  localStorage.setItem(MassProduction, "false");
+}
+
+// Unlocks the sun
+const LETTHEREBELIGHT: string = "LET THERE BE LIGHT";
+const LocalLETTHEREBELIGHT = localStorage.getItem(LETTHEREBELIGHT);
+GardenProgressionNodeList[LETTHEREBELIGHT] = {
+  name: LETTHEREBELIGHT,
+  description: "Praise The Sun!",
+  multiplier: 5,
+  cost: 10000,
+  isEarned:
+    LocalLETTHEREBELIGHT != null && LocalLETTHEREBELIGHT === "true"
+      ? true
+      : false,
+  progressionType,
+  blockingNodes: [{ progressionType: ProgressionType.garden, name: "Skybox!" }],
+  hiddenUntilEarned: false,
+};
+if (!LocalLETTHEREBELIGHT) {
+  localStorage.setItem(LETTHEREBELIGHT, "false");
+}

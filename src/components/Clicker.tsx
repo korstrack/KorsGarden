@@ -13,6 +13,8 @@ import {
   incrementTurnip,
 } from "../slices/counterSlice";
 import { Dictionary } from "lodash";
+import { addGardenProgression } from "../slices/progressionSlice";
+import { Sun } from "./Icons/Sun";
 
 enum GrowthStage {
   Barren,
@@ -30,6 +32,11 @@ interface InjectedProps {
   plantMultiplier: number;
   gardenMultiplier: number;
   progression: Dictionary<ProgressionNode>;
+  gardenBreakPointsReached: boolean;
+  gardenBreakPoint: number;
+  massProductionNode: ProgressionNode;
+  plantProductionNode: ProgressionNode;
+  totalSold: number;
   dispatch?: Dispatch;
 }
 type Props = ReactProps & InjectedProps;
@@ -49,6 +56,12 @@ class AClicker extends React.Component<Props, State> {
     const fullyGrown: string =
       this.state.growthStage === GrowthStage.FullyGrown ? "FullyGrown" : "";
     const skybox: string = this.getSkybox();
+    if (
+      this.props.gardenBreakPointsReached &&
+      !this.props.massProductionNode.isEarned
+    ) {
+      this.props.dispatch(addGardenProgression(this.props.massProductionNode));
+    }
     return (
       <div className={"ClickerContainer"} onClick={this.onClick.bind(this)}>
         {Object.values(this.state.borders)}
@@ -64,6 +77,7 @@ class AClicker extends React.Component<Props, State> {
           </div>
         </div>
         <div className={`ClickerPlantContainer ${fullyGrown} ${skybox}`}>
+          {this.getSun()}
           {this.getSecondLeaf(fullyGrown)}
           {this.getFirstLeaf(fullyGrown)}
           {this.getStem(fullyGrown)}
@@ -86,9 +100,7 @@ class AClicker extends React.Component<Props, State> {
       });
       setTimeout(this.removePulse.bind(this, pulse.dateID), 3000);
     } else {
-      this.props.dispatch(
-        increment(1 * this.props.plantMultiplier * this.props.gardenMultiplier)
-      );
+      this.props.dispatch(increment(this.getSaleAmount()));
       this.trackSale();
       const borders = this.state.borders;
       const pulse = this.getPulse();
@@ -133,8 +145,22 @@ class AClicker extends React.Component<Props, State> {
     delete borders[dateID];
   }
 
+  // returns the sale price for this plant, calculated by multiplying the plantMultiplier, by the gardenMultiplier.
+  // the plantMultiplier is increased by number of the plant sold divided by the current gardenBreakPoint if mass producing.
   private getSaleAmount(): number {
-    return 1 * this.props.plantMultiplier * this.props.gardenMultiplier;
+    return (
+      1 *
+      (this.props.plantMultiplier + this.getMassProductionMultiplier()) *
+      this.props.gardenMultiplier
+    );
+  }
+
+  // if we've unlocked mass production, return the total sold of this plant over the gardenBreakpoint. truncated.
+  private getMassProductionMultiplier(): number {
+    if (this.props.plantProductionNode?.isEarned) {
+      return Math.trunc(this.props.totalSold / this.props.gardenBreakPoint);
+    }
+    return 1;
   }
 
   private getFullyGrownGlow(fullyGrown: string) {
@@ -147,6 +173,13 @@ class AClicker extends React.Component<Props, State> {
   private getSkybox(): string {
     const nodeName = `${this.props.PlantType}box!`;
     return this.props.progression[nodeName]?.isEarned ? "Skybox" : "";
+  }
+
+  private getSun(): JSX.Element {
+    const nodeName = `${this.props.PlantType}Sun`;
+    if (this.props.progression[nodeName]?.isEarned) {
+      return <Sun />;
+    } else return;
   }
 
   private getClickerInstructions(fullyGrown: string): JSX.Element {
@@ -401,6 +434,10 @@ class AClicker extends React.Component<Props, State> {
 }
 
 function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
+  const gardenBreakPointsReached = state.counter.gardenBreakPointsReached;
+  const gardenBreakPoint = state.counter.gardenBreakPoint;
+  const massProductionNode =
+    state.progression.gardenProgression["MassProduction"];
   switch (ownProps.PlantType) {
     case ProgressionType.carrot:
       return {
@@ -408,6 +445,12 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
         plantMultiplier: state.progression.carrotMultiplier,
         gardenMultiplier: state.progression.gardenMultiplier,
         progression: state.progression.carrotProgression,
+        gardenBreakPointsReached,
+        massProductionNode,
+        plantProductionNode:
+          state.progression.carrotProgression["CarrotProduction!"],
+        totalSold: state.counter.totalCarrotsSold,
+        gardenBreakPoint,
       };
     case ProgressionType.potato:
       return {
@@ -415,6 +458,12 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
         plantMultiplier: state.progression.potatoMultiplier,
         gardenMultiplier: state.progression.gardenMultiplier,
         progression: state.progression.potatoProgression,
+        gardenBreakPointsReached,
+        massProductionNode,
+        plantProductionNode:
+          state.progression.potatoProgression["PotatoProduction!"],
+        totalSold: state.counter.totalPotatoSold,
+        gardenBreakPoint,
       };
     case ProgressionType.beet:
       return {
@@ -422,6 +471,12 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
         plantMultiplier: state.progression.beetMultiplier,
         gardenMultiplier: state.progression.gardenMultiplier,
         progression: state.progression.beetProgression,
+        gardenBreakPointsReached,
+        massProductionNode,
+        plantProductionNode:
+          state.progression.beetProgression["BeetProduction!"],
+        totalSold: state.counter.totalBeetsSold,
+        gardenBreakPoint,
       };
     case ProgressionType.turnip:
       return {
@@ -429,6 +484,12 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
         plantMultiplier: state.progression.turnipMultiplier,
         gardenMultiplier: state.progression.gardenMultiplier,
         progression: state.progression.turnipProgression,
+        gardenBreakPointsReached,
+        massProductionNode,
+        plantProductionNode:
+          state.progression.turnipProgression["TurnipProduction!"],
+        totalSold: state.counter.totalTurnipsSold,
+        gardenBreakPoint,
       };
     default:
       console.error(
@@ -441,6 +502,11 @@ function mapStateToProps(state: RootState, ownProps: ReactProps): Props {
         plantMultiplier: 1,
         gardenMultiplier: state.progression.gardenMultiplier,
         progression: {},
+        gardenBreakPointsReached: false,
+        massProductionNode,
+        plantProductionNode: null,
+        totalSold: 0,
+        gardenBreakPoint: 100,
       };
   }
 }

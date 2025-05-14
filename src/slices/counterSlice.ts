@@ -8,6 +8,12 @@ interface CounterState {
   totalBeetsSold: number;
   totalTurnipsSold: number;
   totalKorsEarned: number;
+  gardenBreakPoint: number;
+  carrotBreakPointReached: boolean;
+  potatoBreakPointReached: boolean;
+  beetBreakPointReached: boolean;
+  turnipBreakPointReached: boolean;
+  gardenBreakPointsReached: boolean;
 }
 
 const localCount = localStorage.getItem("Count");
@@ -29,6 +35,37 @@ const checkedtotalTurnipsSold =
 const localtotalKorsEarned = localStorage.getItem("TotalKorsEarned");
 const checkedtotalKorsEarned =
   localtotalKorsEarned == null ? 0 : parseInt(localtotalKorsEarned);
+const localGardenBreakPoint = localStorage.getItem("GardenBreakPoint");
+const checkedGardenBreakPoint =
+  localGardenBreakPoint == null ? 100 : parseInt(localGardenBreakPoint);
+const localCarrotBreakPointReached = localStorage.getItem(
+  "CarrotBreakPointReached"
+);
+const checkedCarrotBreakPointReached =
+  localCarrotBreakPointReached == null
+    ? false
+    : localCarrotBreakPointReached === "true";
+const localPotatoBreakPointReached = localStorage.getItem(
+  "PotatoBreakPointReached"
+);
+const checkedPotatoBreakPointReached =
+  localPotatoBreakPointReached == null
+    ? false
+    : localPotatoBreakPointReached === "true";
+const localBeetBreakPointReached = localStorage.getItem(
+  "BeetBreakPointReached"
+);
+const checkedBeetBreakPointReached =
+  localBeetBreakPointReached == null
+    ? false
+    : localBeetBreakPointReached === "true";
+const localTunripBreakPointReached = localStorage.getItem(
+  "TurnipBreakPointReached"
+);
+const checkedTurnipBreakPointReached =
+  localTunripBreakPointReached == null
+    ? false
+    : localTunripBreakPointReached === "true";
 
 const defaultCounterState = {
   count: checkedCount,
@@ -38,6 +75,16 @@ const defaultCounterState = {
   totalBeetsSold: checkedtotalBeetsSold,
   totalTurnipsSold: checkedtotalTurnipsSold,
   totalKorsEarned: checkedtotalKorsEarned,
+  gardenBreakPoint: checkedGardenBreakPoint,
+  carrotBreakPointReached: checkedCarrotBreakPointReached,
+  potatoBreakPointReached: checkedPotatoBreakPointReached,
+  beetBreakPointReached: checkedBeetBreakPointReached,
+  turnipBreakPointReached: checkedTurnipBreakPointReached,
+  gardenBreakPointsReached:
+    checkedCarrotBreakPointReached &&
+    checkedPotatoBreakPointReached &&
+    checkedBeetBreakPointReached &&
+    checkedTurnipBreakPointReached,
 };
 
 export const counterSlice = createSlice({
@@ -76,6 +123,20 @@ export const counterSlice = createSlice({
       );
       state.totalSold += 1;
       localStorage.setItem("TotalSold", state.totalSold.toString());
+      if (!state.carrotBreakPointReached) {
+        if (state.totalCarrotsSold >= state.gardenBreakPoint) {
+          state.carrotBreakPointReached = true;
+          state.gardenBreakPointsReached =
+            state.carrotBreakPointReached &&
+            state.potatoBreakPointReached &&
+            state.beetBreakPointReached &&
+            state.turnipBreakPointReached;
+          localStorage.setItem(
+            "CarrotBreakPointReached",
+            state.carrotBreakPointReached.toString()
+          );
+        }
+      }
     },
     incrementPotato: (state: CounterState) => {
       state.totalPotatoSold += 1;
@@ -85,18 +146,60 @@ export const counterSlice = createSlice({
       );
       state.totalSold += 1;
       localStorage.setItem("TotalSold", state.totalSold.toString());
+      if (!state.potatoBreakPointReached) {
+        if (state.totalPotatoSold >= state.gardenBreakPoint) {
+          state.potatoBreakPointReached = true;
+          state.gardenBreakPointsReached =
+            state.carrotBreakPointReached &&
+            state.potatoBreakPointReached &&
+            state.beetBreakPointReached &&
+            state.turnipBreakPointReached;
+          localStorage.setItem(
+            "PotatoBreakPointReached",
+            state.potatoBreakPointReached.toString()
+          );
+        }
+      }
     },
     incrementBeet: (state: CounterState) => {
       state.totalBeetsSold += 1;
       localStorage.setItem("TotalBeetsSold", state.totalBeetsSold.toString());
       state.totalSold += 1;
       localStorage.setItem("TotalSold", state.totalSold.toString());
+      if (!state.beetBreakPointReached) {
+        if (state.totalBeetsSold >= state.gardenBreakPoint) {
+          state.beetBreakPointReached = true;
+          state.gardenBreakPointsReached =
+            state.carrotBreakPointReached &&
+            state.potatoBreakPointReached &&
+            state.beetBreakPointReached &&
+            state.turnipBreakPointReached;
+          localStorage.setItem(
+            "BeetBreakPointReached",
+            state.beetBreakPointReached.toString()
+          );
+        }
+      }
     },
     incrementTurnip: (state: CounterState) => {
       state.totalTurnipsSold += 1;
       localStorage.setItem("TotalTurnipsSold", state.totalBeetsSold.toString());
       state.totalSold += 1;
       localStorage.setItem("TotalSold", state.totalSold.toString());
+      if (!state.turnipBreakPointReached) {
+        if (state.totalTurnipsSold >= state.gardenBreakPoint) {
+          state.turnipBreakPointReached = true;
+          state.gardenBreakPointsReached =
+            state.carrotBreakPointReached &&
+            state.potatoBreakPointReached &&
+            state.beetBreakPointReached &&
+            state.turnipBreakPointReached;
+          localStorage.setItem(
+            "TunripBreakPointReached",
+            state.turnipBreakPointReached.toString()
+          );
+        }
+      }
     },
   },
 });

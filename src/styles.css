@@ -274,7 +274,7 @@
 
   &.FullyGrown {
     transform: rotate(100deg);
-    bottom: 70%;
+    bottom: 65%;
     left: 45%;
   }
 }
@@ -406,6 +406,7 @@
   font-size: 1.5rem;
   font-weight: bolder;
   text-align: center;
+  text-transform: capitalize;
   &.Earned {
     color: aquamarine;
   }
@@ -582,6 +583,12 @@
   animation-name: KorsBlurShimmer;
   animation-duration: 4s;
   animation-iteration-count: infinite;
+}
+
+.Sun {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /* ICON STYLES */
