@@ -28110,7 +28110,7 @@ var AClicker = /** @class */ (function (_super) {
         if ((_a = this.props.plantProductionNode) === null || _a === void 0 ? void 0 : _a.isEarned) {
             return Math.trunc(this.props.totalSold / this.props.gardenBreakPoint);
         }
-        return 1;
+        return 0;
     };
     AClicker.prototype.getFullyGrownGlow = function (fullyGrown) {
         if (fullyGrown.length <= 0) {

@@ -160,7 +160,7 @@ class AClicker extends React.Component<Props, State> {
     if (this.props.plantProductionNode?.isEarned) {
       return Math.trunc(this.props.totalSold / this.props.gardenBreakPoint);
     }
-    return 1;
+    return 0;
   }
 
   private getFullyGrownGlow(fullyGrown: string) {
