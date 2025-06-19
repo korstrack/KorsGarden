@@ -141,3 +141,26 @@ PotatoProgressionNodeList[PotatoSun] = {
 if (!localPotatoSun) {
   localStorage.setItem(PotatoSun, "false");
 }
+
+// has to be lowercase because we use string stuff to find it later.
+const potatoSprinkler = "potatoSprinkler";
+const localpotatoSprinkler = localStorage.getItem(potatoSprinkler);
+PotatoProgressionNodeList[potatoSprinkler] = {
+  name: potatoSprinkler,
+  description:
+    "Add a sprinkler that will automatically water your Potato plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+  multiplier: 5,
+  cost: 2000,
+  isEarned:
+    localpotatoSprinkler != null && localpotatoSprinkler === "true"
+      ? true
+      : false,
+  progressionType,
+  blockingNodes: [
+    { progressionType: ProgressionType.garden, name: "Sprinkler" },
+  ],
+  hiddenUntilEarned: false,
+};
+if (!localpotatoSprinkler) {
+  localStorage.setItem(potatoSprinkler, "false");
+}

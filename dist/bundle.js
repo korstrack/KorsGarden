@@ -27978,12 +27978,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _slices_helperStructs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../slices/helperStructs */ "./src/slices/helperStructs.ts");
 /* harmony import */ var _Icons_Kors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icons/Kors */ "./src/components/Icons/Kors.tsx");
 /* harmony import */ var _slices_counterSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../slices/counterSlice */ "./src/slices/counterSlice.ts");
 /* harmony import */ var _slices_progressionSlice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../slices/progressionSlice */ "./src/slices/progressionSlice.ts");
 /* harmony import */ var _Icons_Sun__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Icons/Sun */ "./src/components/Icons/Sun.tsx");
+/* harmony import */ var _Sprinkler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Sprinkler */ "./src/components/Sprinkler.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28018,6 +28019,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+
 var GrowthStage;
 (function (GrowthStage) {
     GrowthStage[GrowthStage["Barren"] = 0] = "Barren";
@@ -28044,7 +28046,7 @@ var AClicker = /** @class */ (function (_super) {
             !this.props.massProductionNode.isEarned) {
             this.props.dispatch((0,_slices_progressionSlice__WEBPACK_IMPORTED_MODULE_5__.addGardenProgression)(this.props.massProductionNode));
         }
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerContainer", onClick: this.onClick.bind(this), children: [Object.values(this.state.borders), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerTextContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerPlantName", children: "".concat(this.props.PlantType) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerSaleDescriptionContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerSaleDescription", children: "Sells for ".concat(this.getSaleAmount(), " Kors") }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_3__.Kors, {})] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerPlantContainer ".concat(fullyGrown, " ").concat(skybox), children: [this.getSun(), this.getSecondLeaf(fullyGrown), this.getFirstLeaf(fullyGrown), this.getStem(fullyGrown), this.getDirt(), this.getFullyGrownGlow(fullyGrown), this.getClickerInstructions(fullyGrown)] })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerContainer", onClick: this.onClick.bind(this), children: [Object.values(this.state.borders), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerTextContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerPlantName", children: "".concat(this.props.PlantType) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerSaleDescriptionContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerSaleDescription", children: "Sells for ".concat(this.getSaleAmount(), " Kors") }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Icons_Kors__WEBPACK_IMPORTED_MODULE_3__.Kors, {})] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "ClickerPlantContainer ".concat(fullyGrown, " ").concat(skybox), children: [this.getSun(), this.getSecondLeaf(fullyGrown), this.getFirstLeaf(fullyGrown), this.getStem(fullyGrown), this.getDirt(), this.getSprinkler(), this.getFullyGrownGlow(fullyGrown), this.getClickerInstructions(fullyGrown)] })] }));
     };
     AClicker.prototype.onClick = function () {
         if (this.state.growthStage < Object.keys(GrowthStage).length / 2 - 1) {
@@ -28132,6 +28134,15 @@ var AClicker = /** @class */ (function (_super) {
         else
             return;
     };
+    AClicker.prototype.getSprinkler = function () {
+        var _a;
+        var nodeName = "".concat(this.props.PlantType, "Sprinkler");
+        if ((_a = this.props.progression[nodeName]) === null || _a === void 0 ? void 0 : _a.isEarned) {
+            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Sprinkler__WEBPACK_IMPORTED_MODULE_7__.Sprinkler, { click: this.onClick.bind(this) });
+        }
+        else
+            return;
+    };
     AClicker.prototype.getClickerInstructions = function (fullyGrown) {
         var instructionText = fullyGrown.length <= 0 ? "Click Me To Grow!" : "Click Me To Sell!";
         return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "ClickerInstructions ".concat(fullyGrown), children: instructionText }));
@@ -28184,7 +28195,7 @@ function mapStateToProps(state, ownProps) {
             return __assign(__assign({}, ownProps), { plantMultiplier: 1, gardenMultiplier: state.progression.gardenMultiplier, progression: {}, gardenBreakPointsReached: false, massProductionNode: massProductionNode, plantProductionNode: null, totalSold: 0, gardenBreakPoint: 100 });
     }
 }
-var Clicker = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(mapStateToProps)(AClicker);
+var Clicker = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.connect)(mapStateToProps)(AClicker);
 
 
 /***/ }),
@@ -29100,6 +29111,73 @@ var ProgressionNodeListing = (0,react_redux__WEBPACK_IMPORTED_MODULE_6__.connect
 
 /***/ }),
 
+/***/ "./src/components/Sprinkler.tsx":
+/*!**************************************!*\
+  !*** ./src/components/Sprinkler.tsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Sprinkler: () => (/* binding */ Sprinkler)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+var ASprinkler = /** @class */ (function (_super) {
+    __extends(ASprinkler, _super);
+    function ASprinkler() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ASprinkler.prototype.render = function () {
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "SprinklerContainer", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "SprinklerTop" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "SprinklerBottom" })] }));
+    };
+    ASprinkler.prototype.componentDidMount = function () {
+        this.sprinkle();
+    };
+    ASprinkler.prototype.sprinkle = function () {
+        setInterval(this.props.click.bind(this), 3000);
+    };
+    return ASprinkler;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component));
+function mapStateToProps(state, ownProps) {
+    return __assign({}, ownProps);
+}
+var Sprinkler = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps)(ASprinkler);
+
+
+/***/ }),
+
 /***/ "./src/components/Title.tsx":
 /*!**********************************!*\
   !*** ./src/components/Title.tsx ***!
@@ -29460,6 +29538,24 @@ BeetProgressionNodeList[BeetSun] = {
 if (!localBeetSun) {
     localStorage.setItem(BeetSun, "false");
 }
+// has to be lowercase because we use string stuff to find it later.
+var beetSprinkler = "beetSprinkler";
+var localbeetSprinkler = localStorage.getItem(beetSprinkler);
+BeetProgressionNodeList[beetSprinkler] = {
+    name: beetSprinkler,
+    description: "Add a sprinkler that will automatically water your Beet plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+    multiplier: 1,
+    cost: 2500,
+    isEarned: localbeetSprinkler != null && localbeetSprinkler === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Sprinkler" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localbeetSprinkler) {
+    localStorage.setItem(beetSprinkler, "false");
+}
 
 
 /***/ }),
@@ -29636,6 +29732,26 @@ CarrotProgressionNodeList[CarrotSun] = {
 if (!localCarrotSun) {
     localStorage.setItem(CarrotSun, "false");
 }
+// has to be lowercase because we use string stuff to find it later.
+var CarrotSprinkler = "carrotSprinkler";
+var localCarrotSprinkler = localStorage.getItem(CarrotSprinkler);
+CarrotProgressionNodeList[CarrotSprinkler] = {
+    name: CarrotSprinkler,
+    description: "Add a sprinkler that will automatically water your Carrot plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+    multiplier: 1,
+    cost: 1500,
+    isEarned: localCarrotSprinkler != null && localCarrotSprinkler === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Sprinkler" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localCarrotSprinkler) {
+    localStorage.setItem(CarrotSprinkler, "false");
+}
 
 
 /***/ }),
@@ -29738,6 +29854,22 @@ GardenProgressionNodeList[LETTHEREBELIGHT] = {
 };
 if (!LocalLETTHEREBELIGHT) {
     localStorage.setItem(LETTHEREBELIGHT, "false");
+}
+// Unlocks Sprinklers
+var Sprinkler = "Sprinkler";
+var LocalSprinkler = localStorage.getItem(Sprinkler);
+GardenProgressionNodeList[Sprinkler] = {
+    name: Sprinkler,
+    description: "Unlocks the ability to purchase a sprinkler for a plot. Sprinklers help your plants grow without you having to tend to them yourself!",
+    multiplier: 1,
+    cost: 1500,
+    isEarned: LocalSprinkler != null && LocalSprinkler === "true" ? true : false,
+    progressionType: progressionType,
+    blockingNodes: [],
+    hiddenUntilEarned: false,
+};
+if (!LocalSprinkler) {
+    localStorage.setItem(Sprinkler, "false");
 }
 
 
@@ -29945,6 +30077,26 @@ PotatoProgressionNodeList[PotatoSun] = {
 if (!localPotatoSun) {
     localStorage.setItem(PotatoSun, "false");
 }
+// has to be lowercase because we use string stuff to find it later.
+var potatoSprinkler = "potatoSprinkler";
+var localpotatoSprinkler = localStorage.getItem(potatoSprinkler);
+PotatoProgressionNodeList[potatoSprinkler] = {
+    name: potatoSprinkler,
+    description: "Add a sprinkler that will automatically water your Potato plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+    multiplier: 5,
+    cost: 2000,
+    isEarned: localpotatoSprinkler != null && localpotatoSprinkler === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Sprinkler" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localpotatoSprinkler) {
+    localStorage.setItem(potatoSprinkler, "false");
+}
 
 
 /***/ }),
@@ -30079,6 +30231,26 @@ TurnipProgressionNodeList[TurnipSun] = {
 };
 if (!localTurnipSun) {
     localStorage.setItem(TurnipSun, "false");
+}
+// has to be lowercase because we use string stuff to find it later.
+var turnipSprinkler = "turnipSprinkler";
+var localturnipSprinkler = localStorage.getItem(turnipSprinkler);
+TurnipProgressionNodeList[turnipSprinkler] = {
+    name: turnipSprinkler,
+    description: "Add a sprinkler that will automatically water your Tunrip plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+    multiplier: 5,
+    cost: 5000,
+    isEarned: localturnipSprinkler != null && localturnipSprinkler === "true"
+        ? true
+        : false,
+    progressionType: progressionType,
+    blockingNodes: [
+        { progressionType: _helperStructs__WEBPACK_IMPORTED_MODULE_0__.ProgressionType.garden, name: "Sprinkler" },
+    ],
+    hiddenUntilEarned: false,
+};
+if (!localturnipSprinkler) {
+    localStorage.setItem(turnipSprinkler, "false");
 }
 
 

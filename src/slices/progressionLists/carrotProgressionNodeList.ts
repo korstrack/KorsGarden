@@ -182,3 +182,26 @@ CarrotProgressionNodeList[CarrotSun] = {
 if (!localCarrotSun) {
   localStorage.setItem(CarrotSun, "false");
 }
+
+// has to be lowercase because we use string stuff to find it later.
+const CarrotSprinkler = "carrotSprinkler";
+const localCarrotSprinkler = localStorage.getItem(CarrotSprinkler);
+CarrotProgressionNodeList[CarrotSprinkler] = {
+  name: CarrotSprinkler,
+  description:
+    "Add a sprinkler that will automatically water your Carrot plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+  multiplier: 1,
+  cost: 1500,
+  isEarned:
+    localCarrotSprinkler != null && localCarrotSprinkler === "true"
+      ? true
+      : false,
+  progressionType,
+  blockingNodes: [
+    { progressionType: ProgressionType.garden, name: "Sprinkler" },
+  ],
+  hiddenUntilEarned: false,
+};
+if (!localCarrotSprinkler) {
+  localStorage.setItem(CarrotSprinkler, "false");
+}

@@ -330,6 +330,30 @@
   }
 }
 
+.SprinklerContainer {
+  position: absolute;
+  left: 5%;
+  bottom: 40%;
+  height: 10%;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SprinklerTop {
+  height: 30%;
+  width: 100%;
+  background-color: grey;
+}
+
+.SprinklerBottom {
+  height: 70%;
+  width: 30%;
+  background-color: gray;
+}
+
 .ProgressionContainer {
   width: 100%;
   display: flex;

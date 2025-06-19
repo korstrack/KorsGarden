@@ -133,3 +133,26 @@ TurnipProgressionNodeList[TurnipSun] = {
 if (!localTurnipSun) {
   localStorage.setItem(TurnipSun, "false");
 }
+
+// has to be lowercase because we use string stuff to find it later.
+const turnipSprinkler = "turnipSprinkler";
+const localturnipSprinkler = localStorage.getItem(turnipSprinkler);
+TurnipProgressionNodeList[turnipSprinkler] = {
+  name: turnipSprinkler,
+  description:
+    "Add a sprinkler that will automatically water your Tunrip plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+  multiplier: 5,
+  cost: 5000,
+  isEarned:
+    localturnipSprinkler != null && localturnipSprinkler === "true"
+      ? true
+      : false,
+  progressionType,
+  blockingNodes: [
+    { progressionType: ProgressionType.garden, name: "Sprinkler" },
+  ],
+  hiddenUntilEarned: false,
+};
+if (!localturnipSprinkler) {
+  localStorage.setItem(turnipSprinkler, "false");
+}

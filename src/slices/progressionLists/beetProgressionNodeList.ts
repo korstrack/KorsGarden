@@ -119,3 +119,24 @@ BeetProgressionNodeList[BeetSun] = {
 if (!localBeetSun) {
   localStorage.setItem(BeetSun, "false");
 }
+
+// has to be lowercase because we use string stuff to find it later.
+const beetSprinkler = "beetSprinkler";
+const localbeetSprinkler = localStorage.getItem(beetSprinkler);
+BeetProgressionNodeList[beetSprinkler] = {
+  name: beetSprinkler,
+  description:
+    "Add a sprinkler that will automatically water your Beet plot every 3 seconds! (it will trigger a 'click' every 3 seconds)",
+  multiplier: 1,
+  cost: 2500,
+  isEarned:
+    localbeetSprinkler != null && localbeetSprinkler === "true" ? true : false,
+  progressionType,
+  blockingNodes: [
+    { progressionType: ProgressionType.garden, name: "Sprinkler" },
+  ],
+  hiddenUntilEarned: false,
+};
+if (!localbeetSprinkler) {
+  localStorage.setItem(beetSprinkler, "false");
+}

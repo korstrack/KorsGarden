@@ -15,6 +15,7 @@ import {
 import { Dictionary } from "lodash";
 import { addGardenProgression } from "../slices/progressionSlice";
 import { Sun } from "./Icons/Sun";
+import { Sprinkler } from "./Sprinkler";
 
 enum GrowthStage {
   Barren,
@@ -82,6 +83,7 @@ class AClicker extends React.Component<Props, State> {
           {this.getFirstLeaf(fullyGrown)}
           {this.getStem(fullyGrown)}
           {this.getDirt()}
+          {this.getSprinkler()}
           {this.getFullyGrownGlow(fullyGrown)}
           {this.getClickerInstructions(fullyGrown)}
         </div>
@@ -89,7 +91,7 @@ class AClicker extends React.Component<Props, State> {
     );
   }
 
-  private onClick(): void {
+  public onClick(): void {
     if (this.state.growthStage < Object.keys(GrowthStage).length / 2 - 1) {
       const borders = this.state.borders;
       const pulse = this.getPulse();
@@ -179,6 +181,13 @@ class AClicker extends React.Component<Props, State> {
     const nodeName = `${this.props.PlantType}Sun`;
     if (this.props.progression[nodeName]?.isEarned) {
       return <Sun />;
+    } else return;
+  }
+
+  private getSprinkler(): JSX.Element {
+    const nodeName = `${this.props.PlantType}Sprinkler`;
+    if (this.props.progression[nodeName]?.isEarned) {
+      return <Sprinkler click={this.onClick.bind(this)} />;
     } else return;
   }
 

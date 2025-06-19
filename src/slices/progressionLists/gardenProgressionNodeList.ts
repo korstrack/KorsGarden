@@ -98,3 +98,21 @@ GardenProgressionNodeList[LETTHEREBELIGHT] = {
 if (!LocalLETTHEREBELIGHT) {
   localStorage.setItem(LETTHEREBELIGHT, "false");
 }
+
+// Unlocks Sprinklers
+const Sprinkler: string = "Sprinkler";
+const LocalSprinkler = localStorage.getItem(Sprinkler);
+GardenProgressionNodeList[Sprinkler] = {
+  name: Sprinkler,
+  description:
+    "Unlocks the ability to purchase a sprinkler for a plot. Sprinklers help your plants grow without you having to tend to them yourself!",
+  multiplier: 1,
+  cost: 1500,
+  isEarned: LocalSprinkler != null && LocalSprinkler === "true" ? true : false,
+  progressionType,
+  blockingNodes: [],
+  hiddenUntilEarned: false,
+};
+if (!LocalSprinkler) {
+  localStorage.setItem(Sprinkler, "false");
+}
